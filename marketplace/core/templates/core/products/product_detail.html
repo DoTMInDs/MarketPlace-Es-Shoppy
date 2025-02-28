@@ -1,7 +1,374 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load humanize %} 
 {% block title %}{% endblock  %}
 {% block content %}
 {% include "core/partials/nav.html" %}
 
+<!-- Add Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<style>
+    .swiper {
+        width: 100%;
+        padding: 20px 0;
+    }
+    .swiper-slide {
+        width: 40px;
+        height: auto;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        color:rgb(255, 255, 255);
+        background: rgba(0, 0, 0, 0.38);
+        padding: 5px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 1rem;
+    }
+    .messaage-wrapper{
+        z-index: 99999;
+    }
+   
+</style>
+<div id="messages" class="messaage-wrapper w-[100%] md:w-[80%] lg:w-[60%] m-auto">
+    {% if messages %}
+        <ul class="list-none m-0 ">
+            {% for message in messages %}
+                <li class="bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between">
+                    {{ message }}
+                    <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+    <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row">
+       <div class="shadow bg-white basis-[70%] rounded">
+           <div class="flex flex-col lg:flex-row items-center gap-[1rem] p-[1rem]">
+               <div class="">
+                   <div class="md:max-w-[250px] w-[100%] m-auto">
+                        <div class="w-[100%]">
+                            {% if product.image %}
+                                <img src="{{product.image.url}}" alt="{{product.name}}" class="w-[100%] h-[100%] object-center object-cover">
+                            {% endif %}
+                        </div>
+                        <div class="swiper mySwiper ">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide ">
+                                    <div class="">
+                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide ">
+                                    <div class="">
+                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide ">
+                                    <div class="">
+                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide ">
+                                    <div class="">
+                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
+                                    </div>
+                                </div>
+                                
+                                <div class="swiper-slide ">
+                                    <div class="">
+                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Navigation buttons -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                   </div>
+                    <div class="my-[0.5rem]">
+                        <p class="text-[15px] font-semibold text-slate-600 uppercase">share this product</p>
+                        <div class="flex gap-[1rem] items-center">
+                            <a href="#!" class="rounded-full border border-slate-600 p-[0.5rem] w-[25px] h-[25px] flex justify-center items-center">
+                                <i class="fa fa-brand fa-facebook text-[15px] text-gray-600"></i>
+                            </a>
+                            <a href="#!" class="rounded-full border border-slate-600 p-[0.5rem] w-[25px] h-[25px] flex justify-center items-center">
+                                <i class="fa fa-brand fa-twitter text-[15px] text-gray-600"></i>
+                            </a>
+                            <a href="#!" class="rounded-full border border-slate-600 p-[0.5rem] w-[25px] h-[25px] flex justify-center items-center">
+                                <i class="fa fa-brand fa-whatsapp text-[15px] text-gray-600"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+               </div>
+               <div class="inline-flex">
+                   <div class="">
+                    <div class="flex justify-between items-center">
+                        <div class="flex gap-[0.5rem] items-center">
+                            <p class="p-[0.2rem] text-[10px] bg-slate-500 text-[#ffffff]">Official Store</p>
+                            <p class="p-[0.2rem] text-[10px] bg-red-500 text-[#ffffff]">Pay On Delivery</p>
+                        </div>
+                        <div class="">
+                            <i class="fa fa-regular fa-heart text-slate-500 text-[18px] hover:bg-rose-100 p-[0.3rem] rounded-full"></i>
+                        </div> 
+                    </div>
+                    <div class="">
+                        <h2 class="text-slate-700 font-semibold text-[20px]">{{product.description}}</h2>
+                        <p class="text-slate-500 font-medium text-[16px]">{{product.name}}</p>
+                    </div>
+                    <div class="gap-[0.5rem] border border-red-500 rounded p-[0.5rem] my-[0.5rem]">
+                        <div class="">
+                            <h1 class="text-slate-800 font-semibold text-[25px]">GHS {{product.price|intcomma}}</h1>
+                        </div>
+                        {% if product.canceled_price %}
+                            <p class="text-slate-500 line-through font-semibold text-[15px]">GHS {{product.canceled_price|intcomma}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="">
+                        <p class="text-[14px]">Order above GHC 150 on Es-Shoppy items & get free delivery | regular delivery from GH₵ 83.00 to anywhere of your choice</p>
+                       <div class="flex gap-[0.5rem] items-center py-[0.5rem]">
+                            <div class="flex gap-[0.2rem] items-center">
+                                <i class="fa fa-solid fa-star text-[15px] text-orange-400"></i>
+                                <i class="fa fa-solid fa-star text-[15px] text-orange-400"></i>
+                                <i class="fa fa-solid fa-star text-[15px] text-orange-400"></i>
+                                <i class="fa fa-solid fa-star text-[15px] text-orange-400"></i>
+                                <i class="fa fa-regular fa-star text-[15px] text-orange-400"></i>
+                            </div>
+                            <p class="text-[15px] text-blue-500"><a href="#!">(61 verified ratings)</a></p>
+                       </div>
+                    </div>
+                    <div class="mt-[0.5rem]">
+                        {% if user.is_authenticated %}
+                        <form action="{% url 'add_to_cart' product.id %}" method="POST" class="add-to-cart-form inline">
+                            {% csrf_token %}
+                            <div class="flex items-center gap-4 mb-4">
+                                <label class="text-slate-600 font-medium">Quantity:</label>
+                                <input 
+                                    type="number" 
+                                    name="quantity" 
+                                    value="1" 
+                                    min="1" 
+                                    max="10"
+                                    class="w-20 px-3 py-2 border rounded-md text-center"
+                                >
+                            </div>
+                            <button class="no-underline bg-orange-400 text-[14px] text-[#ffffff] block w-[100%] py-[0.6rem] rounded">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                Add to Cart
+                            </button>
+                        </form>
+                        {% else %}
+                        <button class="no-underline bg-slate-200 text-[14px] text-slate-300 block w-[100%] py-[0.6rem] rounded">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                            <p class="text-center py-[0.5rem]">
+                                Please <a href="{% url 'login' %}" class="  text-rose-700 hover:underline">Login </a> to add items to your cart
+                            </p>
+                        {% endif %}
+                    </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+      <div class="flex gap-[0.5rem] basis-[30%] md:flex-col flex-row md:flex-row">
+            <div class="shadow rounded bg-white  p-[0.5rem] h-[100%]">
+                <div class="py-[0.5rem] border-b border-slate-200">
+                    <p class="text-[15px] text-slate-600 font-bold uppercase">delivery & returns</p>
+                </div>
+                <div class="flex gap-[0.5rem] p-[0.5rem]">
+                    <div class="w-[30px] h-[30px] flex justify-center items-center border rounded border-slate-200 ">
+                        <i class="fa-solid fa-hands-holding-circle text-[15px]  p-[0.5rem] text-slate-500"></i>
+                    </div>
+                    <div class="">
+                        <p class="text-[13px] text-slate-500 capitalize">
+                            Delivery Fees <span class="font-bold">{{product.price|intcomma}}</span>
+                        </p>
+                        <p class="text-[13px] text-slate-600">
+                            Ready for pickup. We have the best delivery service
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow rounded bg-white  p-[0.5rem] h-[100%]">
+                <div class="py-[0.5rem] border-b border-slate-200">
+                    <p class="text-[15px] text-slate-600 font-bold uppercase">Door Delivery</p>
+                </div>
+                <div class="flex gap-[0.5rem] p-[0.5rem]">
+                    <div class="w-[30px] h-[30px] flex justify-center items-center border rounded border-slate-200 ">
+                        <i class="fa-solid fa-truck text-[15px]  p-[0.5rem] text-slate-500"></i>
+                    </div>
+                    <div class="">
+                        <p class="text-[13px] text-slate-500 capitalize">
+                            Delivery Fees <span class="font-bold">{{product.price|intcomma}}</span>
+                        </p>
+                        <p class="text-[13px] text-slate-600">
+                            Ready for pickup. We have the best delivery service
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow rounded bg-white  p-[0.5rem] h-[100%]">
+                <div class="py-[0.5rem] border-b border-slate-200">
+                    <p class="text-[15px] text-slate-600 font-bold uppercase">Return Policy</p>
+                </div>
+                <div class="flex gap-[0.5rem] p-[0.5rem]">
+                    <div class="w-[30px] h-[30px] flex justify-center items-center border rounded border-slate-200 ">
+                        <i class="fa-solid fa-box-archive text-[15px]  p-[0.5rem] text-slate-500"></i>
+                    </div>
+                    <div class="">
+                        <p class="text-[13px] text-slate-600">
+                            Free return within 15 days for all eligible items.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+<div class="my-[1rem] flex w-[100%] md:w-[80%] lg:w-[60%] m-auto">
+    <div class="shadow bg-white md:basis-[70%] basis-[100%] rounedd">
+        <div class="">
+            <div class="border-b border-slate-200 py-[0.5rem]">
+                <h2 class="text-[18px] text-slate-600 font-bold px-[1rem]">Product details for ( {{product.name}} )</h2>
+            </div>
+            <div class="p-[1rem]">
+                <p class="text-[15px] text-slate-600 font-bold"></p>
+                <div class="">
+                    <p class="text-[15px] text-slate-500">
+                        {% if specifications %}
+                                <strong>More Details:</strong> <br>
+                                {% for spec in specifications %}
+                                    {{ spec.specification.more_details }} <br>
+                                    <div class="my-[1rem]">
+                                        <strong class=" text-slate-800">Key Features:</strong><br>
+                                        <strong class="text-slate-700 text-[15px]">{{ spec.key_features }}</strong> 
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                            <p>No specifications available for this product.</p>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="h-[400px]">
+                    {% if product.image %}
+                        <img src="{{product.image.url}}" alt="" class="w-[100%] h-[100%] object-center object-contain">
+                    {% endif %}
+                </div>
+                <div class="">
+                    <p class="text-[15px] text-slate-600 font-semibold">
+                        Order for this <span class="text-[17px] text-slate-700">{{product.name}}</span> now on Es-shoppy Ghana at the best price.
+                    </p>
+                    <div class="mt-[1rem]">
+                        <p class="text-[18px] text-slate-800 font-semibold  border-b border-slate-200">Features</p>
+                        <p class="text-[15px] text-slate-500">
+                            {% if specifications %}
+                                <ul>
+                                    {% for spec in specifications %}
+                                        <li>
+                                            <strong class="text-[15px] text-slate-600">Color:</strong> <span class="text-[14px] text-slate-500">{{ spec.specification.color }}</span> <br>
+                                            <strong class="text-[15px] text-slate-600">Size:</strong> <span class="text-[14px] text-slate-500">{{ spec.specification.size }}</span> <br>
+                                            <strong class="text-[15px] text-slate-600">Weight:</strong> <span class="text-[14px] text-slate-500">{{ spec.specification.weight }}</span> <br>
+                                            <strong class="text-[15px] text-slate-600">Features:</strong> <span class="text-[14px] text-slate-500">{{ spec.features }}</span> <br>
+                                        </li>
+                                        <hr>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No specifications available for this product.</p>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.mySwiper', {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+        centeredSlides: false,
+        grabCursor: true,
+        freeMode: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            640: {
+                spaceBetween: 8,
+            },
+            1024: {
+                spaceBetween: 8,
+            },
+        },
+    });
+
+     // AJAX for Add to Cart
+     document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const url = this.action;
+            const formData = new FormData(this);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Display success message
+                    const messagesDiv = document.getElementById('messages');
+                    const message = document.createElement('div');
+                    message.className = 'bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between';
+                    message.innerHTML = 'Product added to cart successfully! <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>';
+                    messagesDiv.appendChild(message);
+
+                    // Optionally update the cart summary or other parts of the page
+                } else {
+                    alert('Failed to add product to cart.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+    });
+    // Close message
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('close-message')) {
+            event.target.parentElement.remove();
+            // Clear messages from session storage
+            sessionStorage.removeItem('messages');
+        }
+    });
+
+     // Clear messages on page load
+    window.addEventListener('load', function() {
+        sessionStorage.removeItem('messages');
+    });
+</script>
 {% endblock %}

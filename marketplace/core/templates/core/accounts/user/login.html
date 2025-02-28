@@ -9,6 +9,7 @@
                 <h1 class="text-[28px] text-slate-500 font-sans font-semibold my-[20px] text-center">Login</h1>
             </div>
             {% csrf_token %}  
+            <input type="hidden" name="next" value="{{ next }}">
             {% if messages %}
                 <div class="mb-[10px]">
                     {% for message in messages %}

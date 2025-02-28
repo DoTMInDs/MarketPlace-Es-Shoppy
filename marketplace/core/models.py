@@ -31,6 +31,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True) #Added Category
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+    specifications = models.ManyToManyField('Specification',through='ProductSpecification',related_name='products')
 
     def __str__(self):
         return self.name
@@ -45,6 +46,27 @@ class Product(models.Model):
         ordering = ['-created_at']
         verbose_name = "Product"
         verbose_name_plural = "Products"
+
+class Specification(models.Model):
+    more_details = models.TextField(null=True,blank=True)
+    color = models.CharField(max_length=100,null=True,blank=True)
+    brand = models.CharField(max_length=100,null=True,blank=True)
+    weight = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.color
+
+class ProductSpecification(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    specification = models.ForeignKey(Specification, on_delete=models.CASCADE)
+    features = models.TextField(max_length=255,null=True,blank=True)
+    key_features = models.TextField(max_length=255,null=True,blank=True)
+
+    class Meta:
+        unique_together = ('product', 'specification')
+
+    def __str__(self):
+        return f"{self.specification.color}: {self.product}"
 
 class Rating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

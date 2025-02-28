@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block content %}
+    {% include "partials/nav.html" %}
+    <div class="flex justify-between py-[0.8rem] bg-[#D98324] w-[100%] md:w-[60%] px-[0.5rem] md:px-[2rem] m-auto mb-[1rem]">
+        <h3 class="text-[#fefefe] text-[15px] font-semibold"><i class="fa-solid fa-pen-to-square"></i> Add Product </h3>
+        <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
+            Home
+            <i class="fa fa-solid fa-chevron-right"></i>
+        </a>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem]">
+        {% csrf_token %}
+        {{product_form|crispy}}
+        <div class="specifications">
+            {{ formset.management_form }}
+            {% comment %} {% for form in formset %} {% endcomment %}
+                <div class="spec-form">
+                    <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification ({{ forloop.counter }})</h4>
+                    {{ formset|crispy }}
+                </div>
+            {% comment %} {% endfor %} {% endcomment %}
+        </div>
+
+        <button type="submit" class="text-[#fefefe] flex justify-center items-center block w-[100%] m-auto py-[0.5rem] px-[1.5rem] bg-orange-400">Update Product</button>
+    </form>
+
+
+{% endblock %}

@@ -3,26 +3,52 @@
 {% block content %}
     {% include "partials/nav.html" %}
       <!--All-Product-->
-      <div class="mt-[1rem]">
-        <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
-            <div class="flex justify-between px-[2rem] py-[0.8rem] bg-slate-600 w-[100%]">
-                <h3 class="text-[#fefefe] text-[15px]">All my products({{products.count}} products found) </h3>
-                <p  class="text-[#fefefe] text-[14px] flex gap-[0.3rem] items-center">
-                    Sort by: Popularity
-                    <i class="fa fa-solid fa-chevron-down"></i>
-                </p>
+    <div class="mt-[1rem]">
+        <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
+            <div class="flex justify-between items-center px-[1rem] py-[0.8rem] bg-[#D98324] w-[100%] relative">
+                <div class="">
+                    <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">Discover our Top Daily Deal <span class="text-orange-200">( {{products.count}} products found )</span> </h3>
+                </div>
+                <div class="text-[#fefefe] text-[14px] flex gap-[0.3rem] items-center">
+                   <div id="sortBtn" class="bg-orange-50 text-slate-700 rounded p-[0.5rem] text-nowrap cursor-pointer">
+                        Sort by: Popularity
+                        <i class="fa fa-solid fa-chevron-down"></i>
+                   </div>
+                   <div id="sortItem" class="hidden absolute right-0 top-0 mt-[4rem] bg-orange-50 shadow rounded w-[180px] md:p-[0.5rem] p-0 md:w-[230px] z-[100]">
+                        <div class="radio-input hover:bg-slate-200 p-[0.5rem] md:p-[1rem] cursor-pointer">
+                            <input type="radio" name="sort" id="popularity">
+                            <label class="text-slate-700 text-[15px] cursor-pointer" for="popularity">Popularity</label>
+                        </div>
+                        <div class="radio-input hover:bg-slate-200 p-[0.5rem] md:p-[1rem] cursor-pointer">
+                            <input type="radio" name="sort" id="newest">
+                            <label class="text-slate-700 text-[15px] cursor-pointer" for="newest">Newest Arrivals</label>
+                        </div>
+                        <div class="radio-input hover:bg-slate-200 p-[0.5rem] md:p-[1rem] cursor-pointer">
+                            <input type="radio" name="sort" id="low-high">
+                            <label class="text-slate-700 text-[15px] cursor-pointer" for="low-high">Price: Low to high</label>
+                        </div>
+                        <div class="radio-input hover:bg-slate-200 p-[0.5rem] md:p-[1rem] cursor-pointer">
+                            <input type="radio" name="sort" id="high-low">
+                            <label class="text-slate-700 text-[15px] cursor-pointer" for="high-low">Price: High to Low</label>
+                        </div>
+                        <div class="radio-input hover:bg-slate-200 p-[0.5rem] md:p-[1rem] cursor-pointer">
+                            <input type="radio" name="sort" id="rating">
+                            <label class="text-slate-700 text-[15px] cursor-pointer" for="rating">Product Rating</label>
+                        </div>
+                   </div>
+                </div>
             </div>
         </div>
         <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[0.5rem]">
-            <div class="my-[1rem]">
-                <div class="flex gap-[0.5rem] items-center ">
+            <div class="my-[1rem] w-[100%] shadow bg-white">
+                <div class="product-grid gap-[0.5rem] items-center">
                     {% for product in products %}
-                        <div class="hover:shadow rounded cursor-pointer w-[180px]">
+                        <div class="hover:shadow rounded cursor-pointer ">
                             <div class="relative">
                                 <p class="absolute top-[5px] left-[5px] p-[0.2rem] text-[10px] bg-red-500 text-[#ffffff]">Pay On Delivery</p>
-                                <div class=" w-[180px] m-auto  rounded-t ">
+                                <div class=" w-[150px] m-auto  rounded-t ">
                                     {% if product.image %}
-                                        <img src="	{{product.image.url}}" alt="" class="w-[100%] object-center object-cover">
+                                        <img src="{{product.image.url}}" alt="" class="w-[100%] object-center object-cover">
                                     {% endif %}
                                 </div>
                                 <div class="absolute bottom-0 right-[3px]">
@@ -41,7 +67,7 @@
                                     <i class="fa fa-regular fa-star text-[10px] text-orange-500"></i>
                                 </div>
                                 <div class="mt-[0.5rem]">
-                                    <button class="no-underline bg-orange-400 text-[14px] text-[#ffffff] block w-[100%] py-[0.4rem] rounded"><a href="#!">Manage Product</a></button>
+                                    <button class="no-underline bg-orange-400 text-[14px] text-[#ffffff] block w-[100%] py-[0.4rem] rounded"><a href="{% url "edit-product" product_id=product.id %}">Manage Product</a></button>
                                 </div>
                             </div>
                         </div>
@@ -50,4 +76,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const sortBtn = document.getElementById('sortBtn');
+        const sortItem = document.getElementById('sortItem');
+        sortBtn.addEventListener('click', () => {
+            //console.log('sorted clicked')
+            sortItem.classList.toggle('sorted-active')
+        })
+    </script>
 {% endblock content %}

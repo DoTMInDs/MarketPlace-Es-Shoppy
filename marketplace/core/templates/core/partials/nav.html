@@ -26,8 +26,11 @@
                 <form action="" method="get" class="inline-flex items-center gap-[2px]">
                     <div class="flex items-center  w-[350px] rounded bg-slate-100 border border-slate-200 px-[1rem] relative">
                         <i class="fa-solid fa-magnifying-glass text-[13px] text-slate-500 cursor-pointer absolute left-[0.5rem]" ></i>
-                        <input type="search" name="search" placeholder="Search Es-Shoppy..." class="w-[100%] py-[0.5rem] px-[1rem] bg-transparent outline-none">
+                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem] px-[1rem] bg-transparent outline-none">
                     </div>
+                    {% if current_category_id %}
+                        <input type="hidden" name="category_id" value="{{ current_category_id }}">
+                    {% endif %}
                     <button type="submit" class="hover:bg-[#F2F6D0] bg-[#EFDCAB] text-[#443627] py-[0.5rem] px-[1rem] rounded">Search</button>
                 </form>
             </div>
@@ -95,12 +98,12 @@
                     </div>                    
                 {% else %}
                     <div class="flex items-center gap-[10px] w-full">
-                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fefefefe] bg-slate-500 text-[13px] font-semibold text-nowrap no-underline transition">
+                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fcfcfc] bg-orange-300 text-[13px] font-semibold text-nowrap no-underline transition">
                             <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
                             Sign-In
                         </a>
-                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-slate-500 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
-                            <i class="fa fa-regular fa-user mr-[3px]"></i>
+                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-orange-300 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                            <i class="fa fa-regular fa-address-book mr-[3px]"></i>
                             Sign-up
                         </a>
                     </div>
@@ -118,7 +121,7 @@
                     <div class="">
                         <i class="fa fa-solid fa-shopping-cart"></i>
                     </div>
-                    <p class="absolute mt-[-30%] ml-[20%] bg-orange-400 text-[#fefefe] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+                    <p class="absolute mt-[-30%] ml-[20%] bg-orange-300 text-[#fdfdfd] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
                     <p class="text-slate-500 font-semibold text-[15px]">Cart</p>
                 </a>
             </div>
@@ -289,8 +292,6 @@
         staticBackdrop4.classList.toggle('backdropActive4');
     })
 
-   
-    
    // Mobile menu
     const mobileMenu = document.getElementById('mobile_menu');
     const navLinks = document.getElementById('nav-links');
@@ -300,8 +301,6 @@
             //navLinks.classList.toggle('showing');
             //console.log('clicked showing');
         });
-        
-
 
 </script>
 {% endblock nav %}

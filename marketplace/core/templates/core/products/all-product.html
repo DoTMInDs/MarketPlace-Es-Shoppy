@@ -1,8 +1,10 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load humanize %} 
 {% block title %}{% endblock  %}
 {% block content %}
 {% include "core/partials/nav.html" %}
+
 <!-- Add Swiper CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <style>
@@ -27,7 +29,22 @@
     .swiper-button-prev::after {
         font-size: 1.2rem;
     }
+    .messaage-wrapper{
+        z-index: 99999;
+    }
 </style>
+<div id="messages" class="w-[100%] m-auto  md:w-[80%] lg:w-[60%] messaage-wrapper">
+    {% if messages %}
+        <ul class="list-none m-0 ">
+            {% for message in messages %}
+                <li class="bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between">
+                    {{ message }}
+                    <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
     <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
         <div class="shadow bg-white p-[0.5rem] rounded-[5px] swiper mySwiper">
             <div class=" swiper-wrapper">
@@ -54,7 +71,7 @@
         <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
             <div class="flex justify-between items-center px-[1rem] py-[0.8rem] bg-[#D98324] w-[100%] relative">
                 <div class="">
-                    <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">Discover our Top Daily Deal <span class="text-[#914F1E]">( {{products.count}} products found )</span> </h3>
+                    <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">Discover our Top Daily Deal <span class="text-orange-200">( {{product.count}} products found )</span> </h3>
                 </div>
                 <div class="text-[#fefefe] text-[14px] flex gap-[0.3rem] items-center">
                    <div id="sortBtn" class="bg-orange-50 text-slate-700 rounded p-[0.5rem] text-nowrap cursor-pointer">
@@ -104,8 +121,8 @@
                             </div>
                             <div class="content p-[0.5rem]">
                                 <p class="text-[13px] text-slate-600 text-truncate m-0 p-0">{{product.description|truncatewords:"5"}}</p>
-                                <p class="font-bold text-[16px] text-gray-600 ">GHS {{product.price}}</p>
-                                <span class=" text-[10px] text-slate-400 line-through">GHS {{product.canceled_price}}</span>
+                                <p class="font-bold text-[16px] text-gray-600 ">GHS {{product.price|intcomma}}</p>
+                                <span class=" text-[10px] text-slate-400 line-through">GHS {{product.canceled_price|intcomma}}</span>
                                 <div class="flex gap-[0.2rem] items-center">
                                     <i class="fa fa-solid fa-star text-[10px] text-orange-500"></i>
                                     <i class="fa fa-solid fa-star text-[10px] text-orange-500"></i>
@@ -114,7 +131,7 @@
                                     <i class="fa fa-regular fa-star text-[10px] text-orange-500"></i>
                                 </div>
                                 <div class="mt-[0.5rem]">
-                                    <form action="{% url 'add_to_cart' product.id %}" method="POST" class="inline">
+                                    <form action="{% url 'add_to_cart' product.id %}" method="POST" class="add-to-cart-form inline">
                                         {% csrf_token %}
                                         <button class="no-underline bg-orange-400 text-[14px] text-[#ffffff] block w-[100%] py-[0.4rem] rounded">Add to Cart</button>
                                     </form>
@@ -125,6 +142,62 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Pagination -->
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex justify-center py-[4rem]">
+        <nav class="flex justify-center" aria-label="Pagination">
+            <ul class="flex items-center gap-1 md:gap-2">
+                <!-- Previous Button -->
+                {% if products.has_previous %}
+                    <li>
+                        <a href="?page={{ products.previous_page_number }}" 
+                           class="flex items-center px-3 py-2 md:px-4 md:py-2 border border-slate-200 text-gray-500 hover:bg-gray-100 rounded-lg transition-all duration-300"
+                           aria-label="Previous">
+                           <span class="text-[15px]"><i class="fa fa-solid fa-chevron-left text-slate-600"></i></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span class="flex items-center px-3 py-2 md:px-4 md:py-2 border border-slate-200 text-gray-500 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
+                              aria-label="Previous">
+                              <span class="text-[15px]"><i class="fa fa-solid fa-chevron-left text-slate-200"></i></span>
+                        </span>
+                    </li>
+                {% endif %}
+
+                <!-- Page Numbers -->
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                        <li>
+                            <span class="px-3 py-2 md:px-4 md:py-2 bg-blue-500 border border-slate-200 text-white rounded-lg transition-all duration-300">{{ num }}</span>
+                        </li>
+                    {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                        <li>
+                            <a href="?page={{ num }}"
+                               class="px-3 py-2 md:px-4 md:py-2 text-gray-600 hover:bg-gray-100 border border-slate-200 rounded-lg transition-all duration-300">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Next Button -->
+                {% if products.has_next %}
+                    <li>
+                        <a href="?page={{ products.next_page_number }}"
+                           class="flex items-center px-3 py-2 md:px-4 md:py-2 border border-slate-200 text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-300"
+                           aria-label="Next">
+                            <span class="text-[15px]"><i class="fa fa-solid fa-chevron-right text-slate-500"></i></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span class="flex items-center px-3 py-2 md:px-4 md:py-2 text-gray-500 rounded-lg border border-slate-200 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
+                              aria-label="Next">
+                              <span class="text-[15px]"><i class="fa fa-solid fa-chevron-right text-slate-200"></i></span>
+                        </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
 
     <!-- Add Swiper JS -->
@@ -160,5 +233,56 @@
             },
         },
     });
+
+    // AJAX for Add to Cart
+    document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const url = this.action;
+            const formData = new FormData(this);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Display success message
+                    const messagesDiv = document.getElementById('messages');
+                    const message = document.createElement('div');
+                    message.className = 'bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between';
+                    message.innerHTML = 'Product added to cart successfully! <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>';
+                    messagesDiv.appendChild(message);
+
+                    // Optionally update the cart summary or other parts of the page
+                } else {
+                    alert('Failed to add product to cart.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+    });
+    // Close message
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('close-message')) {
+            event.target.parentElement.remove();
+            // Clear messages from session storage
+            sessionStorage.removeItem('messages');
+        }
+    });
+
+     // Clear messages on page load
+    window.addEventListener('load', function() {
+        sessionStorage.removeItem('messages');
+    });
+
 </script>
 {% endblock content %}

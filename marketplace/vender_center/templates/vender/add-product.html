@@ -3,10 +3,48 @@
 {% load tailwind_filters %}
 {% block content %}
     {% include "partials/nav.html" %}
-    <form action="" method="post" enctype="multipart/form-data" class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto">
+    <div class="flex justify-between py-[0.8rem] bg-[#D98324] w-[100%] md:w-[60%] px-[0.5rem] md:px-[2rem] m-auto mb-[1rem]">
+        <h3 class="text-[#fefefe] text-[15px] font-semibold">Add Product </h3>
+        <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
+            Home
+            <i class="fa fa-solid fa-chevron-right"></i>
+        </a>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem]">
         {% csrf_token %}
-        <h1 class="">Add Product</h1>
-        {{form|crispy}}
-        <button type="submit" class="text-[#fefefe] py-[0.5rem] px-[1.5rem] bg-slate-500">Submit</button>
+        
+        {{product_form|crispy}}
+        <div class="specifications">
+            {% for form in spec_formset %}
+                <div class="spec-form">
+                    <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification ({{ forloop.counter }})</h4>
+                    {{ form|crispy }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="text-[#fefefe] flex justify-center items-center block w-[100%] m-auto py-[0.5rem] px-[1.5rem] bg-orange-400">Save Product</button>
     </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addSpecButton = document.createElement('button');
+        addSpecButton.textContent = 'Add Another Specification';
+        addSpecButton.type = 'button';
+        addSpecButton.className = 'add-spec py-4  my-[1rem] hover:underline text-red-500 border border-slate-200 rounded py-[0.5rem] px-[1rem]';
+        
+        addSpecButton.addEventListener('click', () => {
+            const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+            const currentFormCount = parseInt(totalForms.value);
+            
+            const newForm = document.querySelector('.spec-form').cloneNode(true);
+            newForm.innerHTML = newForm.innerHTML.replace(/form-(\d+)-/g, `form-${currentFormCount}-`);
+            document.querySelector('.specifications').appendChild(newForm);
+            
+            totalForms.value = currentFormCount + 1;
+        });
+        
+        document.querySelector('.specifications').appendChild(addSpecButton);
+    });
+</script>
 {% endblock content %}

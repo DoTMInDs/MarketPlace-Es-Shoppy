@@ -1,10 +1,11 @@
 # from django.forms import ModelForm
 from typing import Any
 from django import forms 
-from .models import ProfileModel,Product,Category
+from .models import ProfileModel,Product,Category,Specification,ProductSpecification
 from vender_center.models import Seller
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm 
+from django.forms import inlineformset_factory
 
 class CreateUserForm(UserCreationForm):
     username = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your username....'}))
@@ -79,4 +80,21 @@ class BecomeSellerForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4}),
         }
-       
+    
+class SpecificationForm(forms.ModelForm):
+    class Meta:
+        model = Specification
+        fields = ['color', 'brand', 'weight', 'more_details']
+
+class ProductSpecificationForm(forms.ModelForm):
+    # Include fields from Specification
+    color = forms.CharField(max_length=100, required=False)
+    brand = forms.CharField(max_length=100, required=False)
+    weight = forms.CharField(required=False)
+    more_details = forms.CharField(widget=forms.Textarea, required=False)
+
+    class Meta:
+        model = ProductSpecification
+        fields = ['features', 'key_features']
+
+ProductSpecificationFormSet = inlineformset_factory(Product, ProductSpecification, form=ProductSpecificationForm, extra=1, can_delete=True)
