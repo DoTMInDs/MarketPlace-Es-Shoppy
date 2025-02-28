@@ -1,0 +1,114 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block title %}Profile{% endblock  %}
+{% block content %}
+    {% include "core/partials/nav.html" %}
+    <div class="flex justify-center items-center px-[0.5rem] md:px-0  w-[100%] md:w-[60%] m-auto mobile-profile">
+        <div class="w-[100%]  m-auto p-[30px] rounded border border-slate-300 bg-slate-50">
+          <h1 class="font-bold text-[18px] border-b border-slate-300 pb-[1rem] md:text-[25px] text-[#3D5361]">Buyer's Information</h1>
+            <div class="flex justify-between  mt-[1rem] items-center mb-[2rem]">
+                <div class="w-[150px] h-[150px] mobile-img-profile">
+                  {% if profile.image %}
+                    <img src="{{ profile.image.url }}" alt="profile.img" class="w-[150px] h-[150px] rounded-[50%] object-cover object-center mobile-img-image">
+                    {% else %}
+                    <img src="{% static "assets/default.png" %} " alt="profile.img" class="w-[150px] h-[150px] rounded-[50%] object-cover object-center mobile-img-image">
+                  {% endif %}
+                </div>
+                <!-- Button trigger modal -->
+                 {% if profile.user == user %}
+                  <button 
+                    type="button" 
+                    id="staticBackdropBtn2" 
+                    class="my-[30px] text-[#3D5361] transition-all duration-200 hover:text-teal-600 py-[4px] px-[8px] text-[15px] ">
+                    Edit Profile
+                    <i class="fa-regular fa-pen-to-square fa-xl ml-[10px]"></i>
+                  </button>
+                {% endif %}
+            </div>
+           <div class="">
+              <div class="flex items-center border-t border-[#e7e0e07e] py-[10px]">
+                  <h3 class="text-[16px] text-slate-800 basis-2/6">Full Name</h3>
+                  <p class="mt-[10px]  text-[15px] w-[100%] text-slate-500 basis-3/5">{{ profile.full_name }} </p>
+              </div>
+              <div class="flex items-center border-t border-[#e7e0e07e] py-[10px]">
+                <h3 class="text-[16px] text-slate-800 basis-2/6">Username</h3>
+                <p class="mt-[10px]  text-[15px] w-[100%] text-slate-500 basis-3/5">{{ profile.user.username }} </p>
+              </div>
+              <div class="flex items-center border-t border-[#e7e0e07e] py-[10px]">
+                <h3 class="text-[16px] text-slate-800 basis-2/6">Email address</h3>
+                <p class="mt-[10px]  text-[15px] w-[100%] text-slate-500 basis-3/5">{{ profile.user.email }} </p>
+              </div>
+              <div class="flex  border-t border-[#e7e0e07e] py-[10px]">
+                <h3 class="text-[16px] text-slate-800 basis-2/6">Talks About</h3>
+                <p class=" basis-3/5  text-[15px] w-[100%] text-slate-500">{{ profile.talks_about }} </p>
+              </div>
+              <div class="flex  border-t border-[#e7e0e07e] py-[10px]">
+                <h3 class="text-[16px] text-slate-800 basis-2/6">About me</h3>
+                <p class=" basis-3/5  text-[15px] w-[100%] text-slate-500">{{ profile.about }} </p>
+              </div>
+           </div>
+        </div>
+    </div>
+
+  <!-- Modal -->    
+  <div class="mobile-profile-modal fixed top-0 left-0 right-0 w-[100%] h-[100vh] flex justify-center items-center" id="staticBackdrop3">
+    <div class="profile-modal-dialog bg-slate-50 w-[600px] p-[1rem] rounded">
+      <div class="modal-content">
+        <div class="p-[1rem] flex items-center justify-between">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fa-regular fa-pen-to-square"></i>Edit Profile</h1>
+          <button type="button" class="btn-close text-[20px] text-slate-500" id="CloseModal" aria-label="Close">
+            <i class="fa fa-solid fa-close"></i>
+          </button>
+        </div>
+        <div class="">
+          <div class="flex justify-center flex-col items-center w-full p-[1rem] gap-[25px]">
+              <div class="mobile-img-small w-[150px] h-[150px] rounded-full border border-slate-200 mobile-img-profile">
+                {% if profile.image %}
+                  <img src="{{ profile.image.url }}" alt="profile.png" class="rounded-[50%] w-[150px] h-[150px] object-cover object-center mobile-img-image">
+                  {% else %}
+                  <img src="{% static "assets/default.png" %} " alt="profile.png" class="rounded-[50%] w-[250px] h-[250px] object-cover object-center mobile-img-image">
+                {% endif %}
+              </div>
+              <div class="w-[100%]">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+
+                    <div class="modal-footer ">
+                      <div class="flex justify-center items-center w-full gap-[20px] __delet_btn_wrapper">
+                        <button type="cancel"  class="md:w-[100%] w-[100%] px-[50px] py-[12px] rounded-full border-[1px] border-slate-300 bg-[#fcfcfc]">cancel</button>
+                        <button type="submit"  class="md:w-[100%] w-[100%] bg-[#3D5361] px-[50px] py-[12px] rounded-full text-[#fefefefe] text-[14px] font-medium">Save</button>
+                      </div>
+                    </div>
+                   
+                </form>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  {% include "core/partials/footer.html" %}
+
+  <script>
+    const staticBackdropBtn2 = document.getElementById('staticBackdropBtn2');
+    const CloseModal = document.getElementById('CloseModal');
+    const CloseModal2 = document.getElementById('CloseModal2');
+    const staticBackdrop3 = document.getElementById('staticBackdrop3');
+    
+    staticBackdropBtn2.addEventListener('click', () => {
+        console.log('clicked user')
+        staticBackdrop3.classList.toggle('backdropActive2');
+    })
+    CloseModal.addEventListener('click', () => {
+        staticBackdrop3.classList.toggle('backdropActive2');
+    });
+    
+    
+  </script>
+{% endblock  %}

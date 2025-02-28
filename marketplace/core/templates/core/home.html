@@ -1,0 +1,181 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+{% include "core/partials/nav.html" %}
+<!-- Add Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<style>
+    .swiper {
+        width: 100%;
+        padding: 0.5rem 0.5rem;
+    }
+    .swiper-slide {
+       width:150px;
+       height:auto;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        color:rgb(255, 255, 255);
+        background: rgba(0, 0, 0, 0.34);
+        padding: 15px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 1.2rem;
+    }
+</style>
+  
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+        <div class="shadow bg-white p-[0.5rem] " style="overflow:hidden;">
+            <div class="flex gap-[0.8rem]">
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-Weekly-CP/2025/WK8/Banners/GH_WK8_SS_Freelink_GEN.gif"
+                            alt="" class="w-[100%] h-[100%] object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src=" https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/GH_WK49_Freelink_JFORCE.gif" alt="" class=" w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Fashion.png" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container  w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Computing_new.png" alt="" class=" w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Phones.png" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container  w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Official_Stores.png" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--All-Product-->
+    <div class="mt-[1rem]">
+        <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
+            <div class="flex justify-between px-[2rem] py-[0.8rem] bg-[#D98324] w-[100%]">
+                <h3 class="text-[#fefefe] text-[15px]">Popular </h3>
+                <a href="{% url "all-product" %}" class="text-[#fefefe] text-[14px] flex gap-[0.3rem] items-center">
+                    See All
+                    <i class="fa fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto "style="overflow: hidden;">
+            <div class="swiper mySwiper bg-white">
+                <div class="my-[1rem]  swiper-wrapper">
+                        {% for product in products %}
+                        <div class="swiper-slide hover:shadow">
+                            <a href="#!" class="hover:shadow bg-white rounded cursor-pointer mx-2 w-[150px]" style="min-width: 150px;">
+                                <div class="relative">
+                                    <p class="absolute top-[5px] left-[5px] p-[0.2rem] text-[10px] bg-red-500 text-[#ffffff]">Pay On Delivery</p>
+                                    <div class="w-[150px]  m-auto bg-slate-50  rounded-t">
+                                        {% if product.image %}
+                                            <img src="{{product.image.url}}" alt="" class="w-[100%] object-center object-cover">
+                                        {% endif %}
+                                    </div>
+                                    <div class="absolute bottom-0 right-[0.5rem]">
+                                        <i class="fa fa-regular fa-heart text-slate-500 text-center hover:bg-rose-100 p-[0.3rem] rounded-full"></i>
+                                    </div>                                                                                                                              
+                                </div>
+                                <div class="content p-[0.5rem]">
+                                    <p class="text-[13px] text-slate-600 text-truncate m-0 p-0">{{product.description|truncatewords:"5"}} </p>
+                                    <p class="font-bold text-[16px] text-gray-500 ">GHS {{product.price}} </p>
+                                    {% if product.canceled_price %}
+                                        <p class=" text-[10px] text-slate-400 line-through">GHS {{product.canceled_price}}</p>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                </div>
+                <!-- Add navigation arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+        <div class="shadow bg-white p-[0.5rem] mt-[1rem]" style="overflow:hidden;">
+            <div class="flex gap-[0.8rem]">
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Jumia_Global.png"
+                            alt="" class="w-[100%] h-[100%] object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src=" https://gh.jumia.is/cms/0-Weekly-CP/2024/WK51/Banner/GH_WK51_HS_Freelink_Kumasi_Marketplace_tmb.png" alt="" class=" w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/New_this_Week.png" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container  w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/New_Arrivals.png" alt="" class=" w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container   w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Discount_new.png" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+                <div class="img-container  w-[100%]">
+                    <a href="#!" class="no-ubderline text-slate-400 w-[180px] h-[130px]">
+                        <img src="https://gh.jumia.is/cms/0-MLPS/2024/BF/HPAGE_Freelinks/New/Beauyt.png" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.mySwiper', {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+        centeredSlides: false,
+        grabCursor: true,
+        freeMode: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            640: {
+                spaceBetween: 8,
+            },
+            1024: {
+                spaceBetween: 8,
+            },
+        },
+    });
+</script>
+
+{% endblock  %}

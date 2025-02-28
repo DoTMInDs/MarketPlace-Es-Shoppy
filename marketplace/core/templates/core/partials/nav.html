@@ -1,0 +1,308 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block nav %}
+<nav class="nav-web-view p-[0.3rem] md:p-[0px]  w-[100%] bg-[#fefefe] shadow fixed top-[0] z-[9999]">
+    <div class="bg-gray-100 w-full flex items-center py-[0.3rem] px-[0.5rem] justify-between ">
+        {% if user.is_authenticated %}
+            <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px]">
+                <a href="{% url "become-seller" %}" class="text-[12px] font-bold text-amber-700">Sell on Es-Shoppy</a>
+                <img src="{% static 'assets/big-esse-(1).png' %}"  class="w-[20px] h-[20px] rounded-full">
+            </div>
+            {% else %}
+            <a href="{% url "become-seller" %}" class="flex items-center gap-[3px] w-[100%] md:w-[80%] lg:w-[60%] m-auto text-[12px] font-bold text-amber-700">Please sign-Up to Sell on Es-Shoppy
+                <img src="{% static 'assets/big-esse-(1).png' %}"  class="w-[20px] h-[20px] rounded-full">
+            </a>
+        {% endif %}
+    </div>
+    <div class=" w-full flex items-center py-[0.5rem] justify-between w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
+        <div class="flex items-center cursor-pointer">
+            <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center w-[30px] h-[30px]">
+                <img src="{% static 'assets/big-esse-(1).png' %}"  class="w-[30px] h-[30px] rounded-full">
+                <h4 class=" text-slate-500 hover:text-teal-800 text-nowrap font-semibold">Es-Shoppy</h4>
+            </a>
+        </div>
+        <div class="flex items-center gap-[20px]">
+            <div class="hidden lg:block">
+                <form action="" method="get" class="inline-flex items-center gap-[2px]">
+                    <div class="flex items-center  w-[350px] rounded bg-slate-100 border border-slate-200 px-[1rem] relative">
+                        <i class="fa-solid fa-magnifying-glass text-[13px] text-slate-500 cursor-pointer absolute left-[0.5rem]" ></i>
+                        <input type="search" name="search" placeholder="Search Es-Shoppy..." class="w-[100%] py-[0.5rem] px-[1rem] bg-transparent outline-none">
+                    </div>
+                    <button type="submit" class="hover:bg-[#F2F6D0] bg-[#EFDCAB] text-[#443627] py-[0.5rem] px-[1rem] rounded">Search</button>
+                </form>
+            </div>
+            <div class="">
+                {% if user.is_authenticated %}
+                    <div class="flex items-center relative">
+                        <div class="flex items-center">
+                            <div class="flex items-center ">
+                                <div id="staticBackdropbtn1" class="hover:text-teal-300 flex gap-[0.5rem] items-center text-[#3D5361] rounded-full py-[6px] px-[18px] bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all cursor-pointer">
+                                    {% if user.profilemodel.image %}
+                                        <img class="border border-slate-200 w-[30px] h-[30px] rounded-[50%] object-cover object-center " src=" {{ user.profilemodel.image.url }} " alt="Profile Image">
+                                    {% else %}
+                                        <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center mr-[10px]" src="{% static "assets/default.png" %} " alt="Default Profile Image">
+                                    {% endif %}
+                                    <small class="font-semibold text-[14px] capitalize text-[#3b5361]"> Account </small>
+                                    <i class="fa fa-solid fa-chevron-down text-slate-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- profile-Modal -->
+                        <div class="profile-nav-modal absolute right-0 top-[50px] flex justify-center items-center " id="staticBackdrop2">
+                            <div class="bg-slate-50 md:w-[300px] m-auto w-[350px] border border-slate-300 rounded-[0.5rem]">
+                                <div class="modal-body">
+                                    <div class="">
+                                        <div class="">
+                                            <a href="{% url "profile" user.username user.id %}" class="flex items-center gap-[2rem] text-[#555555] no-underline text-nowrap p-[1rem] hover:bg-[#ebebeb]">
+                                            <p> <i class="fa-solid fa-gear p_user"></i></p>
+                                                <p class="">Manage account</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="{% url "admin:index" %}" class="flex items-center gap-[2rem] text-[#555555] no-underline text-nowrap p-[1rem] hover:bg-[#ebebeb]">
+                                            <p> <i class="fa-solid fa-gears p_user"></i></p>
+                                                <p class="">Admin</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="#!" class='flex gap-[2rem] items-center p-[1rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
+                                                <p> <i class="fa-solid fa-circle-user"></i></p>
+                                                <p class="">Dashboard</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                                <p><i class="fa-solid fa-user-pen"></i></p>
+                                                <p class="">Reviews</p>
+                                            </a>
+                                        </div>
+                                        <div class="" >
+                                            <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                                <p><i class="fa-regular fa-heart"></i></p>
+                                                <p class="">Saved</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="{% url "logout" %}" class='flex gap-[2rem] text-[#555555] no-underline text-nowrap items-center p-[1rem] hover:bg-[#ebebeb]'>
+                                                <p><i class="fa-solid fa-arrow-right-from-bracket"></i></p>
+                                                <p class="">Sign out</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>      
+                            </div>
+                        </div>
+                    </div>                    
+                {% else %}
+                    <div class="flex items-center gap-[10px] w-full">
+                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fefefefe] bg-slate-500 text-[13px] font-semibold text-nowrap no-underline transition">
+                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                            Sign-In
+                        </a>
+                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-slate-500 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                            <i class="fa fa-regular fa-user mr-[3px]"></i>
+                            Sign-up
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            <div class=" md:hidden flex z-[9999] gap-[20px]">
+                <div class="menu_toggle justify-end items-end flex-col w-[30px] my-auto mx-0 md:hidden flex cursor-pointer z-[9999]" id="mobile_menu">
+                    <span class="m_bar w-[22px] h-[2px] bg-[#3b5361] my-[2px] mx-0 transition-all-[0.5s]"></span>
+                    <span class="m_bar w-[22px] h-[2px] bg-[#3b5361] my-[2px] mx-0 transition-all-[0.5s]"></span>
+                    <span class="m_bar w-[22px] h-[2px] bg-[#3b5361] my-[2px] mx-0 transition-all-[0.5s]"></span>
+                </div>
+            </div>
+            <div class="">
+                <a href="{% url "cart_view" %}" class="relative text-slate-500 no-underline flex items-center gap-[0.8rem]">
+                    <div class="">
+                        <i class="fa fa-solid fa-shopping-cart"></i>
+                    </div>
+                    <p class="absolute mt-[-30%] ml-[20%] bg-orange-400 text-[#fefefe] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+                    <p class="text-slate-500 font-semibold text-[15px]">Cart</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+ <!--PWA-Mobile-View-->
+<div class="mobile-nav-wrapper">
+    <div class="mobile-nav-container">
+        <div class="flex items-center cursor-pointer">
+            <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center">
+                <p class=""><img src="{% static 'assets/fitblog-logo-new.png' %}" height="64px" class="w-[30px]"></p>
+                <h4 class=" text-slate-500 hover:text-teal-800 font-semibold">Es-Shoppy</h4>
+            </a>
+        </div>
+        <div class="mobile-search-wrapper">
+            <div class="">
+                <div class="" id="openSearch">
+                    <i class="fa-solid fa-magnifying-glass text-[18px] text-slate-500 cursor-pointer" ></i>
+                </div>
+            </div>
+            <div>
+                <i class="fa-solid fa-gear text-[18px] text-[#3b5361] cursor-pointer" ></i>
+            </div>
+        </div>
+        <form action="" method="get" class="mobile-form-wrapper mt-[0.1rem] bg-[#fefefe]">
+            <div class="mobile-input-search" id="mobileInput">
+                <p class="close-search mr-[0.5rem]" id="closeSearch"><i class="fa-solid fa-chevron-left text-[18px] text-[#3b5361] cursor-pointer" ></i></p>
+                <div class="flex items-center w-[100%] px-[1rem] border border-slate-300 rounded-full">
+                    <i class="fa-solid fa-magnifying-glass text-[18px] text-slate-500 cursor-pointer" ></i>
+                    <input type="search" name="search" placeholder="Search FitBlog..." class="w-full  py-[3px] px-[6px] bg-transparent outline-none">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mobile-footer-wrapper">
+    <div class="mobile-footer-container">
+        <div class="">
+            <a href="{% url "home" %}" class="no-underline gap-[0.5rem] text-[#3b5361] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
+                <i class="fa fa-solid fa-home text-[14px] text-[#3b5361]"></i>
+                Home
+            </a>
+        </div>
+       <div class="">
+            <a href="" class="no-underline gap-[0.5rem] text-[#3b5361] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
+                <i class="fa fa-solid fa-cart-shopping text-[14px] text-[#3b5361]"></i>
+                Store
+            </a>
+       </div>
+       <div class="">
+            <div id="mobile-list-trigger" class="mobile-list-dropup ">
+                <i class="fa fa-regular fa-plus border border-slate-500 rounded-full p-[0.8rem] text-[14px] text-[#3b5361]"></i>
+            </div>
+
+            <div class="mobile-list-items" id="mobile-list-item">
+                <div>
+                    <a href="" class="text-[#3b5361] text-[14px] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        Product
+                    </a>
+                    <a href="" class="border-t border-slate-100 text-[#3b5361] hover:bg-slate-100 text-[14px] p-[1rem] no-underline flex items-center gap-[10px]">
+                        <i class="fa-solid fa-music"></i>
+                        Music
+                    </a>
+                    <a href="" class="border-t border-slate-100 text-[#3b5361] text-[14px] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
+                        <i class="fa-solid fa-circle-user"></i>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+       </div>
+        <div class="">
+            <a href="" class="no-underline text-[#3b5361] gap-[0.5rem] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
+                <i class="fa fa-regular fa-newspaper text-[14px] text-[#3b5361]"></i>
+                News
+            </a>
+        </div>
+        <div class="" >
+            {% if user.is_authenticated %}
+                <div  class="static-backdrop-btn flex items-center text-[#3D5361] rounded-full  bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all ">
+                    {% if user.profilemodel.image %}
+                        <img class=" w-[30px] h-[30px] rounded-[50%] object-cover object-center " src=" {{ user.profilemodel.image.url }} " alt="Profile Image">
+                    {% endif %}
+                </div>
+                <!-- profile-Modal -->
+                <div class="profile-nav-modal4" id="staticBackdrop4">
+                    <div class="bg-slate-50  w-[100%] border border-slate-300 rounded-[0.5rem]">
+                        <div class="modal-body">
+                            <div class="">
+                                <div class="">
+                                    <a href="{% url "profile" user.username user.id %}" class="flex items-center gap-[2rem] text-[#555555] no-underline text-nowrap p-[1rem] hover:bg-[#ebebeb]">
+                                    <p> <i class="fa-solid fa-gear p_user"></i></p>
+                                        <p class="">Manage account</p>
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="{% url "admin:index" %}" class="flex items-center gap-[2rem] text-[#555555] no-underline text-nowrap p-[1rem] hover:bg-[#ebebeb]">
+                                    <p> <i class="fa-solid fa-gears p_user"></i></p>
+                                        <p class="">Admin</p>
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="#!" class='flex gap-[2rem] items-center p-[1rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
+                                        <p> <i class="fa-solid fa-circle-user"></i></p>
+                                        <p class="">Dashboard</p>
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                        <p><i class="fa-solid fa-user-pen"></i></p>
+                                        <p class="">Reviews</p>
+                                    </a>
+                                </div>
+                                <div class="" >
+                                    <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                        <p><i class="fa-regular fa-heart"></i></p>
+                                        <p class="">Saved</p>
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="{% url "logout" %}" class='flex gap-[2rem] text-[#555555] no-underline text-nowrap items-center p-[1rem] hover:bg-[#ebebeb]'>
+                                        <p><i class="fa-solid fa-arrow-right-from-bracket"></i></p>
+                                        <p class="">Sign out</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                </div>
+                {% else %}
+                <div class="dropup" >
+                    <div class="" id="userBtn">
+                        <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center " src="{% static "assets/default.png" %} " alt="Default Profile Image">
+                    </div>
+                    <ul class="dropdown-menu bg-slate-50 w-[150px] border border-slate-200 rounded" id="userContainer">
+                        <a href="{% url "signup" %}" class="flex items-center text-[13px] hover:bg-slate-200 p-[1rem]  font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                            Sign up
+                        </a>
+                        <a href="{% url "login" %}" class="flex items-center text-[#3b5361] hover:bg-slate-200 p-[1rem]  text-[13px] font-semibold text-nowrap no-underline transition">
+                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                            Login
+                        </a>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+            
+    </div>
+</div>
+
+<script>
+    const staticBackdropbtn1 = document.getElementById('staticBackdropbtn1');
+    const staticBackdropBtn = document.querySelector('.static-backdrop-btn')
+    const staticBackdrop2 = document.getElementById('staticBackdrop2');
+    const staticBackdrop4 = document.getElementById('staticBackdrop4');
+    
+    staticBackdropbtn1.addEventListener('click', () => {
+        console.log('clicked user')
+        staticBackdrop2.classList.toggle('backdropActive1');
+    })
+    staticBackdropBtn.addEventListener('click', () => {
+        console.log('clicked user1')
+        staticBackdrop4.classList.toggle('backdropActive4');
+    })
+
+   
+    
+   // Mobile menu
+    const mobileMenu = document.getElementById('mobile_menu');
+    const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('change');
+            //navLinks.classList.toggle('showing');
+            //console.log('clicked showing');
+        });
+        
+
+
+</script>
+{% endblock nav %}
+      

@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data" class="w-[100%] md:w-[45%] m-auto">
+        {% csrf_token %}
+        <h1 class="">Become a Seller</h1>
+        {{form|crispy}}
+        <button type="submit" class="text-[#fefefe] py-[0.5rem] px-[1.5rem] bg-slate-500">Register as Seller</button>
+    </form>
+{% endblock content %}

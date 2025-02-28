@@ -1,0 +1,202 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block nav %}
+<nav class="nav-web-view p-[0.3rem] md:p-[0px]  w-[100%] bg-[#fefefe] shadow fixed top-[0] z-[9999]">
+    <div class=" w-full flex items-center py-[0.5rem] justify-between w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
+        <div class="flex items-center cursor-pointer">
+            <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center w-[30px] h-[30px]">
+                <img src="{% static 'assets/fitblog-logo-new.png' %}"  class="w-[30px] h-[30px]">
+                <h4 class=" text-slate-500 hover:text-teal-800 text-nowrap font-semibold">Vender Center</h4>
+            </a>
+        </div>
+        <div class="md:flex items-center gap-[2rem] hidden ">
+            <div class="">
+                <a href="{% url "vender-center" %}" class="text-[15px] text-slate-500">
+                    Home
+                </a>
+            </div>
+            <div class="">
+                <a href="{% url "orders" %}" class="text-[15px] text-slate-500">
+                    Orders
+                </a>
+            </div>
+            <div class="relative">
+               <div id="productBtn" class="text-[15px] text-slate-500 gap-[1rem] cursor-pointer flex items-center ">
+                    Products
+                    <i class="fa fa-solid fa-chevron-down"></i>
+               </div>
+                <!--dropdown-->
+                <div  class="product-wrapper absolute left-0 top-[40px] bg-slate-100 w-[150px] rounded ">
+                    <div id="productItem" class="product-items border border-slate-300 rounded">
+                        <a href="{% url "add-product" %}" class="text-[15px] text-slate-500 flex gap-[0.5rem] items-center hover:bg-slate-50 p-[0.5rem]">
+                            <i class="fa fa-solid fa-circle-plus"></i>
+                            Add Product
+                        </a>
+                        <a href="{% url "manage-product" %}" class="text-[15px] text-slate-500 flex gap-[0.5rem] items-center hover:bg-slate-50 p-[0.5rem]">
+                            <i class="fa fa-solid fa-gear"></i>
+                            Manage product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-[20px]">
+            <div class="">
+                {% if user.is_authenticated %}
+                    <div class="flex items-center relative">
+                        <div class="flex items-center">
+                            <div class="flex items-center ">
+                                <div id="staticBackdropbtn1" class="hover:text-teal-300 flex gap-[0.5rem] items-center text-[#3D5361] rounded-full py-[6px] px-[18px] bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all cursor-pointer">
+                                    {% if user.profilemodel.image %}
+                                        <img class="border border-slate-200 w-[30px] h-[30px] rounded-[50%] object-cover object-center " src=" {{ user.profilemodel.image.url }} " alt="Profile Image">
+                                    {% else %}
+                                        <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center mr-[10px]" src="{% static "assets/default.png" %} " alt="Default Profile Image">
+                                    {% endif %}
+                                    <small class="font-semibold text-[14px] capitalize text-[#3b5361]"> Account </small>
+                                    <i class="fa fa-solid fa-chevron-down text-slate-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- profile-Modal -->
+                        <div class="profile-nav-modal absolute right-0 top-[50px] flex justify-center items-center " id="staticBackdrop2">
+                            <div class="bg-slate-50 md:w-[300px] m-auto w-[350px] border border-slate-300 rounded-[0.5rem]">
+                                <div class="modal-body">
+                                    <div class="">
+                                        <div class="">
+                                            <a href="{% url "seller-profile" username=user.username id=user.id  %}" class="flex items-center gap-[2rem] text-[#555555] no-underline text-nowrap p-[1rem] hover:bg-[#ebebeb]">
+                                            <p> <i class="fa-solid fa-gear p_user"></i></p>
+                                                <p class="">Manage account</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="#!" class='flex gap-[2rem] items-center p-[1rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
+                                                <p> <i class="fa-solid fa-circle-user"></i></p>
+                                                <p class="">Dashboard</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                                <p><i class="fa-solid fa-user-pen"></i></p>
+                                                <p class="">Reviews</p>
+                                            </a>
+                                        </div>
+                                        <div class="" >
+                                            <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                                <p><i class="fa-regular fa-heart"></i></p>
+                                                <p class="">Saved</p>
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a href="{% url "logout" %}" class='flex gap-[2rem] text-[#555555] no-underline text-nowrap items-center p-[1rem] hover:bg-[#ebebeb]'>
+                                                <p><i class="fa-solid fa-arrow-right-from-bracket"></i></p>
+                                                <p class="">Sign out</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>      
+                            </div>
+                        </div>
+                    </div>                    
+                {% else %}
+                    <div class="flex items-center gap-[10px] w-full">
+                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fefefefe] bg-slate-500 text-[13px] font-semibold text-nowrap no-underline transition">
+                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                            Sign-In
+                        </a>
+                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-slate-500 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                            <i class="fa fa-regular fa-user mr-[3px]"></i>
+                            Sign-up
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            <div class=" md:hidden flex z-[9999] gap-[20px]">
+                <div class="menu_toggle justify-end items-end flex-col w-[30px] my-auto mx-0 md:hidden flex cursor-pointer z-[9999]" id="mobile_menu">
+                    <span class="m_bar w-[28px] h-[2.5px] bg-[#3b5361] my-[2.5px] mx-0 transition-all-[0.5s]"></span>
+                    <span class="m_bar w-[28px] h-[2.5px] bg-[#3b5361] my-[2.5px] mx-0 transition-all-[0.5s]"></span>
+                    <span class="m_bar w-[28px] h-[2.5px] bg-[#3b5361] my-[2.5px] mx-0 transition-all-[0.5s]"></span>
+                </div>
+            </div>
+        </div>
+         <!--Mobile-responsive-->
+         <div class="list_t md:hidden flex absolute top-[65px] left-0 right-0 w-[100%] bg-slate-100">
+            <ul class="nav_v w-[100%] no-list-style transition-h-[0.5s] z-[999] " id="nav-links">
+                <li class="w-[100%] text-[#fefefe] border-b border-[#62879e4b] py-[1.2rem] px-[1rem] hover:bg-[#6a7f8d28] flex items-center gap-[0.5rem]">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.00003 13H4.00003V20C4.00003 21.103 4.89703 22 6.00003 22H18C19.103 22 20 21.103 20 20V13H21C21.1978 13 21.3911 12.9413 21.5555 12.8314C21.7199 12.7215 21.848 12.5654 21.9237 12.3827C21.9994 12.2 22.0192 11.9989 21.9806 11.805C21.942 11.611 21.8468 11.4329 21.707 11.293L12.707 2.293C12.5195 2.10553 12.2652 2.00021 12 2.00021C11.7349 2.00021 11.4806 2.10553 11.293 2.293L2.29303 11.293C2.15322 11.4329 2.05802 11.611 2.01945 11.805C1.98088 11.9989 2.00068 12.2 2.07635 12.3827C2.15202 12.5654 2.28016 12.7215 2.44457 12.8314C2.60898 12.9413 2.80228 13 3.00003 13ZM10 20V15H14V20H10ZM12 4.414L18 10.414V15L18.001 20H16V15C16 13.897 15.103 13 14 13H10C8.89703 13 8.00003 13.897 8.00003 15V20H6.00003V10.414L12 4.414Z" fill="black"/>
+                    </svg> 
+                    <a class="no-underline text-slate-500 text-[15px]" href="{% url "vender-center" %}">Home</a>
+                </li>
+                <li class="w-[100%] text-[#fefefe] border-b border-[#62879e4b] py-[1.2rem] px-[1rem] hover:bg-[#6a7f8d28] flex items-center gap-[0.5rem]">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.5 5.5C7.5 4.30653 7.97411 3.16193 8.81802 2.31802C9.66193 1.47411 10.8065 1 12 1C13.1935 1 14.3381 1.47411 15.182 2.31802C16.0259 3.16193 16.5 4.30653 16.5 5.5V7H21V23H3V7H7.5V5.5ZM7.5 9H5V21H19V9H16.5V12H14.5V9H9.5V12H7.5V9ZM14.5 7V5.5C14.5 4.83696 14.2366 4.20107 13.7678 3.73223C13.2989 3.26339 12.663 3 12 3C11.337 3 10.7011 3.26339 10.2322 3.73223C9.76339 4.20107 9.5 4.83696 9.5 5.5V7H14.5Z" fill="black"/>
+                    </svg>
+                    <a class="no-underline text-slate-500 text-[15px]" href="{% url "orders" %}">Orders</a>
+                </li>
+                <li class=" w-[100%] text-[#fefefe] border-b border-[#62879e4b] py-[1.2rem] px-[1rem] hover:bg-[#6a7f8d28] relative">
+                    <div id="productBtn1" class="text-[15px] text-slate-500 gap-[1rem] cursor-pointer flex items-center ">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 3H2V9H3V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V9H22V3ZM4 5H20V7H4V5ZM19 20H5V9H19V20ZM9 11H15C15 11.5304 14.7893 12.0391 14.4142 12.4142C14.0391 12.7893 13.5304 13 13 13H11C10.4696 13 9.96086 12.7893 9.58579 12.4142C9.21071 12.0391 9 11.5304 9 11Z" fill="black"/>
+                        </svg>
+                        Products
+                        <i class="fa fa-solid fa-chevron-down"></i>
+                   </div>
+                    <div  class="product-wrapper absolute left-[150px] top-[20px] bg-slate-100 w-[150px]  rounded ">
+                        <div id="productItem1" class="product-items border border-slate-300 rounded">
+                            <a href="{% url "add-product" %}" class="text-[15px] text-slate-500 flex gap-[0.5rem] items-center hover:bg-slate-50 p-[0.5rem]">
+                                <i class="fa fa-solid fa-circle-plus"></i>
+                                Add Product
+                            </a>
+                            <a href="{% url "manage-product" %}" class="text-[15px] text-slate-500 flex gap-[0.5rem] items-center hover:bg-slate-50 p-[0.5rem]">
+                                <i class="fa fa-solid fa-gear"></i>
+                                Manage product
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>  
+    </div>
+</nav>
+
+<script>
+    const productBtn = document.getElementById('productBtn');
+    const productItems = document.getElementById('productItem');
+    const productBtn1 = document.getElementById('productBtn1');
+    const productItems1 = document.getElementById('productItem1');
+
+    productBtn.addEventListener('click', () => {
+        //console.log('clicked productItem')
+        productItems.classList.toggle('product-active')
+    });
+    productBtn1.addEventListener('click', () => {
+        //console.log('clicked productItem')
+        productItems1.classList.toggle('product-active')
+    });
+
+        // Mobile menu
+    const mobileMenu = document.getElementById('mobile_menu');
+    const navLinks = document.getElementById('nav-links');
+
+    mobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.toggle('change');
+        navLinks.classList.toggle('showing');
+        // console.log('clicked');
+    });
+
+    const staticBackdropbtn1 = document.getElementById('staticBackdropbtn1');
+    const staticBackdropBtn = document.querySelector('.static-backdrop-btn');
+    const staticBackdrop2 = document.getElementById('staticBackdrop2');
+    const staticBackdrop4 = document.getElementById('staticBackdrop4');
+    
+    staticBackdropbtn1.addEventListener('click', () => {
+       // console.log('clicked user')
+        staticBackdrop2.classList.toggle('backdropActive1');
+    });
+    staticBackdropBtn.addEventListener('click', () => {
+        console.log('clicked user1')
+        staticBackdrop4.classList.toggle('backdropActive4');
+    });
+
+</script>
+{% endblock  %}

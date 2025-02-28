@@ -1,0 +1,68 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}{% endblock  %}
+{% block content %}
+{% include "core/partials/nav.html" %}
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+        <div class="w-[100%] flex gap-[0.5rem]">
+           <div class="shadow bg-white basis-[70%]">
+                <div class="p-[0.5rem] border-b border-slate-200">
+                    <p class="text-slate-600">Cart ({{ cart.order_products.count }})</p>
+                </div>
+                {% for item in cart.order_products.all %}
+                    <div class="border-b border-slate-200 p-[0.6rem]">
+                        <div class="flex justify-between w-[100%]">
+                            <div class="flex gap-[1rem] items-center">
+                                <div class="w-[100px]">
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-[100%] object-center object-contain">
+                                    {% endif %}
+                                </div>
+                                <div class="">
+                                    <p class="text-[14px] text-slate-600 font-medium m-0 p-0">{{ item.product.description|truncatewords:10 }}</p>
+                                    <p class="text-[13px] text-slate-600 font-medium m-0 p-0">{{ item.product.name }}</p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <h2 class="text-[18px] font-bold text-slate-700 m-0 p-0">{{ item.price_at_purchase }}</h2>
+                                {% if item.product.canceled_price %}
+                                    <p class="text-[10px] line-through font-regular text-slate-400 m-0 p-0">{{ item.product.canceled_price }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-[0.5rem] w-[100%]">
+                            <div class="">
+                                <a href="{% url 'remove_from_cart' item.id %}" class="text-[#D98324] text-[10px] flex gap-[0.5rem] items-center">
+                                    <i class="fa fa-regular fa-trash"></i>
+                                    Remove
+                                </a>
+                            </div>
+                            <div class="flex gap-[1rem] items-center">
+                                <a href="{% url 'update_quantity' item.id 'decrement' %}" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem]"><i class="fa fa-solid fa-minus"></i></a>
+                                <p class="text-[10px]">{{ item.quantity }}</p>
+                                <a href="{% url 'update_quantity' item.id 'increment' %}" class="bg-[#FF9D23]  w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem]"><i class="fa fa-solid fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                <div class="p-[2rem]">
+                    <p class="text-slate-500 text-center">Your cart is empty</p>
+                </div>
+                {% endfor %}
+           </div>
+           <div class="shadow rounded bg-white basis-[30%] p-[0.5rem] h-[100%]">
+                <div class="border-b border-slate-200 p-[0.3rem]">
+                    <p class="uppercase text-[10px] text-regular text-slate-700">cart summary</p>
+                </div>
+                <div class="flex justify-between items-center border-b border-slate-200 p-[0.3rem]">
+                    <p class="text-[10px] text-slate-700">Subtotal</p>
+                    <p class="text-[15px] text-slate-700">GHS {{ cart.total_price|default:"0.00" }}</p>
+                </div>
+                <div class="bg-orange-400 w-[100%] rounded p-[0.5rem]">
+                    <a href="#!" class="text-[10px] text-center text-[#fefefe]">Checkout (GHS {{ cart.total_price|default:"0.00" }}) </a>
+                </div>
+           </div>
+        </div>
+    </div>
+
+{% endblock %}
