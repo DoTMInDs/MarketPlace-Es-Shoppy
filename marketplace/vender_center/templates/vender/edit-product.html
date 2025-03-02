@@ -12,19 +12,49 @@
     </div>
     <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem]">
         {% csrf_token %}
-        {{product_form|crispy}}
+        {{form|crispy}}
         <div class="specifications">
-            {{ formset.management_form }}
-            {% comment %} {% for form in formset %} {% endcomment %}
-                <div class="spec-form">
-                    <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification ({{ forloop.counter }})</h4>
-                    {{ formset|crispy }}
-                </div>
-            {% comment %} {% endfor %} {% endcomment %}
+            <div class="spec-form">
+                <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification</h4>
+                {{ formset.management_form }}
+
+                {% for spec_form in formset %}
+                    <div class="spec-form mb-4 p-2 border rounded">
+                        {{ spec_form.id }}
+                        {{ spec_form|crispy }}
+                        {% if spec_form.instance.pk %}
+                            <div class="delete-spec mt-2">
+                                {{ spec_form.DELETE|as_crispy_field }}
+                                <label class="text-red-600">Delete this specification</label>
+                            </div>
+                        {% endif %}
+                {% endfor %}
+            </div>
         </div>
 
         <button type="submit" class="text-[#fefefe] flex justify-center items-center block w-[100%] m-auto py-[0.5rem] px-[1.5rem] bg-orange-400">Update Product</button>
     </form>
 
+    <script>
+        document.getElementById('add-spec').addEventListener('click', () => {
+            const totalForms = document.getElementById('id_specifications-TOTAL_FORMS');
+            const currentForms = parseInt(totalForms.value);
+            const formCopy = document.querySelector('.spec-form').cloneNode(true);
+            
+            // Clear values and reset delete checkbox
+            formCopy.querySelectorAll('input, select').forEach(input => {
+                if(input.name) input.name = input.name.replace(/-\d+-/g, `-${currentForms}-`);
+                if(input.id) input.id = input.id.replace(/-\d+-/g, `-${currentForms}-`);
+                input.value = '';
+                if(input.type === 'checkbox') input.checked = false;
+            });
+            
+            // Remove delete section for new forms
+            const deleteSection = formCopy.querySelector('.delete-spec');
+            if(deleteSection) deleteSection.remove();
 
+            document.querySelector('.specifications').appendChild(formCopy);
+            totalForms.value = currentForms + 1;
+        });
+    </script>
 {% endblock %}

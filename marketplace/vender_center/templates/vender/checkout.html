@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load humanize %} 
+{% block title %}{% endblock  %}
+{% block content %}
+{% include "core/partials/nav.html" %}
+<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+    <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row">
+       <div class="shadow bg-white basis-[70%]">
+            <div class="p-[0.5rem] border-b border-slate-200">
+                <p class="text-slate-600">Checkout ({{ cart.order_products.count }})</p>
+            </div>
+            
+       </div>
+       <div class="shadow rounded bg-white basis-[30%] p-[0.5rem] h-[100%]">
+            <div class="border-b border-slate-200 p-[0.3rem]">
+                <p class="uppercase text-[10px] text-regular text-slate-700">cart summary</p>
+            </div>
+            <div class="flex justify-between items-center border-b border-slate-200 p-[0.3rem]">
+                <p class="text-[10px] text-slate-700">Subtotal</p>
+                <p class="text-[15px] text-slate-700"> GHS {{ cart.total_price|default:"0.00"|intcomma }}</p>
+            </div>
+            <div class="bg-orange-400 w-[100%] p-[0.5rem] text-[#fefefe] text-center rounded flex justify-center items-center gap-[0.5rem]">
+               <p class=""> Checkout </p>
+                <p class=""><a href="{% url "checkout" %}" class="text-[13px]  text-[#fefefe]" id="cart-total-price">(GHS {{ cart.total_price|default:"0.00"|intcomma }}) </a></p>
+            </div>
+       </div>
+    </div>
+</div>
+
+    <script>
+       
+        document.getElementById('cart-total-price').innerText = 
+            `GHS ${data.total_price.toLocaleString()}`;
+
+        document.getElementById('checkout-total').innerText = 
+            `Checkout (GHS ${data.total_price.toLocaleString()})`;
+    </script>
+
+{% endblock %}
+

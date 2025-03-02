@@ -3,48 +3,54 @@
 {% load tailwind_filters %}
 {% block content %}
     {% include "partials/nav.html" %}
-    <div class="flex justify-between py-[0.8rem] bg-[#D98324] w-[100%] md:w-[60%] px-[0.5rem] md:px-[2rem] m-auto mb-[1rem]">
-        <h3 class="text-[#fefefe] text-[15px] font-semibold">Add Product </h3>
-        <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
-            Home
-            <i class="fa fa-solid fa-chevron-right"></i>
-        </a>
-    </div>
-    <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem]">
-        {% csrf_token %}
-        
-        {{product_form|crispy}}
-        <div class="specifications">
-            {% for form in spec_formset %}
-                <div class="spec-form">
-                    <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification ({{ forloop.counter }})</h4>
-                    {{ form|crispy }}
-                </div>
-            {% endfor %}
+    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto">
+        <div class="flex justify-between py-[0.8rem] bg-[#D98324] px-[0.5rem] md:px-[2rem] mb-4">
+            <h1 class="text-[#fefefe] text-[15px] font-semibold">Add New Product</h1>
+            <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
+                Home
+                <i class="fa fa-solid fa-chevron-right"></i>
+            </a>
         </div>
 
-        <button type="submit" class="text-[#fefefe] flex justify-center items-center block w-[100%] m-auto py-[0.5rem] px-[1.5rem] bg-orange-400">Save Product</button>
-    </form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            
+            <div class="specifications mt-4">
+                <h3 class="text-slate-600 text-[18px] font-medium">Specifications</h3>
+                {{ formset.management_form }}
+                
+                {% for spec_form in formset %}
+                    <div class="spec-form mb-4 p-2 border rounded">
+                        {{ spec_form|crispy }}
+                    </div>
+                {% endfor %}
+            </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const addSpecButton = document.createElement('button');
-        addSpecButton.textContent = 'Add Another Specification';
-        addSpecButton.type = 'button';
-        addSpecButton.className = 'add-spec py-4  my-[1rem] hover:underline text-red-500 border border-slate-200 rounded py-[0.5rem] px-[1rem]';
-        
-        addSpecButton.addEventListener('click', () => {
-            const totalForms = document.getElementById('id_form-TOTAL_FORMS');
-            const currentFormCount = parseInt(totalForms.value);
+            <button type="button" id="add-spec" class="mb-4 bg-gray-200 px-3 py-1 rounded">
+                <i class="fa-solid fa-plus"></i> Add Specification
+            </button>
+
+            <button type="submit" class="text-orange-800 py-[0.5rem] px-[1.5rem] hover:bg-orange-400 bg-orange-300 w-full mb-[2rem]">
+                Save Product
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('add-spec').addEventListener('click', () => {
+            const totalForms = document.getElementById('id_specifications-TOTAL_FORMS');
+            const currentForms = parseInt(totalForms.value);
+            const formCopy = document.querySelector('.spec-form').cloneNode(true);
             
-            const newForm = document.querySelector('.spec-form').cloneNode(true);
-            newForm.innerHTML = newForm.innerHTML.replace(/form-(\d+)-/g, `form-${currentFormCount}-`);
-            document.querySelector('.specifications').appendChild(newForm);
-            
-            totalForms.value = currentFormCount + 1;
+            formCopy.querySelectorAll('input, select').forEach(input => {
+                if(input.name) input.name = input.name.replace(/-\d+-/g, `-${currentForms}-`);
+                if(input.id) input.id = input.id.replace(/-\d+-/g, `-${currentForms}-`);
+                input.value = '';
+            });
+
+            document.querySelector('.specifications').appendChild(formCopy);
+            totalForms.value = currentForms + 1;
         });
-        
-        document.querySelector('.specifications').appendChild(addSpecButton);
-    });
-</script>
+    </script>
 {% endblock content %}

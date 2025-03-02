@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% load humanize %} 
-{% block title %}{% endblock  %}
+{% block title %}{{ product.name }} - Details{% endblock  %}
 {% block content %}
 {% include "core/partials/nav.html" %}
 
@@ -120,7 +120,7 @@
                     </div>
                     <div class="">
                         <h2 class="text-slate-700 font-semibold text-[20px]">{{product.description}}</h2>
-                        <p class="text-slate-500 font-medium text-[16px]">{{product.name}}</p>
+                        <p class="text-slate-500 font-bold text-[15px]">{{product.name}}</p>
                     </div>
                     <div class="gap-[0.5rem] border border-red-500 rounded p-[0.5rem] my-[0.5rem]">
                         <div class="">
@@ -244,18 +244,13 @@
                 <p class="text-[15px] text-slate-600 font-bold"></p>
                 <div class="">
                     <p class="text-[15px] text-slate-500">
-                        {% if specifications %}
                                 <strong>More Details:</strong> <br>
-                                {% for spec in specifications %}
-                                    {{ spec.specification.more_details }} <br>
+                                 <br>
                                     <div class="my-[1rem]">
                                         <strong class=" text-slate-800">Key Features:</strong><br>
-                                        <strong class="text-slate-700 text-[15px]">{{ spec.key_features }}</strong> 
+                                        <strong class="text-slate-700 text-[15px]"></strong> 
                                     </div>
-                                {% endfor %}
-                            {% else %}
                             <p>No specifications available for this product.</p>
-                        {% endif %}
                     </p>
                 </div>
                 <div class="h-[400px]">
@@ -270,20 +265,17 @@
                     <div class="mt-[1rem]">
                         <p class="text-[18px] text-slate-800 font-semibold  border-b border-slate-200">Features</p>
                         <p class="text-[15px] text-slate-500">
-                            {% if specifications %}
+                            {% if specs %}
                                 <ul>
-                                    {% for spec in specifications %}
+                                    {% for spec in specs %}
                                         <li>
-                                            <strong class="text-[15px] text-slate-600">Color:</strong> <span class="text-[14px] text-slate-500">{{ spec.specification.color }}</span> <br>
-                                            <strong class="text-[15px] text-slate-600">Size:</strong> <span class="text-[14px] text-slate-500">{{ spec.specification.size }}</span> <br>
-                                            <strong class="text-[15px] text-slate-600">Weight:</strong> <span class="text-[14px] text-slate-500">{{ spec.specification.weight }}</span> <br>
-                                            <strong class="text-[15px] text-slate-600">Features:</strong> <span class="text-[14px] text-slate-500">{{ spec.features }}</span> <br>
+                                            <strong class="text-[15px] text-slate-600">{{ spec.key }}:</strong> <span class="text-[14px] text-slate-500">{{ spec.value|linebreaksbr }}</span> <br>
                                         </li>
                                         <hr>
+                                    {% empty %}
+                                        <p>No specifications available for this product.</p>
                                     {% endfor %}
                                 </ul>
-                            {% else %}
-                                <p>No specifications available for this product.</p>
                             {% endif %}
                         </p>
                     </div>
@@ -320,55 +312,23 @@
             },
         },
     });
-
-     // AJAX for Add to Cart
-     document.querySelectorAll('.add-to-cart-form').forEach(form => {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const url = this.action;
-            const formData = new FormData(this);
-
-            fetch(url, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Display success message
-                    const messagesDiv = document.getElementById('messages');
-                    const message = document.createElement('div');
-                    message.className = 'bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between';
-                    message.innerHTML = 'Product added to cart successfully! <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>';
-                    messagesDiv.appendChild(message);
-
-                    // Optionally update the cart summary or other parts of the page
-                } else {
-                    alert('Failed to add product to cart.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        });
-    });
-    // Close message
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('close-message')) {
-            event.target.parentElement.remove();
-            // Clear messages from session storage
-            sessionStorage.removeItem('messages');
-        }
-    });
-
-     // Clear messages on page load
-    window.addEventListener('load', function() {
+// Close message
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('close-message')) {
+        event.target.parentElement.remove();
+        // Clear messages from session storage
         sessionStorage.removeItem('messages');
-    });
+    }
+});
+  // Automatically remove messages after 5 seconds
+  setTimeout(function() {
+    const messages = document.getElementById('messages');
+    if (messages) {
+        messages.innerHTML = '';
+    }
+}, 5000); // 5000 milliseconds = 5 seconds
+   
 </script>
 {% endblock %}
+
+ 

@@ -49,13 +49,18 @@
         <div class="shadow bg-white p-[0.5rem] rounded-[5px] swiper mySwiper">
             <div class=" swiper-wrapper">
                 {% for category in categories %}
-                    <div class="hover:shadow-md swiper-slide">
-                        <a href="#!" class="no-ubderline text-slate-400">
+                    <div class="hover:shadow-md swiper-slide {% if current_category_id == category.id %}border-2 rounded border-orange-300{% endif %}">
+                        <a href="{% url 'all-product' category.id %}" class="no-ubderline text-slate-400">
                             {% if category.image %}
                                 <img src="{{ category.image.url }}" alt="{{ category.name }}" class="bg-slate-100 w-[100%] h-[70px] object-center object-contain">
                             {% endif %}
                             <div class="">
-                                <p class="font-medium text-[12px] text-center py-[0.5rem] text-slate-500">{{ category.name }}</p>
+                                <p class="font-medium text-[12px] text-center py-[0.5rem] text-slate-500">
+                                    {{ category.name }}
+                                    {% if current_category_id == category.id %}
+                                        <span class="block w-[20px] h-[2px] bg-orange-400 mx-auto mt-1"></span>
+                                    {% endif %}
+                                </p>
                             </div>
                         </a>
                     </div>
@@ -70,8 +75,23 @@
     <div class="mt-[1rem]">
         <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
             <div class="flex justify-between items-center px-[1rem] py-[0.8rem] bg-[#D98324] w-[100%] relative">
-                <div class="">
-                    <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">Discover our Top Daily Deal <span class="text-orange-200">( {{product.count}} products found )</span> </h3>
+                <div class="flex gap-[0.5rem] items-center">
+                    <div class="bg-orange-50 rounded shadow">
+                        <a href="{% url "all-product" %}" class="px-[0.3rem] text-orange-800 text-[14px] font-bold flex gap-[0.3rem] items-center">
+                            <i class="fa fa-solid fa-chevron-left"></i>
+                            All
+                        </a>
+                    </div>
+                    <div class="">
+                        <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">
+                            {% if current_category %}
+                                {{ current_category.name }} Products
+                            {% else %}
+                                Discover our Top Daily Deal
+                            {% endif %}
+                            <span class="text-orange-200">( {{ products.paginator.count }} products found )</span>
+                        </h3>
+                    </div>
                 </div>
                 <div class="text-[#fefefe] text-[14px] flex gap-[0.3rem] items-center">
                    <div id="sortBtn" class="bg-orange-50 text-slate-700 rounded p-[0.5rem] text-nowrap cursor-pointer">
@@ -130,10 +150,19 @@
                                     <i class="fa fa-solid fa-star text-[10px] text-orange-500"></i>
                                     <i class="fa fa-regular fa-star text-[10px] text-orange-500"></i>
                                 </div>
-                                <div class="mt-[0.5rem]">
-                                    <form action="{% url 'add_to_cart' product.id %}" method="POST" class="add-to-cart-form inline">
+                                <div class="mt-[0.5rem] flex items-center gap-[0.5rem] w-[100%]">
+                                    <button class="no-underline bg-orange-400 text-[12px] text-[#ffffff] text-nowrap block w-[100%] py-[0.4rem] rounded">
+                                        <a href="{% url "product-detail" product_id=product.id %}">
+                                            <i class="fa-solid fa-pen-to-square"></i> 
+                                            Detail
+                                        </a>
+                                    </button>
+                                    <form action="{% url 'add_to_cart' product.id %}" method="POST" class="add-to-cart-form inline w-[100%]">
                                         {% csrf_token %}
-                                        <button class="no-underline bg-orange-400 text-[14px] text-[#ffffff] block w-[100%] py-[0.4rem] rounded">Add to Cart</button>
+                                        <button class="no-underline bg-orange-400 text-[14px] text-[#ffffff] block w-[100%] py-[0.4rem] rounded">
+                                            <i class="fa-solid fa-cart-plus"></i>
+                                            Cart
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -233,56 +262,15 @@
             },
         },
     });
-
-    // AJAX for Add to Cart
-    document.querySelectorAll('.add-to-cart-form').forEach(form => {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const url = this.action;
-            const formData = new FormData(this);
-
-            fetch(url, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Display success message
-                    const messagesDiv = document.getElementById('messages');
-                    const message = document.createElement('div');
-                    message.className = 'bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between';
-                    message.innerHTML = 'Product added to cart successfully! <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>';
-                    messagesDiv.appendChild(message);
-
-                    // Optionally update the cart summary or other parts of the page
-                } else {
-                    alert('Failed to add product to cart.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        });
-    });
-    // Close message
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('close-message')) {
-            event.target.parentElement.remove();
-            // Clear messages from session storage
-            sessionStorage.removeItem('messages');
-        }
-    });
-
-     // Clear messages on page load
-    window.addEventListener('load', function() {
+ // Close message
+ document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('close-message')) {
+        event.target.parentElement.remove();
+        // Clear messages from session storage
         sessionStorage.removeItem('messages');
-    });
-
+    }
+});
+    
 </script>
+    
 {% endblock content %}

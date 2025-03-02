@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load humanize %} 
+{% block title %}Orders{% endblock  %}
+{% block content %}
+    {% include "core/partials/nav.html" %}
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
+        <div class="flex justify-between shadow py-[0.8rem] bg-slate-500 px-[0.5rem] md:px-[2rem] mb-4">
+            <h1 class="text-[18px] text-[#fefefe] font-bold ">Order History</h1>
+            <a href="{% url "home" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
+                Home
+                <i class="fa fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+        {% if orders %}
+            <div class="space-y-4">
+                {% for order in orders %}
+                    <div class="bg-white p-4 shadow rounded-lg">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex gap-[0.5rem]">
+                                <div class="">
+                                    <img src="{{order.cart_items.image.url}}" alt="" class="w-100% object-cover object-center">
+                                </div>
+                                <div class="">
+                                    <h3 class="font-semibold text-lg">Order #{{ order.id }}</h3>
+                                    <p class="text-sm text-gray-500">{{ order.order_date|date:"M d, Y H:i" }}</p>
+                                    <p class="text-sm text-gray-500">GHS {{ order.total_price|intcomma  }}</p>
+                                </div>
+                            </div>
+                           <div class="flex-col flex">
+                                <span class="px-3 py-1 text-sm rounded-full bg-green-400 text-green-50">
+                                    {{ order.status|title }}
+                                </span>
+                                <a href="{% url 'order_detail' order.id %}" class="mt-[1rem] text-gray-500 text-sm py-[0.5rem] px-[1rem] border border-slate-200 rounded-full ">
+                                    <i class="fa fa-solid fa-eye"></i>
+                                    Order #{{ order.id }}
+                                </a>
+                           </div>
+                        </div>
+                        
+                        <!-- Add order items loop here -->
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <p class="text-gray-500">No orders found</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

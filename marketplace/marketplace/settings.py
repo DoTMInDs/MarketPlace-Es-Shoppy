@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'marketplace.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'eshoppydb',
-        'USER': 'store_user',
-        'PASSWORD': 'Admin333',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
+        'NAME': os.environ.get("DB_NAME",'eshoppydb'),
+        'USER': os.environ.get("DB_USER",'store_user'),
+        'PASSWORD': os.environ.get("DB_PASSWORD",'Admin333'),
+        'HOST': os.environ.get("DB_HOST",'localhost'),
+        'PORT': os.environ.get("DB_PORT",'5432'),
     }
 }
 

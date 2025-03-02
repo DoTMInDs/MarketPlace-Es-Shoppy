@@ -21,7 +21,7 @@
                             </div>
                             <div class="">
                                 <p class="text-[14px] text-slate-600 font-medium m-0 p-0">{{ item.product.description|truncatewords:10 }}</p>
-                                <p class="text-[13px] text-slate-600 font-medium m-0 p-0">{{ item.product.name }}</p>
+                                <p class="text-[13px] text-slate-600 font-bold m-0 p-0">{{ item.product.name }}</p>
                             </div>
                         </div>
                         <div class="">
@@ -39,9 +39,9 @@
                             </a>
                         </div>
                         <div class="flex gap-[1rem] items-center">
-                            <a href="#" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem] update-quantity" data-url="{% url 'update_quantity' item.id 'decrement' %}"><i class="fa fa-solid fa-minus"></i></a>
+                            <a href="{% url 'update_quantity' item.id 'decrement' %}" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem] update-quantity" ><i class="fa fa-solid fa-minus"></i></a>
                             <p class="text-[10px]" >{{ item.quantity }}</p>
-                            <a href="#" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem] update-quantity" data-url="{% url 'update_quantity' item.id 'increment' %}"><i class="fa fa-solid fa-plus"></i></a>
+                            <a href="{% url 'update_quantity' item.id 'increment' %}" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem] update-quantity"><i class="fa fa-solid fa-plus"></i></a>
                         </div>
                     </div>
                 </div>
@@ -60,47 +60,20 @@
                 <p class="text-[15px] text-slate-700"> GHS {{ cart.total_price|default:"0.00"|intcomma }}</p>
             </div>
             <div class="bg-orange-400 w-[100%] p-[0.5rem] text-[#fefefe] text-center rounded flex justify-center items-center gap-[0.5rem]">
-               <p class=""> Checkout </p>
-                <p class=""><a href="#!" class="text-[13px]  text-[#fefefe]" id="cart-total-price">(GHS {{ cart.total_price|default:"0.00"|intcomma }}) </a></p>
+                <form action="{% url 'checkout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="text-[13px] text-[#fefefe]" id="cart-total-price">
+                        Checkout
+                        (GHS {{ cart.total_price|default:"0.00"|intcomma }}) </a>
+                    </button>
+                </form>
             </div>
        </div>
     </div>
 </div>
 
     <script>
-        // AJAX for updating quantity
-        document.querySelectorAll('.update-quantity').forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const url = this.getAttribute('data-url');
-    
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update the quantity
-                        const quantityElement = this.parentElement.querySelector('p');
-                        quantityElement.innerText = data.quantity;
-                       
-                        // Update the total price
-                        document.getElementById('cart-total-price').innerText = `GHS ${data.total_price}`;
-                    } else {
-                        alert('Failed to update quantity.');
-                    }
-                })
-               
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                });
-            });
-        });
+       
         document.getElementById('cart-total-price').innerText = 
             `GHS ${data.total_price.toLocaleString()}`;
 
@@ -109,3 +82,4 @@
     </script>
 
 {% endblock %}
+

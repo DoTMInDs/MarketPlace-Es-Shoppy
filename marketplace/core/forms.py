@@ -1,17 +1,17 @@
 # from django.forms import ModelForm
 from typing import Any
 from django import forms 
-from .models import ProfileModel,Product,Category,Specification,ProductSpecification
-from vender_center.models import Seller
+from .models import ProfileModel,Product,Category,ProductSpecification
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm 
 from django.forms import inlineformset_factory
+from vender_center.models import Seller
 
 class CreateUserForm(UserCreationForm):
     username = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your username....'}))
     email = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your email....'}))
-    password1 = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your password....'}))
-    password2 = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Confirm your password....'}))
+    password1 = forms.CharField(label="",widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password....'}))
+    password2 = forms.CharField(label="",widget=forms.PasswordInput(attrs={'placeholder': 'Confirm your password....'}))
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
@@ -24,7 +24,7 @@ class CreateUserForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your username....'}))
-    email = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your email....'}))
+    email = forms.CharField(label="",widget=forms.EmailInput(attrs={'placeholder': 'Enter your email....'}))
     class Meta:
         model = User
         fields = [ "username", "email"]
@@ -67,6 +67,18 @@ class CategoryForm(forms.ModelForm):
             "image"
         ]
 
+SpecificationFormSet = inlineformset_factory(
+    Product,
+    ProductSpecification,
+    fields=('key', 'value'),
+    extra=1,  # Show 1 empty spec field by default
+    can_delete=True,  # Allow deleting specs
+    widgets={
+        'key': forms.TextInput(attrs={'placeholder': 'Enter specification name...'}),
+        'value': forms.TextInput(attrs={'placeholder': 'Enter specification value...'}),
+    }
+)
+
 class BecomeSellerForm(forms.ModelForm):
     store_name = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter store name....'}))
     phone_number = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter phone number....'}))
@@ -81,20 +93,4 @@ class BecomeSellerForm(forms.ModelForm):
             'bio': forms.Textarea(attrs={'rows': 4}),
         }
     
-class SpecificationForm(forms.ModelForm):
-    class Meta:
-        model = Specification
-        fields = ['color', 'brand', 'weight', 'more_details']
 
-class ProductSpecificationForm(forms.ModelForm):
-    # Include fields from Specification
-    color = forms.CharField(max_length=100, required=False)
-    brand = forms.CharField(max_length=100, required=False)
-    weight = forms.CharField(required=False)
-    more_details = forms.CharField(widget=forms.Textarea, required=False)
-
-    class Meta:
-        model = ProductSpecification
-        fields = ['features', 'key_features']
-
-ProductSpecificationFormSet = inlineformset_factory(Product, ProductSpecification, form=ProductSpecificationForm, extra=1, can_delete=True)

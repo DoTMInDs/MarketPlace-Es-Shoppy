@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load humanize %} 
+{% block title %}Orders{% endblock  %}
+{% block content %}
+    {% include "core/partials/nav.html" %}
+    {% comment %} <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
+        <h2 class="text-xl font-bold mb-4">Clear Order History</h2>
+        <p class="mb-4">This will hide all your past orders. Continue?</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                Confirm Clear
+            </button>
+            <a href="{% url 'order_history' %}" class="ml-2 bg-gray-200 px-4 py-2 rounded">
+                Cancel
+            </a>
+        </form>
+    </div> {% endcomment %}
+{% endblock %}
