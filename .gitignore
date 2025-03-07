@@ -2,3 +2,5 @@
 .media/
 .env*
 .qodo/
+staticfiles
+db.sqlite3
