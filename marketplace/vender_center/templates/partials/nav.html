@@ -59,35 +59,41 @@
                         </div>
                         <!-- profile-Modal -->
                         <div class="profile-nav-modal absolute right-0 top-[50px] flex justify-center items-center " id="staticBackdrop2">
-                            <div class="bg-slate-50 md:w-[300px] m-auto w-[350px] border border-slate-300 rounded-[0.5rem]">
+                            <div class="bg-slate-50 md:w-[250px] m-auto w-[250px] border border-slate-300 rounded-[0.2rem]">
                                 <div class="modal-body">
-                                    <div class="">
-                                        <div class="">
-                                            <a href="{% url "seller-profile" username=user.username id=user.id  %}" class="flex items-center gap-[2rem] text-[#555555] no-underline text-nowrap p-[1rem] hover:bg-[#ebebeb]">
-                                            <p> <i class="fa-solid fa-gear p_user"></i></p>
+                                    <div class="p-[0.3rem]">
+                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
+                                            <a href="{% url "seller-profile" user.username user.id %}" class="flex items-center gap-[0.8rem] text-[14px] text-slate-500 no-underline text-nowrap ">
+                                                <p> <i class="fa-solid fa-gear p_user"></i></p>
                                                 <p class="">Manage account</p>
                                             </a>
                                         </div>
-                                        <div class="">
-                                            <a href="#!" class='flex gap-[2rem] items-center p-[1rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
+                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
+                                            <a href="{% url "admin:index" %}" class="flex items-center gap-[0.8rem] text-[14px] text-slate-500 no-underline text-nowrap ">
+                                            <p> <i class="fa-solid fa-gears p_user"></i></p>
+                                                <p class="">Admin</p>
+                                            </a>
+                                        </div>
+                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
+                                            <a href="#!" class='flex gap-[0.8rem] items-center no-underline text-nowrap text-[14px] text-slate-500 '>
                                                 <p> <i class="fa-solid fa-circle-user"></i></p>
                                                 <p class="">Dashboard</p>
                                             </a>
                                         </div>
-                                        <div class="">
-                                            <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
+                                            <a href="#!" class=' flex gap-[0.8rem] items-center text-[14px] text-slate-500 no-underline text-nowrap '>
                                                 <p><i class="fa-solid fa-user-pen"></i></p>
                                                 <p class="">Reviews</p>
                                             </a>
                                         </div>
-                                        <div class="" >
-                                            <a href="#!" class=' flex gap-[2rem] items-center p-[1rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200" >
+                                            <a href="#!" class=' flex gap-[0.8rem] items-center text-[14px] text-slate-500 no-underline text-nowrap '>
                                                 <p><i class="fa-regular fa-heart"></i></p>
                                                 <p class="">Saved</p>
                                             </a>
                                         </div>
-                                        <div class="">
-                                            <a href="{% url "logout" %}" class='flex gap-[2rem] text-[#555555] no-underline text-nowrap items-center p-[1rem] hover:bg-[#ebebeb]'>
+                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
+                                            <a href="{% url "logout" %}" class='flex gap-[0.8rem] text-[14px] text-slate-500 no-underline text-nowrap items-center '>
                                                 <p><i class="fa-solid fa-arrow-right-from-bracket"></i></p>
                                                 <p class="">Sign out</p>
                                             </a>
@@ -159,7 +165,213 @@
     </div>
 </nav>
 
+<!--PWA-Mobile-View-->
+<div class="mobile-nav-wrapper">
+    <div class="mobile-nav-container">
+        <div class="flex items-center cursor-pointer">
+            <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center">
+                <p class=""><img src="{% static 'assets/big-esse-(1).png' %}" height="64px" class="w-[30px] rounded-full object-center object-cover"></p>
+                <h4 class=" text-orange-600 hover:text-teal-800 font-semibold">Es-Shoppy</h4>
+            </a>
+        </div>
+        <div class="mobile-search-wrapper">
+            <div class="">
+                <div class="" id="openSearch">
+                    <i class="fa-solid fa-magnifying-glass text-[18px] text-slate-400 cursor-pointer" ></i>
+                </div>
+            </div>
+            <div>
+                <i class="fa-solid fa-gear text-[18px] text-slate-500 cursor-pointer" ></i>
+            </div>
+        </div>
+        <form action="" method="get" class="mobile-form-wrapper mt-[0.1rem] bg-[#fefefe]">
+            <div class="mobile-input-search" id="mobileInput">
+                <p class="close-search mr-[0.5rem]" id="closeSearch"><i class="fa-solid fa-chevron-left text-[18px] text-orange-300 cursor-pointer" ></i></p>
+                <div class="flex items-center w-[100%] px-[1rem] border border-slate-300 rounded-full">
+                    <i class="fa-solid fa-magnifying-glass text-[18px] text-orange-300 cursor-pointer" ></i>
+                    <input type="search" name="search" placeholder="Search FitBlog..." class="w-full  py-[3px] px-[6px] bg-transparent outline-none">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mobile-footer-wrapper">
+    <div class="mobile-footer-container">
+        <div class="">
+            <a href="{% url "home" %}" class="no-underline gap-[0.5rem] text-[#3b5361] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
+                <i class="fa fa-solid fa-home text-[14px] text-[#3b5361]"></i>
+                Home
+            </a>
+        </div>
+       <div class="relative text-slate-500 no-underline flex items-center gap-[0.8rem]">
+            <a href="{% url "cart_view" %}" class="no-underline gap-[0.5rem] text-[#3b5361] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
+                <i class="fa fa-solid fa-cart-shopping text-[14px] text-[#3b5361]"></i>
+                Cart
+            </a>
+            <p class="absolute mt-[-160%] ml-[50%] bg-orange-300 text-[#fdfdfd] text-[9px] font-bold text-center border-[1px] border-slate-50 w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+       </div>
+       <div class="">
+            <div id="mobile-list-trigger" class="mobile-list-dropup ">
+                <i class="fa fa-regular fa-plus border border-orange-500 border-opacity-20 rounded-full p-[0.8rem] text-[14px] text-orange-600"></i>
+            </div>
+            <div class="mobile-list-items" id="mobile-list-item">
+                <div>
+                    <a href="{% url "orders" %}" class="text-[#3b5361] text-[14px] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
+                        <i class="fa-solid fa-bell"></i>
+                        Order
+                    </a>
+                    <a href="{% url "add-product" %}" class="border-t border-slate-100 text-[#3b5361] hover:bg-slate-100 text-[14px] p-[1rem] no-underline flex items-center gap-[10px]">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        Add Product
+                    </a>
+                    <a href="{% url "manage-product" %}" class="border-t border-slate-100 text-[#3b5361] text-[14px] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
+                        <i class="fa-solid fa-pen"></i>
+                        My Products
+                    </a>
+                </div>
+            </div>
+       </div>
+        <div class="">
+            <a href="{% url "become-seller" %}" class="no-underline text-[#3b5361] gap-[0.5rem] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
+                <i class="fa fa-solid fa-bag-shopping text-[14px] text-[#3b5361]"></i>
+                Sell
+            </a>
+        </div>
+        <div class="" >
+            {% if user.is_authenticated %}
+                <div  class="static-backdrop-btn flex items-center text-[#3D5361] rounded-full  bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all ">
+                    {% if user.profilemodel.image %}
+                        <img class=" w-[30px] h-[30px] rounded-[50%] object-cover object-center " src=" {{ user.profilemodel.image.url }} " alt="Profile Image">
+                    {% endif %}
+                </div>
+                <!-- profile-Modal -->
+                <div class="" id="staticBackdrop4">
+                    <div class="bg-slate-50  w-[100%] border border-slate-300 rounded-t-[0.5rem]">
+                        <div class="modal-body">
+                            <div class="">
+                                <div class="p-[0.3rem]">
+                                    <a href="{% url "profile" user.username user.id %}" class="flex items-center text-[14px] gap-[1rem] text-[#555555] no-underline text-nowrap px-[0.8rem] py-[0.6rem] hover:bg-[#ebebeb]">
+                                    <p> <i class="fa-solid fa-gear text-slate-500"></i></p>
+                                        <p class="">Manage account</p>
+                                    </a>
+                                </div>
+                                <div class="p-[0.3rem]">
+                                    <a href="{% url "admin:index" %}" class="flex items-center gap-[1rem] text-[14px] text-[#555555] no-underline text-nowrap px-[0.8rem] py-[0.6rem] hover:bg-[#ebebeb]">
+                                    <p> <i class="fa-solid fa-gears text-slate-500 "></i></p>
+                                        <p class="">Admin</p>
+                                    </a>
+                                </div>
+                                <div class="p-[0.3rem]">
+                                    <a href="#!" class='flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
+                                        <p> <i class="fa-solid fa-circle-user text-slate-500"></i></p>
+                                        <p class="">Dashboard</p>
+                                    </a>
+                                </div>
+                                <div class="p-[0.3rem]">
+                                    <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                        <p><i class="fa-solid fa-user-pen text-slate-500"></i></p>
+                                        <p class="">Reviews</p>
+                                    </a>
+                                </div>
+                                <div class="p-[0.3rem]">
+                                    <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                        <p><i class="fa-regular fa-heart text-slate-500"></i></p>
+                                        <p class="">Saved</p>
+                                    </a>
+                                </div>
+                                <div class="p-[0.3rem]">
+                                    <a href="{% url "logout" %}" class='flex gap-[1rem] text-[14px] text-[#555555] no-underline text-nowrap items-center px-[0.8rem] py-[0.6rem] hover:bg-[#ebebeb]'>
+                                        <p><i class="fa-solid fa-arrow-right-from-bracket text-slate-500"></i></p>
+                                        <p class="">Sign out</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                </div>
+                {% else %}
+                <div class="dropup" >
+                    <div class="" id="userBtn">
+                        <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center " src="{% static "assets/default.png" %} " alt="Default Profile Image">
+                    </div>
+                    <ul class="dropdown-menu bg-slate-50 w-[150px] border border-slate-200 rounded" id="userContainer">
+                        <a href="{% url "signup" %}" class="flex items-center text-[13px] hover:bg-slate-200 p-[1rem]  font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                            Sign up
+                        </a>
+                        <a href="{% url "login" %}" class="flex items-center text-[#3b5361] hover:bg-slate-200 p-[1rem]  text-[13px] font-semibold text-nowrap no-underline transition">
+                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                            Login
+                        </a>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+            
+    </div>
+</div>
+
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Profile Toggle for Desktop
+        const profileBtnDesktop = document.getElementById('staticBackdropbtn1');
+        const profileModalDesktop = document.getElementById('staticBackdrop2');
+    
+        if (profileBtnDesktop && profileModalDesktop) {
+            profileBtnDesktop.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileModalDesktop.classList.toggle('show');
+            });
+    
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!profileModalDesktop.contains(e.target) && !profileBtnDesktop.contains(e.target)) {
+                    profileModalDesktop.classList.remove('show');
+                }
+            });
+        }
+    
+        // Profile Toggle for Mobile
+        const profileBtnMobile = document.querySelector('.static-backdrop-btn');
+        const profileModalMobile = document.getElementById('staticBackdrop4');
+    
+        if (profileBtnMobile && profileModalMobile) {
+            profileBtnMobile.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileModalMobile.classList.toggle('show');
+            });
+    
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!profileModalMobile.contains(e.target) && !profileBtnMobile.contains(e.target)) {
+                    profileModalMobile.classList.remove('show');
+                }
+            });
+        }
+    
+        // Rest of your existing code...
+        const openSearch = document.getElementById('openSearch');
+        const closeSearch = document.getElementById('closeSearch');
+        const mobileInput = document.getElementById('mobileInput');
+        openSearch.addEventListener('click', () => {
+            mobileInput.classList.toggle('search-input');
+            // console.log('clicked')
+        })
+        closeSearch.addEventListener('click', () => {
+            mobileInput.classList.toggle('search-input');
+            // console.log('clicked')
+        })
+    
+        const userBtn = document.getElementById('userBtn');
+        const userContainer = document.getElementById('userContainer'); 
+        userBtn.addEventListener('click', () =>{
+            // console.log('clicked user')
+            userContainer.classList.toggle('mobileUserActive');
+        })
+    });
+  
+
     const productBtn = document.getElementById('productBtn');
     const productItems = document.getElementById('productItem');
     const productBtn1 = document.getElementById('productBtn1');
@@ -174,7 +386,7 @@
         productItems1.classList.toggle('product-active')
     });
 
-        // Mobile menu
+    // Mobile menu
     const mobileMenu = document.getElementById('mobile_menu');
     const navLinks = document.getElementById('nav-links');
 
@@ -184,19 +396,12 @@
         // console.log('clicked');
     });
 
-    const staticBackdropbtn1 = document.getElementById('staticBackdropbtn1');
-    const staticBackdropBtn = document.querySelector('.static-backdrop-btn');
-    const staticBackdrop2 = document.getElementById('staticBackdrop2');
-    const staticBackdrop4 = document.getElementById('staticBackdrop4');
-    
-    staticBackdropbtn1.addEventListener('click', () => {
-       // console.log('clicked user')
-        staticBackdrop2.classList.toggle('backdropActive1');
-    });
-    staticBackdropBtn.addEventListener('click', () => {
-        console.log('clicked user1')
-        staticBackdrop4.classList.toggle('backdropActive4');
-    });
+    let mobilePlusListTrigger = document.getElementById('mobile-list-trigger');
+    let mobileListItem = document.getElementById('mobile-list-item');
+    mobilePlusListTrigger.addEventListener('click', () => {
+        mobileListItem.classList.toggle('mobile-list-active');
+    })
+
 
 </script>
 {% endblock  %}

@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.decorators import user_passes_test
-from core.forms import ProductForm,BecomeSellerForm,CategoryForm,SpecificationFormSet
+from core.forms import ProductForm,BecomeSellerForm,CategoryForm,SpecificationFormSet,ProductImageFormSet
 from vender_center.models import Seller
+from django.db import transaction
 from core.models import Product,ProfileModel,Order,SellerOrder
 from .forms import SellerProfileForm
 from django.forms import formset_factory
@@ -18,27 +19,29 @@ def add_product(request):
     if not hasattr(request.user, 'seller'):
         return redirect('become-seller')
     
-    # form = ProductForm()
-    # c_form = CategoryForm()
-    # product = get_object_or_404(Product, id=product_id) if product_id else None
-    
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
         formset = SpecificationFormSet(request.POST)
+        image_formset = ProductImageFormSet(request.POST,request.FILES)
         
-        if form.is_valid() and formset.is_valid():
-            product = form.save(commit=False)
-            product.seller = request.user.seller
-            product.save()
-            formset.instance = product
-            formset.save()
+        if form.is_valid() and formset.is_valid() and image_formset.is_valid():
+            with transaction.atomic():
+                product = form.save(commit=False)
+                product.seller = request.user.seller
+                product.save()
+                formset.instance = product
+                formset.save()
+                image_formset.instance = product
+                image_formset.save()
             return redirect('manage-product')
     else:
         form = ProductForm()
         formset = SpecificationFormSet()
+        image_formset = ProductImageFormSet()
     
     context = {
         "form":form,
+        "image_formset": image_formset,
         'formset': formset,
         'is_editing': False
     }
@@ -78,7 +81,8 @@ def become_seller(request):
 
 def manage_product(request):
     seller = Seller.objects.get(user=request.user)
-    products = Product.objects.filter(seller=seller)
+    # products = Product.objects.filter(seller=seller)
+    products = Product.objects.filter(seller=seller).select_related('category')
     
     context = {
         "products":products
@@ -91,18 +95,23 @@ def edit_product(request, product_id):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         formset = SpecificationFormSet(request.POST, instance=product)
+        image_formset = ProductImageFormSet(request.POST, request.FILES,instance=product)
         
-        if form.is_valid() and formset.is_valid():
-            form.save()
-            formset.save()
-            messages.success(request, 'Product and specifications updated successfully!')
-            return redirect('manage-product')  # Redirect to the manage product page or any other page
+        if form.is_valid() and formset.is_valid() and image_formset.is_valid():
+            with transaction.atomic():
+                form.save()
+                formset.save()
+                image_formset.save()     
+            messages.success(request, 'Product updated successfully!')
+            return redirect('manage-product') 
     else:
         form = ProductForm(instance=product)
         formset = SpecificationFormSet(instance=product)
+        image_formset = ProductImageFormSet(instance=product)
     context = {
         'form': form,
         'formset': formset,
+        'image_formset': image_formset,
         'is_editing': True  
     }
     return render(request, 'vender/edit-product.html',context)

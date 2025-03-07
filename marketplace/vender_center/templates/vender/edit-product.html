@@ -13,6 +13,17 @@
     <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem]">
         {% csrf_token %}
         {{form|crispy}}
+
+        {{ image_formset.management_form }}
+        {% for image_form in image_formset %}
+            {{ image_form.id }}
+            {% if image_form.instance.pk %}
+                <img src="{{ image_form.instance.attached_image.url }}" width="100">
+                {{ image_form.DELETE }} Delete?
+            {% endif %}
+            {{ image_form.attached_image }}
+        {% endfor %}
+        
         <div class="specifications">
             <div class="spec-form">
                 <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification</h4>

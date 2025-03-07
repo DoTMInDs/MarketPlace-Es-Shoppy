@@ -76,12 +76,15 @@
         <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
             <div class="flex justify-between items-center px-[1rem] py-[0.8rem] bg-[#D98324] w-[100%] relative">
                 <div class="flex gap-[0.5rem] items-center">
+                    {% if current_category %}
                     <div class="bg-orange-50 rounded shadow">
                         <a href="{% url "all-product" %}" class="px-[0.3rem] text-orange-800 text-[14px] font-bold flex gap-[0.3rem] items-center">
                             <i class="fa fa-solid fa-chevron-left"></i>
                             All
                         </a>
                     </div>
+                    {% else %}
+                    {% endif %}
                     <div class="">
                         <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">
                             {% if current_category %}
@@ -173,23 +176,23 @@
         </div>
     </div>
     <!-- Pagination -->
-    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex justify-center py-[4rem]">
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex justify-center py-[4rem] product-pagina-mobile">
         <nav class="flex justify-center" aria-label="Pagination">
             <ul class="flex items-center gap-1 md:gap-2">
                 <!-- Previous Button -->
                 {% if products.has_previous %}
                     <li>
                         <a href="?page={{ products.previous_page_number }}" 
-                           class="flex items-center px-3 py-2 md:px-4 md:py-2 border border-slate-200 text-gray-500 hover:bg-gray-100 rounded-lg transition-all duration-300"
+                           class="flex items-center px-3 py-1 md:px-3 md:py-1 border border-orange-600 border-opacity-25 text-gray-500 hover:bg-gray-100 rounded-full transition-all duration-300"
                            aria-label="Previous">
-                           <span class="text-[15px]"><i class="fa fa-solid fa-chevron-left text-slate-600"></i></span>
+                           <span class="text-[15px]"><i class="fa fa-solid fa-chevron-left text-[14px] text-slate-500"></i></span>
                         </a>
                     </li>
                 {% else %}
                     <li>
-                        <span class="flex items-center px-3 py-2 md:px-4 md:py-2 border border-slate-200 text-gray-500 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
+                        <span class="flex items-center px-3 py-1 md:px-3 md:py-1 border border-orange-600 border-opacity-20 text-gray-500 rounded-full transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
                               aria-label="Previous">
-                              <span class="text-[15px]"><i class="fa fa-solid fa-chevron-left text-slate-200"></i></span>
+                              <span class="text-[15px]"><i class="fa fa-solid fa-chevron-left text-[14px] text-slate-200"></i></span>
                         </span>
                     </li>
                 {% endif %}
@@ -198,12 +201,12 @@
                 {% for num in products.paginator.page_range %}
                     {% if products.number == num %}
                         <li>
-                            <span class="px-3 py-2 md:px-4 md:py-2 bg-blue-500 border border-slate-200 text-white rounded-lg transition-all duration-300">{{ num }}</span>
+                            <span class="px-3 py-2 md:px-4 md:py-2 bg-orange-300 border border-slate-200 text-white rounded-full transition-all duration-300">{{ num }}</span>
                         </li>
                     {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
                         <li>
                             <a href="?page={{ num }}"
-                               class="px-3 py-2 md:px-4 md:py-2 text-gray-600 hover:bg-gray-100 border border-slate-200 rounded-lg transition-all duration-300">{{ num }}</a>
+                               class="px-3 py-2 md:px-4 md:py-2 text-gray-600 hover:bg-gray-100 border border-slate-200 rounded-full transition-all duration-300">{{ num }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -212,16 +215,16 @@
                 {% if products.has_next %}
                     <li>
                         <a href="?page={{ products.next_page_number }}"
-                           class="flex items-center px-3 py-2 md:px-4 md:py-2 border border-slate-200 text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-300"
+                           class="flex items-center px-3 py-1 md:px-3 md:py-1 border border-orange-600 border-opacity-20 text-gray-600 hover:bg-gray-100 rounded-full transition-all duration-300"
                            aria-label="Next">
-                            <span class="text-[15px]"><i class="fa fa-solid fa-chevron-right text-slate-500"></i></span>
+                            <span class="text-[15px]"><i class="fa fa-solid fa-chevron-right text-[14px] text-slate-500"></i></span>
                         </a>
                     </li>
                 {% else %}
                     <li>
-                        <span class="flex items-center px-3 py-2 md:px-4 md:py-2 text-gray-500 rounded-lg border border-slate-200 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
+                        <span class="flex items-center px-3 py-1 md:px-3 md:py-1 text-gray-500 rounded-full border border-slate-200 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
                               aria-label="Next">
-                              <span class="text-[15px]"><i class="fa fa-solid fa-chevron-right text-slate-200"></i></span>
+                              <span class="text-[15px]"><i class="fa fa-solid fa-chevron-right text-[14px] text-slate-200"></i></span>
                         </span>
                     </li>
                 {% endif %}

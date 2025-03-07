@@ -16,6 +16,13 @@
         width: 40px;
         height: auto;
     }
+    .swiper-slide img {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .swiper-slide img.border-2 {
+        border: 2px solid #f97316 !important;
+    }
     .swiper-button-next,
     .swiper-button-prev {
         color:rgb(255, 255, 255);
@@ -54,37 +61,20 @@
                    <div class="md:max-w-[250px] w-[100%] m-auto">
                         <div class="w-[100%]">
                             {% if product.image %}
-                                <img src="{{product.image.url}}" alt="{{product.name}}" class="w-[100%] h-[100%] object-center object-cover">
+                                <img id="main-image" src="{{product.image.url}}" alt="{{product.name}}" class="w-[100%] h-[100%] object-center object-cover">
                             {% endif %}
                         </div>
                         <div class="swiper mySwiper ">
                             <div class="swiper-wrapper">
+                                {% for image in product.images.all %}
                                 <div class="swiper-slide ">
                                     <div class="">
-                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
+                                        {% if image.attached_image %}
+                                            <img src="{{ image.attached_image.url }}" alt="" class="w-[100%] object-center object-cover">
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <div class="swiper-slide ">
-                                    <div class="">
-                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide ">
-                                    <div class="">
-                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide ">
-                                    <div class="">
-                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
-                                    </div>
-                                </div>
-                                
-                                <div class="swiper-slide ">
-                                    <div class="">
-                                        <img src="https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0527401/2.jpg?3101" alt="" class="w-[100%] object-center object-cover">
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                             <!-- Navigation buttons -->
                             <div class="swiper-button-next"></div>
@@ -177,7 +167,7 @@
                </div>
            </div>
        </div>
-      <div class="flex gap-[0.5rem] basis-[30%] md:flex-col flex-row md:flex-row">
+      <div class="flex gap-[0.5rem] basis-[30%] md:flex-col flex-row md:flex-row delivery-content-mobile">
             <div class="shadow rounded bg-white  p-[0.5rem] h-[100%]">
                 <div class="py-[0.5rem] border-b border-slate-200">
                     <p class="text-[15px] text-slate-600 font-bold uppercase">delivery & returns</p>
@@ -234,11 +224,11 @@
       </div>
     </div>
 </div>
-<div class="my-[1rem] flex w-[100%] md:w-[80%] lg:w-[60%] m-auto">
+<div class="my-[1rem] flex w-[100%] md:w-[80%] lg:w-[60%] m-auto more-details-mobile">
     <div class="shadow bg-white md:basis-[70%] basis-[100%] rounedd">
         <div class="">
             <div class="border-b border-slate-200 py-[0.5rem]">
-                <h2 class="text-[18px] text-slate-600 font-bold px-[1rem]">Product details for ( {{product.name}} )</h2>
+                <h2 class="product-spec-mobile text-[18px] text-slate-600 font-bold px-[1rem]">Product details for <span class="text-orange-800"> ( {{product.name}} )</span></h2>
             </div>
             <div class="p-[1rem]">
                 <p class="text-[15px] text-slate-600 font-bold"></p>
@@ -312,6 +302,17 @@
             },
         },
     });
+    // Add click event to thumbnails
+    document.querySelectorAll('.swiper-slide img').forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            // Update main image source
+            document.getElementById('main-image').src = this.src;
+            // Optional: Add active state to thumbnail
+            document.querySelectorAll('.swiper-slide img').forEach(img => img.classList.remove('border-2', 'border-orange-400'));
+            this.classList.add('border-2', 'border-orange-400');
+        });
+    });
+
 // Close message
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('close-message')) {

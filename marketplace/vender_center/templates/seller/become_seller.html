@@ -2,10 +2,10 @@
 {% load static %}
 {% load tailwind_filters %}
 {% block content %}
-    <form action="" method="post" enctype="multipart/form-data" class="w-[100%] md:w-[45%] m-auto">
+    <form action="" method="post" enctype="multipart/form-data" class="w-[100%] md:px-0 px-[0.5rem]  md:w-[45%] m-auto">
         {% csrf_token %}
         <h1 class="">Become a Seller</h1>
         {{form|crispy}}
-        <button type="submit" class="text-[#fefefe] py-[0.5rem] px-[1.5rem] bg-slate-500">Register as Seller</button>
+        <button type="submit" class="text-[#fefefe] py-[0.5rem] md:w-[200px] m-auto text-center w-[100%] rounded-full px-[1.5rem] bg-orange-400">Register as Seller</button>
     </form>
 {% endblock content %}

@@ -6,9 +6,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required 
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
-from .models import ProfileModel,Product,Order, Rating, Wishlist, Category,OrderProduct,ProductSpecification
+from .models import ProfileModel,Product,Order, Rating, Category,OrderProduct,ProductSpecification
 from .forms import CreateUserForm, ProfileUpdateForm,UserUpdateForm
 from vender_center.models import Seller
 
@@ -51,7 +52,7 @@ def sign_up(request):
 @login_required
 def profile_view(request, username, id):
     user = get_object_or_404(User, username=username, id=id)
-    profile = get_object_or_404(ProfileModel, user=user)
+    profile = get_object_or_404(ProfileModel,user=user)
 
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST or None, instance=user)
@@ -84,8 +85,6 @@ def home(request, category_id=None):
             pass
 
     products = Product.objects.all()
-    # products = Product.objects.all()[:10] if not category_id else \
-    #            Product.objects.filter(category_id=category_id)
     
     if search_query:
         products = products.filter(
@@ -94,7 +93,7 @@ def home(request, category_id=None):
             Q(category__name__icontains=search_query)
         )
     if category_id:
-        products = products.filter(category_id=category_id)
+        products = products.filter(category__id=category_id)
     if not search_query and not category_id:
         products = products[:10]
     
@@ -199,6 +198,22 @@ def add_to_cart(request, product_id):
     
     cart.update_total_price()
     return redirect('all-product')  
+
+def checkout_view(request):
+    try:
+        # Get the current user's profile
+        # profile = request.user.profilemodel  # Assuming your ProfileModel has a OneToOne relation to User
+        profile, _ = ProfileModel.objects.get_or_create(user=request.user)
+        cart = Order.objects.get(buyer=request.user, status='cart')
+    except (ProfileModel.DoesNotExist, Order.DoesNotExist):
+        profile = None
+        cart = None
+    
+    context = {
+        'profile': profile,
+        'cart': cart
+    }
+    return render(request, "core/products/checkout.html",context)
     
 @login_required
 def update_quantity(request, item_id, action):
@@ -253,16 +268,11 @@ def order_detail(request, order_id):
         'order': order
     })   
 
-# @login_required
-# def clear_order_history(request):
-#     if request.method == 'POST':
-#         # Archive instead of delete
-#         Order.objects.filter(
-#             buyer=request.user,
-#             status='ordered'
-#         ).update(is_archived=True)
-        
-#         messages.success(request, "Order history has been cleared")
-#         return redirect('order_history')
+@login_required
+def wishlist(request):
+    # products = Wishlist.objects.all()
     
-#     return render(request, 'core/orders/confirm_clear.html')
+    context = {
+        # "products":products
+    }
+    return render(request, "core/products/whishlist.html",context)

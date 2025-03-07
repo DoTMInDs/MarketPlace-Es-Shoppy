@@ -1,11 +1,12 @@
 # from django.forms import ModelForm
 from typing import Any
 from django import forms 
-from .models import ProfileModel,Product,Category,ProductSpecification
+from .models import ProfileModel,Product,Category,ProductSpecification,ProductImage
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm 
 from django.forms import inlineformset_factory
 from vender_center.models import Seller
+from cloudinary.forms import CloudinaryFileField
 
 class CreateUserForm(UserCreationForm):
     username = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your username....'}))
@@ -93,4 +94,29 @@ class BecomeSellerForm(forms.ModelForm):
             'bio': forms.Textarea(attrs={'rows': 4}),
         }
     
-
+class ProductImageForm(forms.ModelForm):
+    attached_image = CloudinaryFileField(
+        options={'folder': 'product_images'}
+    )
+    class Meta:
+        model = ProductImage
+        fields = [
+            "attached_image"
+        ]
+        widgets = {
+            'attached_image': forms.FileInput(attrs={
+                'class': 'form-control-file',
+                'accept': 'image/*'
+            })
+    }
+ProductImageFormSet = inlineformset_factory(
+    Product,
+    ProductImage,
+    form=ProductImageForm,
+    fields=('attached_image',),
+    extra=3,
+    can_delete=True,
+    max_num=6,  # Maximum total images (existing + new)
+    validate_max=True,
+    
+)

@@ -4,7 +4,7 @@
 {% block title %}{% endblock  %}
 {% block content %}
 {% include "core/partials/nav.html" %}
-<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] cart-mobile">
     <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row">
        <div class="shadow bg-white basis-[70%]">
             <div class="p-[0.5rem] border-b border-slate-200">
@@ -60,13 +60,12 @@
                 <p class="text-[15px] text-slate-700"> GHS {{ cart.total_price|default:"0.00"|intcomma }}</p>
             </div>
             <div class="bg-orange-400 w-[100%] p-[0.5rem] text-[#fefefe] text-center rounded flex justify-center items-center gap-[0.5rem]">
-                <form action="{% url 'checkout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="text-[13px] text-[#fefefe]" id="cart-total-price">
-                        Checkout
-                        (GHS {{ cart.total_price|default:"0.00"|intcomma }}) </a>
-                    </button>
-                </form>
+                <button type="submit" class="" >
+                    <a href="{% url "checkout_view" %}" class="text-[15px] font-medium text-[#fefefe]">
+                        Checkout 
+                        (GHS {{ cart.total_price|default:"0.00"|intcomma }})
+                    </a>
+                </button>
             </div>
        </div>
     </div>
