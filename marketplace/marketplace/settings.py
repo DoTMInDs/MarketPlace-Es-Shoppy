@@ -40,6 +40,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", False))
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(' ')
 CORS_ALLOW_ALL_ORIGINS = True

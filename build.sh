@@ -4,7 +4,7 @@ python marketplace/manage.py collectstatic --noinput
 python marketplace/manage.py migrate
 
 
-if [ "$DJANGO_CREATEUSER" == "1" ]; then 
+if [[ $DJANGO_CREATEUSER ]]; then 
     python marketplace/manage.py createsuperuser --noinput
 fi
 
