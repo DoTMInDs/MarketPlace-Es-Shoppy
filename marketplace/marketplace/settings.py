@@ -49,6 +49,8 @@ CSRF_TRUSTED_ORIGINS=os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost').
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
+    'vender_center.apps.VenderCenterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,8 +59,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
-    'core',
-    'vender_center',
     'crispy_forms',
     "crispy_tailwind",
     'cloudinary',
