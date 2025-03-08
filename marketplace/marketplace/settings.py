@@ -18,6 +18,8 @@ logger = logging.getLogger(__name__)
 
 from dotenv import load_dotenv
 # import dj_database_url
+# from urllib.parse import quote_plus
+# python marketplace/manage.py runserver 0.0.0.0:$PORT
 
 load_dotenv()
 
@@ -104,6 +106,22 @@ WSGI_APPLICATION = 'marketplace.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL'),
+#         conn_max_age=600
+#     )
+# }
+
+# DB_URL = os.environ.get('DATABASE_URL')
+# if DB_URL:
+#     DB_URL = DB_URL.replace('postgres://', 'postgresql://', 1)
+#     DATABASES = {
+#         'default': dj_database_url.parse(DB_URL)
+#     }
+# else:
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
@@ -114,7 +132,6 @@ DATABASES = {
         'PORT': os.environ.get("DB_PORT",'5432'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
