@@ -10,14 +10,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+import logging
 from pathlib import Path
 import cloudinary_storage
 
+logger = logging.getLogger(__name__)
 
 from dotenv import load_dotenv
-import dj_database_url
+# import dj_database_url
 
 load_dotenv()
+
+logger.info('here are the environment variables')
+for k in os.environ:
+    logger.info(f"{k}={os.environ[k]}")
+logger.info('end')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
