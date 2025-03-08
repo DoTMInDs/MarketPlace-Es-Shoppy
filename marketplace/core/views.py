@@ -75,6 +75,7 @@ def profile_view(request, username, id):
     return render(request, 'core/accounts/profile/profile.html', context)
 
 def home(request, category_id=None):
+    products = Product.objects.all()
     cart = None
     search_query = request.GET.get('search', '')
     
@@ -84,7 +85,6 @@ def home(request, category_id=None):
         except Order.DoesNotExist:
             pass
 
-    products = Product.objects.all()
     
     if search_query:
         products = products.filter(
