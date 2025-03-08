@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 from dotenv import load_dotenv
 # import dj_database_url
 # from urllib.parse import quote_plus
-# python marketplace/manage.py runserver 0.0.0.0:$PORT
+
 
 load_dotenv()
 
