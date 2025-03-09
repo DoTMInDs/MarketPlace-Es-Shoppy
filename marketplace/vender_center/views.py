@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.decorators import user_passes_test
-from core.forms import ProductForm,BecomeSellerForm,CategoryForm,SpecificationFormSet,ProductImageFormSet
+from core.forms import ProductForm,BecomeSellerForm,CategoryForm,SpecificationFormSet,ProductImageFormSet,ProductImageForm
 from vender_center.models import Seller
 from django.db import transaction
-from core.models import Product,ProfileModel,Order,SellerOrder
+from core.models import Product,ProfileModel,Order,SellerOrder,ProductSpecification,ProductImage
 from .forms import SellerProfileForm
 from django.forms import formset_factory
 
@@ -26,37 +26,80 @@ def vender_center(request):
     }
     return render(request, 'vender/vender_center.html',context)
 
+# def add_product(request):
+#     if not hasattr(request.user, 'seller'):
+#         return redirect('become-seller')
+   
+#     if request.method == "POST":
+#         form = ProductForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             product = form.save(commit=False)
+#             product.seller = request.user.seller
+#             product.save()
+#             return redirect('manage-product')
+#         else:
+#             messages.error(request, "Form validation failed")
+#     else:
+#         form = ProductForm()
+    
+#     context = {
+#         "form":form,
+#         'is_editing': False
+#     }
+#     return render(request, 'vender/add-product.html',context)
+
 def add_product(request):
     if not hasattr(request.user, 'seller'):
         return redirect('become-seller')
-    
+
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
-        formset = SpecificationFormSet(request.POST)
-        image_formset = ProductImageFormSet(request.POST,request.FILES)
-        
-        if form.is_valid() and formset.is_valid() and image_formset.is_valid():
-            with transaction.atomic():
-                product = form.save(commit=False)
-                product.seller = request.user.seller
-                product.save()
-                formset.instance = product
-                formset.save()
-                image_formset.instance = product
-                image_formset.save()
-            return redirect('manage-product')
+        formset = SpecificationFormSet(request.POST, prefix='specs')
+        image_formset = ProductImageFormSet(request.POST, request.FILES, prefix='images')
+
+        if all([
+            form.is_valid(),
+            formset.is_valid(),
+            image_formset.is_valid()
+        ]):
+            try:
+                with transaction.atomic():
+                    # Save main product
+                    product = form.save(commit=False)
+                    product.seller = request.user.seller
+                    product.save()
+
+                    # Save specifications
+                    formset.instance = product
+                    formset.save()
+
+                    # Save images
+                    image_formset.instance = product
+                    image_formset.save()
+                    messages.success(request, 'Product added successfully!')
+
+                    return redirect('manage-product')
+
+            except Exception as e:
+                messages.error(request, f"Error saving product: {str(e)}")
+        else:
+            messages.error(request, "Please fix the errors below")
+            print("Form errors:", form.errors)
+            print("Formset errors:", formset.errors)
+            print("Image formset errors:", image_formset.errors)
+
     else:
         form = ProductForm()
-        formset = SpecificationFormSet()
-        image_formset = ProductImageFormSet()
-    
+        formset = SpecificationFormSet(prefix='specs') 
+        image_formset = ProductImageFormSet(prefix='images') 
+
     context = {
-        "form":form,
+        "form": form,
+        "formset": formset,
         "image_formset": image_formset,
-        'formset': formset,
         'is_editing': False
     }
-    return render(request, 'vender/add-product.html',context)
+    return render(request, 'vender/add-product.html', context)
 
 @login_required
 def orders(request):

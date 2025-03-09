@@ -61,3 +61,38 @@ const productItems1 = document.getElementById('productItem1');
 //     console.log('clicked user1')
 //     staticBackdrop4.classList.toggle('backdropActive4');
 // });
+
+
+
+// document.getElementById('add-spec').addEventListener('click', () => {
+//     const totalForms = document.getElementById('id_specifications-TOTAL_FORMS');
+//     const currentForms = parseInt(totalForms.value);
+//     const formCopy = document.querySelector('.spec-form').cloneNode(true);
+    
+//     formCopy.querySelectorAll('input, select').forEach(input => {
+//         if(input.name) input.name = input.name.replace(/-\d+-/g, `-${currentForms}-`);
+//         if(input.id) input.id = input.id.replace(/-\d+-/g, `-${currentForms}-`);
+//         input.value = '';
+//     });
+
+//     document.querySelector('.specifications').appendChild(formCopy);
+//     totalForms.value = currentForms + 1;
+// });
+
+// document.getElementById('add-spec').addEventListener('click', () => {
+//     const totalForms = document.getElementById('id_specifications-TOTAL_FORMS');
+//     const currentForms = parseInt(totalForms.value);
+//     const formCopy = document.querySelector('.spec-form:last-child').cloneNode(true); // Clone last form
+
+//     // Update all input names/IDs
+//     formCopy.innerHTML = formCopy.innerHTML.replace(
+//         /-\d+-/g, 
+//         `-${currentForms}-`
+//     );
+
+//     // Clear values
+//     formCopy.querySelectorAll('input').forEach(input => input.value = '');
+
+//     document.querySelector('.specifications').appendChild(formCopy);
+//     totalForms.value = currentForms + 1;
+// });

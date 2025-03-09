@@ -76,11 +76,12 @@ SpecificationFormSet = inlineformset_factory(
     Product,
     ProductSpecification,
     fields=('key', 'value'),
-    extra=1,  # Show 1 empty spec field by default
+    extra=3,  # Show 1 empty spec field by default
     can_delete=True,  # Allow deleting specs
     widgets={
         'key': forms.TextInput(attrs={'placeholder': 'Enter specification name...'}),
         'value': forms.TextInput(attrs={'placeholder': 'Enter specification value...'}),
+        'value': forms.Textarea(attrs={'rows': 4}),
     }
 )
 

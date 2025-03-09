@@ -201,17 +201,18 @@ def add_to_cart(request, product_id):
 
 def checkout_view(request):
     try:
-        # Get the current user's profile
-        # profile = request.user.profilemodel  # Assuming your ProfileModel has a OneToOne relation to User
         profile, _ = ProfileModel.objects.get_or_create(user=request.user)
         cart = Order.objects.get(buyer=request.user, status='cart')
+        seller_profile = Seller.objects.get(user=request.user)
     except (ProfileModel.DoesNotExist, Order.DoesNotExist):
         profile = None
         cart = None
+        seller_profile = None
     
     context = {
         'profile': profile,
-        'cart': cart
+        'cart': cart,
+        'seller_profile': seller_profile
     }
     return render(request, "core/products/checkout.html",context)
     

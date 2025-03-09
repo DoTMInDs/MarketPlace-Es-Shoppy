@@ -16,7 +16,7 @@ class ProfileModel(models.Model):
         return f"{self.user.username}'s Profile"
 
 class Category(models.Model):
-    name = models.CharField(max_length=100,unique=True)
+    name = models.CharField(max_length=100)
     image = CloudinaryField(folder='categories/', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
 
@@ -33,7 +33,8 @@ class Product(models.Model):
         'image',
         folder='products/', 
         default='https://res.cloudinary.com/de0pvltpa/image/upload/v1234567/default_product.png',
-        blank=True)
+        blank=True,
+        null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,related_name='products') #Added Category
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     # updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -55,8 +56,8 @@ class Product(models.Model):
 
 class ProductSpecification(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='specifications')
-    key = models.CharField(max_length=100)
-    value = models.CharField(max_length=255)
+    key = models.CharField(max_length=100,null=True,blank=True)
+    value = models.TextField(null=True,blank=True)
 
     def __str__(self):
         return f"{self.key}: {self.value} ({self.product.name})"

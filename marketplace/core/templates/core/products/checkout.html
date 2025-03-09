@@ -23,6 +23,11 @@
                     </div>
                     <div class="p-[0.8rem] ">
                         <p class="text-[15px]">{{ profile.full_name }}</p>
+                        {% if seller_profile %}
+                            <p class="text-[15px]">{{ seller_profile.phone_number }}</p>
+                        {% else %}
+                            <p class="text-red-500">No seller phone number registered</p>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="shadow bg-white">
