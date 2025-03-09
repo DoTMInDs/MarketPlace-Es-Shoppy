@@ -13,7 +13,18 @@ from django.forms import formset_factory
 # Create your views here.
 @login_required
 def vender_center(request):
-    return render(request, 'vender/vender_center.html')
+    if request.method == "POST":
+        form = CategoryForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('vender-center')      
+    else:
+        form = CategoryForm() 
+    
+    context = {
+        "form":form
+    }
+    return render(request, 'vender/vender_center.html',context)
 
 def add_product(request):
     if not hasattr(request.user, 'seller'):

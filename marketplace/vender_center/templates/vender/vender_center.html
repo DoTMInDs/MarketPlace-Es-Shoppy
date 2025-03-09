@@ -1,10 +1,39 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load tailwind_filters %}
 {% block content %}
     {% include "partials/nav.html" %}
     
-    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto">
-        <div class="md:flex w-[100%]">
+    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto md:flex flex-row gap-[1rem]">
+        <div class="md:flex w-[100%] mb-[1rem] relative">
+            <div class="shadow-sm flex items-center flex-col border border-slate-200 bg-white p-[1rem] rounded">
+                <div class="flex items-center flex-col">
+                    <h2 class="text-[18px] font-bold text-slate-600">Add Categories</h2>
+                    <p class="text-slate-500 text-[15px]">Add category to start listing your products on Es-Shoppy</p>
+                </div>
+                <div class="mt-[2rem]">
+                    <button id="categoryBtn" class="text-center border rounded border-slate-200 uppercase text-slate-500 bg-amber-50 py-[0.5rem] px-[1.5rem] text-[15px]">
+                        Add category
+                    </button>
+                </div>
+            </div>
+
+            <!--modal category-->
+            <div id="categoryContainer" class="fixed top-0 left-0 right-0 w-[100%] h-[100vh] bg-[#000000] bg-opacity-90 hidden">
+                <div class="closeBtn w-[100%] md:w-[500px] fixed top-[30%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#ffffff] rounded shadow p-[1rem]">
+                    <div class="flex justify-between border-b border-slate-500 border-opacity-20 py-[0.5rem]">
+                        <h1 class="text-[20px] text-slate-500">Add Category</h1>
+                        <i id="closeBtn" class="fa fa-solid fa-close text-[25px] text-slate-500 cursor-pointer"></i>
+                    </div>
+                    <form action="" class="pt-[1rem]" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <button type="submit" class="py-[0.6rem] px-[1rem] block w-[100%] text-slate-600 hover:bg-orange-200 bg-orange-100 border border-slate-500 border-opacity-20 text-[14px] rounded text-center">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="md:flex w-[100%] pb-[1rem]">
             <div class="shadow-sm flex items-center flex-col border border-slate-200 bg-white p-[1rem] rounded">
                 <div class="flex items-center flex-col">
                     <h2 class="text-[18px] font-bold text-slate-600">Available product ()</h2>
@@ -20,4 +49,29 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        // Get modal elements
+        const categoryContainer = document.getElementById('categoryContainer');
+        const categoryBtn = document.getElementById('categoryBtn');
+        const closeBtn = document.getElementById('closeBtn');
+    
+        // Open modal
+        categoryBtn.addEventListener('click', () => {
+            categoryContainer.classList.remove('hidden');
+        });
+    
+        // Close modal with close button
+        closeBtn.addEventListener('click', () => {
+            categoryContainer.classList.add('hidden');
+        });
+    
+        // Close modal when clicking outside
+        categoryContainer.addEventListener('click', (e) => {
+            if (e.target === categoryContainer) {
+                categoryContainer.classList.add('hidden');
+            }
+        });
+    </script>
 {% endblock content %}

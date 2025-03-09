@@ -65,8 +65,12 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = [
             "name",
-            "image"
+            "image",
+            "is_featured"
         ]
+        widgets = {
+            'image': forms.FileInput(attrs={'accept': 'image/*'})
+        }
 
 SpecificationFormSet = inlineformset_factory(
     Product,
