@@ -56,7 +56,7 @@ class Product(models.Model):
 
 class ProductSpecification(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='specifications')
-    key = models.CharField(max_length=100,null=True,blank=True)
+    key = models.CharField(max_length=225,null=True,blank=True)
     value = models.TextField(null=True,blank=True)
 
     def __str__(self):

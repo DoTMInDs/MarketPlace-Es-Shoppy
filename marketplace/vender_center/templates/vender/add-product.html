@@ -4,6 +4,16 @@
 {% block content %}
     {% include "partials/nav.html" %}
     <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto add-product-mobile">
+        {% if messages %}
+            <ul class="list-none m-0 ">
+                {% for message in messages %}
+                    <li class="bg-red-100  p-2 border border-red-400 text-red-700 rounded mb-2 flex items-center justify-between">
+                        {{ message }}
+                        <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% if form.errors or formset.errors or image_formset.errors %}
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4 rounded">
                 <h3 class="font-bold">Submission Errors:</h3>
