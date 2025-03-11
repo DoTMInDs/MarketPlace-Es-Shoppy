@@ -170,8 +170,8 @@ def edit_product(request, product_id):
     }
     return render(request, 'vender/edit-product.html',context)
 
-def seller_profile(request,username, id):
-    user = get_object_or_404(User, username=username, id=id)
+def seller_profile(request):
+    user = request.user
     if not hasattr(user, 'seller'):
         return redirect('become-seller')
     profile = get_object_or_404(ProfileModel, user=user)
@@ -181,7 +181,7 @@ def seller_profile(request,username, id):
         if form.is_valid() :
             form.save()
             messages.success(request, 'You have successfully become a seller!')
-            return redirect('seller-profile',username=user.username, id=user.id)
+            return redirect('seller-profile')
     else:
         form = SellerProfileForm(instance=seller_profile)
     
@@ -190,8 +190,7 @@ def seller_profile(request,username, id):
         "profile":profile,
         "seller_profile": seller_profile,
         "user": user,
-        'username': username, 
-        'id': id
+        
     }
     return render(request, 'seller/seller_profile.html',context)
 
