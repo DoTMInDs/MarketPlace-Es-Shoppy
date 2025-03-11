@@ -7,7 +7,8 @@ from cloudinary.models import CloudinaryField
 # Create your models here.
 class ProfileModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    image = CloudinaryField('image',default='default.png', folder='profile',blank=True, validators=[FileExtensionValidator(['png', 'jpg','jpeg', 'WebP', 'jfif'])])
+    # image = CloudinaryField('image', folder='profile_pics',null=True ,blank=True, validators=[FileExtensionValidator(['png', 'jpg','jpeg', 'WebP', 'jfif'])])
+    image = models.ImageField( upload_to='profile',blank=True,null=True , validators=[FileExtensionValidator(['png', 'jpg','jpeg', 'WebP', 'jfif'])])
     full_name = models.CharField(blank=True,max_length=200,null=True)
     about = models.TextField(blank=True, null=True)
     talks_about = models.CharField(max_length=255, default='anything',blank=True, null=True)
@@ -32,7 +33,6 @@ class Product(models.Model):
     image = CloudinaryField(
         'image',
         folder='products/', 
-        default='https://res.cloudinary.com/de0pvltpa/image/upload/v1234567/default_product.png',
         blank=True,
         null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,related_name='products') #Added Category

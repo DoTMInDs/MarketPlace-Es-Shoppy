@@ -39,7 +39,11 @@
                             </a>
                         </div>
                         <div class="flex gap-[1rem] items-center">
+                            {% if item.quantity > 1 %}
                             <a href="{% url 'update_quantity' item.id 'decrement' %}" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem] update-quantity" ><i class="fa fa-solid fa-minus"></i></a>
+                            {% else %}
+                            <p class="bg-slate-200 w-[20px] h-[20px] text-center text-[10px] text-slate-400 rounded p-[0.2rem] " ><i class="fa fa-solid fa-minus"></i></p>
+                            {% endif %}
                             <p class="text-[10px]" >{{ item.quantity }}</p>
                             <a href="{% url 'update_quantity' item.id 'increment' %}" class="bg-[#FF9D23] w-[20px] h-[20px] text-center text-[10px] text-[#fefefe] rounded p-[0.2rem] update-quantity"><i class="fa fa-solid fa-plus"></i></a>
                         </div>

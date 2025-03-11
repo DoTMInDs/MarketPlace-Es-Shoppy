@@ -25,7 +25,7 @@ class CreateUserForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your username....'}))
-    email = forms.CharField(label="",widget=forms.EmailInput(attrs={'placeholder': 'Enter your email....'}))
+    email = forms.CharField(label="",disabled=True ,widget=forms.EmailInput(attrs={'placeholder': 'Enter your email....'}))
     class Meta:
         model = User
         fields = [ "username", "email"]
@@ -35,9 +35,9 @@ class UserUpdateForm(forms.ModelForm):
             self.fields[fieldname].help_text = None
 
 class ProfileUpdateForm(forms.ModelForm):
-    full_name = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Enter your fullname....'}))
-    about = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Tell us something about you....'}))
-    talks_about = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'Type something here....'}))
+    full_name = forms.CharField(label="",required=False, widget=forms.TextInput(attrs={'placeholder': 'Enter your fullname....'}))
+    about = forms.CharField(label="",required=False,widget=forms.TextInput(attrs={'placeholder': 'Tell us something about you....'}))
+    talks_about = forms.CharField(label="",required=False,widget=forms.TextInput(attrs={'placeholder': 'Type something here....'}))
     class Meta:
         model = ProfileModel
         fields = [ "full_name", "image", "about", "talks_about"]

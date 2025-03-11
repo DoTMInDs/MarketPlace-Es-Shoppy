@@ -65,9 +65,9 @@
           <div class="flex justify-center flex-col items-center w-full p-[1rem] gap-[25px]">
               <div class="mobile-img-small w-[150px] h-[150px] rounded-full border border-slate-200 mobile-img-profile">
                 {% if profile.image %}
-                  <img src="{{ profile.image.url }}" alt="profile.png" class="rounded-[50%] w-[150px] h-[150px] object-cover object-center mobile-img-image">
+                  <img src="{{ profile.image.url }}" alt="profile" class="rounded-[50%] w-[150px] h-[150px] object-cover object-center mobile-img-image">
                   {% else %}
-                  <img src="{% static "assets/default.png" %} " alt="profile.png" class="rounded-[50%] w-[250px] h-[250px] object-cover object-center mobile-img-image">
+                  <img src="{% static "assets/default.png" %} " alt="profile" class="rounded-[50%] w-[250px] h-[250px] object-cover object-center mobile-img-image">
                 {% endif %}
               </div>
               <div class="w-[100%]">

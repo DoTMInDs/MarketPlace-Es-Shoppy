@@ -3,3 +3,4 @@
 .env*
 .qodo/
 db.sqlite3
+.qodo

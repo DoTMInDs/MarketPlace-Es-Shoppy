@@ -8,6 +8,8 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import cloudinary
+import cloudinary.uploader
 
 from .models import ProfileModel,Product,Order, Rating, Category,OrderProduct,ProductSpecification
 from .forms import CreateUserForm, ProfileUpdateForm,UserUpdateForm
@@ -50,9 +52,9 @@ def sign_up(request):
     return render(request, 'core/accounts/user/signup.html', context)
 
 @login_required
-def profile_view(request, username, id):
-    user = get_object_or_404(User, username=username, id=id)
-    profile = get_object_or_404(ProfileModel,user=user)
+def profile_view(request):
+    user = request.user
+    profile, created = ProfileModel.objects.get_or_create(user=user)
 
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST or None, instance=user)
@@ -60,7 +62,7 @@ def profile_view(request, username, id):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            return redirect('profile', username=username, id=id)
+            return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=user)
         p_form = ProfileUpdateForm(instance=profile)
@@ -69,8 +71,7 @@ def profile_view(request, username, id):
         'profile': profile,
         'u_form': u_form,
         'p_form': p_form,
-        'username': username, 
-        'id': id
+        
     }
     return render(request, 'core/accounts/profile/profile.html', context)
 

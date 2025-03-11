@@ -25,6 +25,7 @@
                 <div class="my-[1rem] border border-slate-300 rounded w-full bg-white flex items-center px-[1rem]">
                     <i class="fa fa-solid fa-lock text-slate-400"></i>
                     <input type="password" id="id_password" name="password" class=" outline-none w-full py-[0.5rem] px-[10px]" placeholder="Enter password..." required>
+                    <i id="toggleEye" class="fa fa-solid fa-eye-slash cursor-pointer text-slate-400" onclick="togglePassword()"></i>
                 </div>
             </div>     
             <p class="text-right font-open-sans mt-[0.5rem]"><a href="#!" class='text-rose-500'>Forgot password?</a></p>
@@ -32,5 +33,22 @@
                 <p class="text-[13px] py-[20px] font-open-sans text-center">New to Es-Shoopy? <a href="{% url "signup" %}" class="text-rose-500 hover:text-[#595454]">Create account</a></p>
         </form>
     </div>
+
+
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('id_password');
+            const eyeIcon = document.querySelector('#toggleEye');
+    
+            if(passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        }
+    </script>
 {% endblock  %}
 
