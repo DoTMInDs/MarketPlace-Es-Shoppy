@@ -5,16 +5,16 @@
       <!--All-Product-->
     <div class="mt-[1rem]">
         <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
-            <div class="flex justify-between items-center px-[1rem] py-[0.8rem] bg-[#D98324] w-[100%] relative">
+            <div class="flex justify-between items-center px-[1rem] py-[0.8rem] bg-slate-700 w-[100%] relative">
                 <div class="">
                     <h3 class="text-[#fefefe] text-[15px] count-text font-semibold">Discover our Top Daily Deal <span class="text-orange-200">( {{products.count}} products found )</span> </h3>
                 </div>
                 <div class="text-[#fefefe] text-[14px] flex gap-[0.3rem] items-center">
-                   <div id="sortBtn" class="bg-orange-50 text-slate-700 rounded p-[0.5rem] text-nowrap cursor-pointer">
+                   <div id="sortBtn" class="bg-slate-600 text-slate-50 rounded-full p-[0.5rem] text-nowrap cursor-pointer">
                         Sort by: Popularity
                         <i class="fa fa-solid fa-chevron-down"></i>
                    </div>
-                   <div id="sortItem" class="hidden absolute right-0 top-0 mt-[4rem] bg-orange-50 shadow rounded w-[180px] md:p-[0.5rem] p-0 md:w-[230px] z-[100]">
+                   <div id="sortItem" class="hidden absolute right-0 top-0 mt-[4rem] bg-slate-100 shadow rounded w-[180px] md:p-[0.5rem] p-0 md:w-[230px] z-[100]">
                         <div class="radio-input hover:bg-slate-200 p-[0.5rem] md:p-[1rem] cursor-pointer">
                             <input type="radio" name="sort" id="popularity">
                             <label class="text-slate-700 text-[15px] cursor-pointer" for="popularity">Popularity</label>
@@ -45,7 +45,7 @@
                     {% for product in products %}
                             <div class="hover:shadow rounded cursor-pointer ">
                                 <div class="relative">
-                                    <p class="absolute top-[5px] left-[5px] p-[0.2rem] text-[10px] bg-red-500 text-[#ffffff]">Pay On Delivery</p>
+                                    <p class="absolute top-[5px] left-[5px] p-[0.2rem] text-[10px] bg-red-600 text-[#ffffff]">Pay On Delivery</p>
                                     <div class=" w-[150px] m-auto  rounded-t ">
                                         {% if product.image %}
                                             <img src="{{product.image.url}}" alt="" class="w-[100%] object-center object-cover">
@@ -58,7 +58,7 @@
                                 <div class="content p-[0.5rem]">
                                     <p class="text-[13px] text-slate-600 text-truncate m-0 p-0">{{product.description|truncatewords:"5"}}</p>
                                     <p class="font-bold text-[16px] text-gray-500 ">GHS {{product.price}}</p>
-                                    <span class=" text-[10px] text-slate-400 line-through">GHS {{product.canceled_price}}</span>
+                                    <span class=" text-[10px] text-slate-600 line-through">GHS {{product.canceled_price}}</span>
                                     <div class="flex gap-[0.2rem] items-center">
                                         <i class="fa fa-solid fa-star text-[10px] text-orange-500"></i>
                                         <i class="fa fa-solid fa-star text-[10px] text-orange-500"></i>
@@ -67,11 +67,11 @@
                                         <i class="fa fa-regular fa-star text-[10px] text-orange-500"></i>
                                     </div>
                                     <div class="mt-[0.5rem] flex items-center gap-[0.5rem]">
-                                        <button class="no-underline bg-orange-400 text-[12px] text-[#ffffff] text-nowrap block w-[100%] py-[0.4rem] rounded"><a href="{% url "product-detail" product_id=product.id %}">
+                                        <button class="no-underline bg-slate-700 text-[12px] text-slate-50 text-nowrap block w-[100%] py-[0.6rem] rounded-full"><a href="{% url "product-detail" product_id=product.id %}">
                                             <i class="fa-solid fa-pen-to-square"></i> 
                                              Detail
                                         </a></button>
-                                        <button class="no-underline bg-orange-400 text-[12px] text-[#ffffff] text-nowrap block w-[100%] py-[0.4rem] rounded"><a href="{% url "edit-product" product_id=product.id %}">
+                                        <button class="no-underline bg-slate-700 text-[12px] text-slate-50 text-nowrap block w-[100%] py-[0.6rem] rounded-full"><a aria-label="edit product" href="{% url "edit-product" product_id=product.id %}">
                                             <i class="fa-solid fa-eye"></i> 
                                              Edit
                                         </a></button>

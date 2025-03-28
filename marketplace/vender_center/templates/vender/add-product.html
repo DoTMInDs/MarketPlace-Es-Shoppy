@@ -3,7 +3,7 @@
 {% load tailwind_filters %}
 {% block content %}
     {% include "partials/nav.html" %}
-    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto add-product-mobile">
+    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto cart-mobile">
         {% if messages %}
             <ul class="list-none m-0 ">
                 {% for message in messages %}
@@ -23,7 +23,7 @@
             </div>
         {% endif %}
 
-        <div class="flex justify-between py-[0.8rem] bg-orange-400 rounded px-[0.5rem] md:px-[2rem] mb-4">
+        <div class="flex justify-between py-[0.8rem] bg-slate-700 rounded px-[0.5rem] md:px-[2rem] mb-4">
             <h1 class="text-[#fefefe] text-[15px] font-semibold">Add New Product</h1>
             <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
                 Home
@@ -59,7 +59,7 @@
                 <i class="fa-solid fa-plus"></i> Add Specification
             </button>
 
-            <button type="submit" class="text-orange-800 py-[0.5rem] px-[1.5rem] hover:bg-orange-400 bg-orange-300 w-full mb-[2rem]">
+            <button type="submit" class="text-slate-50 py-[0.6rem] rounded-full px-[1.5rem] hover:bg-slate-600 bg-slate-700 w-full mb-[2rem]">
                 Save Product
             </button>
         </form>

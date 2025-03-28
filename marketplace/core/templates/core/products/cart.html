@@ -63,7 +63,7 @@
                 <p class="text-[10px] text-slate-700">Subtotal</p>
                 <p class="text-[15px] text-slate-700"> GHS {{ cart.total_price|default:"0.00"|intcomma }}</p>
             </div>
-            <div class="bg-orange-400 w-[100%] p-[0.5rem] text-[#fefefe] text-center rounded flex justify-center items-center gap-[0.5rem]">
+            <div class="bg-slate-600 w-[100%] p-[0.8rem] text-[#fefefe] text-center rounded-full flex justify-center items-center gap-[0.5rem]">
                 <button type="submit" class="" >
                     <a href="{% url "checkout_view" %}" class="text-[15px] font-medium text-[#fefefe]">
                         Checkout 

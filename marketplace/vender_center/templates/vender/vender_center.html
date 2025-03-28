@@ -12,14 +12,14 @@
                     <p class="text-slate-500 text-[15px]">Add category to start listing your products on Es-Shoppy</p>
                 </div>
                 <div class="mt-[2rem]">
-                    <button id="categoryBtn" class="text-center border rounded border-slate-200 uppercase text-slate-500 bg-amber-50 py-[0.5rem] px-[1.5rem] text-[15px]">
+                    <button id="categoryBtn" class="text-center border rounded-full border-slate-200 uppercase text-slate-50 hover:bg-slate-600 bg-slate-700 py-[0.8rem] px-[1.5rem] text-[15px]">
                         Add category
                     </button>
                 </div>
             </div>
 
             <!--modal category-->
-            <div id="categoryContainer" class="fixed top-0 left-0 right-0 w-[100%] h-[100vh] bg-[#000000] bg-opacity-90 hidden">
+            <div id="categoryContainer" class="fixed top-0 left-0 right-0 w-[100%] h-[100vh] bg-gray-500 bg-opacity-30 hidden">
                 <div class="closeBtn w-[100%] md:w-[500px] fixed top-[30%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#ffffff] rounded shadow p-[1rem]">
                     <div class="flex justify-between border-b border-slate-500 border-opacity-20 py-[0.5rem]">
                         <h1 class="text-[20px] text-slate-500">Add Category</h1>
@@ -28,7 +28,7 @@
                     <form action="" class="pt-[1rem]" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form|crispy}}
-                        <button type="submit" class="py-[0.6rem] px-[1rem] block w-[100%] text-slate-600 hover:bg-orange-200 bg-orange-100 border border-slate-500 border-opacity-20 text-[14px] rounded text-center">Save</button>
+                        <button type="submit" class="py-[0.8rem] px-[1rem] block w-[100%] text-slate-50 hover:bg-slate-600 bg-slate-700 text-[14px] rounded-full text-center">Save</button>
                     </form>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <p class="text-slate-500 text-[15px]">List product to start selling on Es-Shoppy</p>
                 </div>
                 <div class="mt-[2rem]">
-                    <button class="text-center border rounded border-slate-200 uppercase text-slate-500 bg-amber-50 py-[0.5rem] px-[1.5rem] text-[15px]">
+                    <button class="text-center rounded-full  uppercase text-slate-50 text-slate-50 hover:bg-slate-600 bg-slate-700 py-[0.8rem] px-[1.5rem] text-[15px]">
                         <a href="{% url "add-product" %}" class="">
                             create products
                         </a>

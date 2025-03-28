@@ -5,7 +5,7 @@
     <div class=" w-full flex items-center py-[0.5rem] justify-between w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
         <div class="flex items-center cursor-pointer">
             <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center w-[30px] h-[30px]">
-                <img src="{% static 'assets/big-esse-(1).png' %}"  class="w-[30px] h-[30px] rounded-full">
+                <img src="{% static 'assets/big-esse-(1).png' %}" alt=-"logo"  class="w-[30px] h-[30px] rounded-full">
                 <h4 class=" text-slate-500 hover:text-teal-800 text-nowrap font-semibold">Vender Center</h4>
             </a>
         </div>
@@ -164,8 +164,8 @@
     <div class="mobile-nav-container">
         <div class="flex items-center cursor-pointer">
             <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center">
-                <p class=""><img src="{% static 'assets/big-esse-(1).png' %}" height="64px" class="w-[30px] rounded-full object-center object-cover"></p>
-                <h4 class=" text-orange-600 hover:text-teal-800 font-semibold">Es-Shoppy</h4>
+                <p class=""><img src="{% static 'assets/big-esse-(1).png' %}" alt="logo" height="64px" class="w-[30px] rounded-full object-center object-cover"></p>
+                <h4 class=" text-slate-700 hover:text-slate-600 font-semibold">Es-Shoppy</h4>
             </a>
         </div>
         <div class="mobile-search-wrapper">
@@ -180,10 +180,10 @@
         </div>
         <form action="" method="get" class="mobile-form-wrapper mt-[0.1rem] bg-[#fefefe]">
             <div class="mobile-input-search" id="mobileInput">
-                <p class="close-search mr-[0.5rem]" id="closeSearch"><i class="fa-solid fa-chevron-left text-[18px] text-orange-300 cursor-pointer" ></i></p>
+                <p class="close-search mr-[0.5rem]" id="closeSearch"><i class="fa-solid fa-chevron-left text-[18px] text-slate-700 cursor-pointer" ></i></p>
                 <div class="flex items-center w-[100%] px-[1rem] border border-slate-300 rounded-full">
-                    <i class="fa-solid fa-magnifying-glass text-[18px] text-orange-300 cursor-pointer" ></i>
-                    <input type="search" name="search" placeholder="Search FitBlog..." class="w-full  py-[3px] px-[6px] bg-transparent outline-none">
+                    <i class="fa-solid fa-magnifying-glass text-[18px] text-slate-700 cursor-pointer" ></i>
+                    <input type="search" name="search" placeholder="Search FitBlog..." class="w-full  py-[0.6rem] px-[6px] bg-transparent outline-none">
                 </div>
             </div>
         </form>
@@ -203,11 +203,11 @@
                 <i class="fa fa-solid fa-cart-shopping text-[14px] text-[#3b5361]"></i>
                 Cart
             </a>
-            <p class="absolute mt-[-160%] ml-[50%] bg-orange-300 text-[#fdfdfd] text-[9px] font-bold text-center border-[1px] border-slate-50 w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+            <p class="absolute mt-[-160%] ml-[50%] bg-slate-700 text-[#fdfdfd] text-[9px] font-bold text-center border-[1px] border-slate-50 w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
        </div>
        <div class="">
             <div id="mobile-list-trigger" class="mobile-list-dropup ">
-                <i class="fa fa-regular fa-plus border border-orange-500 border-opacity-20 rounded-full p-[0.8rem] text-[14px] text-orange-600"></i>
+                <i class="fa fa-regular fa-plus border border-slate-500 shadow border-opacity-20 rounded-full p-[0.8rem] text-[14px] text-orange-700"></i>
             </div>
             <div class="mobile-list-items" id="mobile-list-item">
                 <div>

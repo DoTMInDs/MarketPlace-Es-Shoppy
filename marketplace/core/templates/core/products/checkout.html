@@ -4,7 +4,7 @@
 {% block title %}checkout{% endblock  %}
 {% block content %}
 {% include "core/partials/nav.html" %}
-<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
+<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] cart-mobile">
     <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row">
        <div class="basis-[70%]">
             <div class="flex gap-[0.5rem] w-[100%] flex-col">
@@ -71,7 +71,7 @@
                 </form>
             </div>
             {% else %}
-            <button type="submit" class="bg-slate-200 w-[100%] p-[0.5rem] text-center rounded  text-[18px] text-[#fefefe]" id="cart-total-price">
+            <button type="submit" class="bg-slate-200 w-[100%] p-[0.8rem] text-center rounded-full  text-[18px] text-[#fefefe]" id="cart-total-price">
                 Confirm order
             </button>
             {% endif %}
