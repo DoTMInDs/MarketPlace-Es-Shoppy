@@ -11,8 +11,8 @@ from django.urls import reverse
 import cloudinary
 import cloudinary.uploader
 
-from .models import ProfileModel,Product,Order, Rating, Category,OrderProduct,ProductSpecification
-from .forms import CreateUserForm, ProfileUpdateForm,UserUpdateForm
+from .models import ProfileModel,Product,Order, Rating, Category,OrderProduct,ProductSpecification,Review
+from .forms import CreateUserForm, ProfileUpdateForm,UserUpdateForm,ReviewForm
 from vender_center.models import Seller
 
 # Create your views here.
@@ -155,6 +155,7 @@ def all_product(request, category_id=None):
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     specs = ProductSpecification.objects.filter(product=product)
+    reviews = Review.objects.filter(product=product).order_by('-created_at')
     cart = None
     
     if request.user.is_authenticated:
@@ -167,6 +168,7 @@ def product_detail(request, product_id):
         'product': product,
         'cart': cart,
         'specs': specs,
+        'reviews': reviews,
     }
     return render(request, 'core/products/product_detail.html', context)
 
@@ -278,3 +280,51 @@ def wishlist(request):
         # "products":products
     }
     return render(request, "core/products/whishlist.html",context)
+
+@login_required
+def reviews_view(request):
+    reviews = Review.objects.filter(user=request.user).order_by('-created_at')
+    context = {
+        "reviews":reviews
+    }
+    return render(request, 'core/reviews.html',context)
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('reviews')
+        else:
+            print('there is something wrong')
+    else:
+        form = ReviewForm(instance=review)
+    
+    return render(request, 'core/edit_review.html', {'form': form, 'review': review})
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    if request.method == 'POST':
+        review.delete()
+    return redirect('reviews')
+
+@login_required
+def submit_review(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    existing_review = Review.objects.filter(user=request.user, product=product).first()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST,instance=existing_review)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.product = product
+            review.save()
+            messages.success(request, 'Thank you for your review! It will be visible after approval.')
+            return redirect('product_detail', product=product)
+        else:
+            messages.error(request, 'There was an error with your review. Please try again.')
+    return render(request, 'core/submit_review.html')

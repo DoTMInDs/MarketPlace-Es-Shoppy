@@ -3,50 +3,51 @@
 {% load tailwind_filters %}
 {% block content %}
     {% include "partials/nav.html" %}
-    <div class="flex justify-between py-[0.8rem] bg-slate-700 w-[100%] md:w-[60%] px-[0.5rem] md:px-[2rem] m-auto mb-[1rem]">
-        <h3 class="text-[#fefefe] text-[15px] font-semibold"><i class="fa-solid fa-pen-to-square"></i> Add Product </h3>
-        <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
-            Home
-            <i class="fa fa-solid fa-chevron-right"></i>
-        </a>
-    </div>
-    <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem] cart-mobile">
-        {% csrf_token %}
-        {{form|crispy}}
-
-        {{ image_formset.management_form }}
-        {% for image_form in image_formset %}
-            {{ image_form.id }}
-            {% if image_form.instance.pk %}
-                <img src="{{ image_form.instance.attached_image.url }}" width="100">
-                {{ image_form.DELETE }} Delete?
-            {% endif %}
-            {{ image_form.attached_image }}
-        {% endfor %}
-        
-        <div class="specifications">
-            <div class="spec-form">
-                <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification</h4>
-                {{ formset.management_form }}
-
-                {% for spec_form in formset %}
-                    <div class="spec-form mb-4 p-2 border rounded">
-                        {{ spec_form.id }}
-                        {{ spec_form|crispy }}
-                        {% if spec_form.instance.pk %}
-                            <div class="delete-spec mt-2">
-                                {{ spec_form.DELETE|as_crispy_field }}
-                                <label class="text-red-600">Delete this specification</label>
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
+    <main class="">
+        <div class="flex justify-between py-[0.8rem] bg-slate-700 w-[100%] md:w-[60%] px-[0.5rem] md:px-[2rem] m-auto mb-[1rem]">
+            <h3 class="text-[#fefefe] text-[15px] font-semibold"><i class="fa-solid fa-pen-to-square"></i> Add Product </h3>
+            <a href="{% url "manage-product" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
+                Home
+                <i class="fa fa-solid fa-chevron-right"></i>
+            </a>
         </div>
+        <form action="" method="post" enctype="multipart/form-data" class=" w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto mb-[1rem] edit-product-css">
+            {% csrf_token %}
+            {{form|crispy}}
 
-        <button type="submit" class="text-slate-50 flex justify-center items-center block w-[100%] rounded-full m-auto py-[0.6rem] px-[1.5rem] bg-slate-700">Update Product</button>
-    </form>
+            {{ image_formset.management_form }}
+            {% for image_form in image_formset %}
+                {{ image_form.id }}
+                {% if image_form.instance.pk %}
+                    <img src="{{ image_form.instance.attached_image.url }}" width="100">
+                    {{ image_form.DELETE }} Delete?
+                {% endif %}
+                {{ image_form.attached_image }}
+            {% endfor %}
+            
+            <div class="specifications">
+                <div class="spec-form">
+                    <h4 class="text-slate-600 text-right text-[18px] font-medium">Specification</h4>
+                    {{ formset.management_form }}
 
+                    {% for spec_form in formset %}
+                        <div class="spec-form mb-4 p-2 border rounded">
+                            {{ spec_form.id }}
+                            {{ spec_form|crispy }}
+                            {% if spec_form.instance.pk %}
+                                <div class="delete-spec mt-2">
+                                    {{ spec_form.DELETE|as_crispy_field }}
+                                    <label class="text-red-600">Delete this specification</label>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button type="submit" class="text-slate-50 flex justify-center items-center w-[100%] rounded-full m-auto py-[0.6rem] px-[1.5rem] bg-slate-700 ">Update Product</button>
+        </form>
+    </main>
     <script>
         document.getElementById('add-spec').addEventListener('click', () => {
             const totalForms = document.getElementById('id_specifications-TOTAL_FORMS');

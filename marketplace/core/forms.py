@@ -1,7 +1,7 @@
 # from django.forms import ModelForm
 from typing import Any
 from django import forms 
-from .models import ProfileModel,Product,Category,ProductSpecification,ProductImage
+from .models import ProfileModel,Product,Category,ProductSpecification,ProductImage,Review
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm 
 from django.forms import inlineformset_factory
@@ -124,3 +124,11 @@ ProductImageFormSet = inlineformset_factory(
     validate_max=True,
     
 )
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
+        widgets = {
+            'comment': forms.Textarea(attrs={'rows': 4}),
+        }

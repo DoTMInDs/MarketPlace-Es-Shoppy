@@ -31,12 +31,12 @@
 </style>
   
     <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
-        <div class="w-[100%] h-[180px] shadow bg-white">
-            <img src="{% static "assets/banner-bg.jpg" %}" alt="banner" class="w-[100%] h-[180px] object-center object-cover">
+        <div class="w-[100%]  shadow bg-white">
+            <img src="{% static "assets/banner-bg.jpg" %}" alt="banner" class="w-[100%] h-[250px] object-center object-cover">
         </div>
     </div>
     <!--All-Product-->
-    <div class="mt-[1rem]">
+    <div class="mt-[1rem] home-container">
         <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
             <div class="flex justify-between px-[1rem] py-[0.8rem] bg-slate-700 w-[100%]">
                 <h3 class="text-[#fefefe] text-[15px] font-semibold">Popular </h3>
@@ -46,7 +46,7 @@
                 </a>
             </div>
         </div>
-        <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto "style="overflow: hidden;">
+        <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto home-css" style="overflow: hidden;">
             <div class="swiper mySwiper bg-white">
                 <div class="my-[1rem]  swiper-wrapper">
                         {% for product in products %}
@@ -81,31 +81,6 @@
         </div>
     </div>
 
-    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] ">
-        <div class="shadow bg-white p-[0.5rem] mt-[1rem]" style="overflow:hidden;">
-            <div class="flex gap-[0.8rem]">
-                <p class="no-ubderline text-slate-400 w-[180px]">
-                    <img src="{% static "assets/Es-shoppy_Global.png" %}"
-                        alt="" class="w-[100%] h-[100%] object-center object-contain">
-                </p>
-                <p class="no-ubderline text-slate-400 w-[180px]">
-                    <img src=" {% static "assets/Es-shoppy_Global2.png" %}" alt="" class=" w-[100%] h-[100%] m-auto object-center object-contain">
-                </p>
-                <p class="no-ubderline text-slate-400 w-[180px]">
-                    <img src="{% static "assets/Es-shoppy_Global3.png" %}" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
-                </p>
-                <p class="no-ubderline text-slate-400 w-[180px]">
-                    <img src="{% static "assets/Es-shoppy_Global4.png" %}" alt="" class=" w-[100%] h-[100%] m-auto object-center object-contain">
-                </p>
-                <p class="no-ubderline text-slate-400 w-[180px]">
-                    <img src="{% static "assets/Es-shoppy_Global5.png" %}" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
-                </p>
-                <p class="no-ubderline text-slate-400 w-[180px]">
-                    <img src="{% static "assets/Es-shoppy_Global6.png" %}" alt="" class="w-[100%] h-[100%] m-auto object-center object-contain">
-                </p>
-            </div>
-        </div>
-    </div>
 
     <!-- Add Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

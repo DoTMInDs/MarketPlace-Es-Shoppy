@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User 
-from django.core.validators import FileExtensionValidator ,MinValueValidator
+from django.core.validators import FileExtensionValidator ,MinValueValidator, MaxValueValidator
 from vender_center.models import Seller
 from cloudinary.models import CloudinaryField
+from django.utils import timezone
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class ProfileModel(models.Model):
@@ -44,6 +46,19 @@ class Product(models.Model):
         if ratings.exists():
             return sum(rating.stars for rating in ratings) / ratings.count()
         return 0
+    
+    @property
+    def average_rating(self):
+        """Calculate average rating for the product"""
+        reviews = self.reviews.all()
+        if reviews.exists():
+            return round(reviews.aggregate(models.Avg('rating'))['rating__avg'], 1)
+        return 0
+    
+    @property
+    def review_count(self):
+        """Get total number of reviews for the product"""
+        return self.reviews.count()
     
     class Meta:
         ordering = ['-created_at']
@@ -163,3 +178,57 @@ class ProductImage(models.Model):
     
     def __str__(self):
         return f"Image for {self.product.name}"
+    
+class Review(models.Model):
+    RATING_CHOICES = [
+        (1, '★☆☆☆☆ (Poor)'),
+        (2, '★★☆☆☆ (Fair)'),
+        (3, '★★★☆☆ (Good)'),
+        (4, '★★★★☆ (Very Good)'),
+        (5, '★★★★★ (Excellent)'),
+    ]
+    
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
+    
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
+    
+    rating = models.PositiveSmallIntegerField(
+        choices=RATING_CHOICES,
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    
+    comment = models.TextField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['user', 'product']  # Each user can review a product only once
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+    
+    def __str__(self):
+        return f"Review by {self.user.username} for {self.product.name} - {self.rating} stars"
+    
+    def save(self, *args, **kwargs):
+        """Update timestamps and ensure rating is within valid range"""
+        if not self.id:  # New review
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        
+        # Ensure rating is within bounds
+        self.rating = max(1, min(5, self.rating))
+        super().save(*args, **kwargs)
+    
+    @property
+    def stars(self):
+        """Returns rating as stars (unicode characters)"""
+        return '★' * self.rating + '☆' * (5 - self.rating)

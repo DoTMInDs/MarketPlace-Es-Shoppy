@@ -6,7 +6,7 @@
     <div class="flex justify-center items-center w-full h-[100%]">
         <form action="" method="post" class="md:w-[450px] w-[100%] p-[30px] rounded bg-slate-50 border border-slate-300">
             <div class="">
-                <h1 class="text-[28px] text-slate-500 font-sans font-semibold my-[20px] text-center">Login</h1>
+                <h1 class="text-[28px] text-slate-500  font-semibold my-[20px] text-center">Login</h1>
             </div>
             {% csrf_token %}  
             <input type="hidden" name="next" value="{{ next }}">
@@ -20,17 +20,17 @@
             <div class="">
                 <div class="my-[1rem] border border-slate-300 rounded  bg-white flex items-center px-[1rem]">
                     <i class="fa fa-regular fa-user text-slate-400"></i>
-                    <input type="text" id="id_username" name="username" class="py-[0.5rem] px-[10px] outline-none w-full" placeholder="Enter username..." required>
+                    <input type="text" id="id_username" name="username" class="py-[0.5rem] px-[10px] outline-none w-full border-transparent" placeholder="Enter username..." required>
                 </div>
                 <div class="my-[1rem] border border-slate-300 rounded w-full bg-white flex items-center px-[1rem]">
                     <i class="fa fa-solid fa-lock text-slate-400"></i>
-                    <input type="password" id="id_password" name="password" class=" outline-none w-full py-[0.5rem] px-[10px]" placeholder="Enter password..." required>
+                    <input type="password" id="id_password" name="password" class="border-transparent outline-none w-full py-[0.5rem] px-[10px]" placeholder="Enter password..." required>
                     <i id="toggleEye" class="fa fa-solid fa-eye-slash cursor-pointer text-slate-400" onclick="togglePassword()"></i>
                 </div>
             </div>     
             <p class="text-right font-open-sans mt-[0.5rem]"><a href="#!" class='text-rose-500'>Forgot password?</a></p>
             <button type="submit" class="rounded text-[#fff] bg-slate-500 px-[30px] py-[10px] w-full mt-[30px]">Login</button>
-                <p class="text-[13px] py-[20px] font-open-sans text-center">New to Es-Shoopy? <a href="{% url "signup" %}" class="text-rose-500 hover:text-[#595454]">Create account</a></p>
+                <p class="py-[20px] text-center">New to Es-Shoopy? <a href="{% url "signup" %}" class="text-rose-500 hover:text-[#595454]">Create account</a></p>
         </form>
     </div>
 

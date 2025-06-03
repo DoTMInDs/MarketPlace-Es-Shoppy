@@ -5,7 +5,7 @@
 {% block content %}
 {% include "core/partials/nav.html" %}
 <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] cart-mobile">
-    <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row">
+    <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row cart-css">
        <div class="basis-[70%]">
             <div class="flex gap-[0.5rem] w-[100%] flex-col">
                 <div class="shadow bg-white">
@@ -14,12 +14,12 @@
                             <i class="fa-solid fa-circle-check text-green-400 text-[14px]"></i>
                             <p class="text-[18px] text-slate-700 font-semibold uppercase">1. Customer Address</p>
                         </div>
-                        <div class="flex gap-[0.5rem]">
-                            <a href="#!" class="text-blue-700 text-[16px]">
+                        {% comment %} <div class="flex gap-[0.5rem]">
+                            <a href="#!" class="text-blue-7000 text-[16px]">
                                 change
                                 <i class="fa-solid fa-chevron-right text-[14px]"></i>
                             </a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="p-[0.8rem] ">
                         <p class="text-[15px]">{{ profile.full_name }}</p>
@@ -49,7 +49,7 @@
                 </div>
             </div>
        </div>
-       <div class="shadow rounded bg-white basis-[30%] p-[0.5rem] h-[100%]">
+       <div class="shadow rounded bg-white basis-[30%] p-[0.5rem] h-[100%] checkout-css">
             <div class="border-b border-slate-200 p-[0.3rem]">
                 <p class="uppercase text-[10px] text-regular text-slate-700">cart summary</p>
             </div>
@@ -62,7 +62,7 @@
                 <p class="text-[22px] text-slate-700"> GHS {% if cart %}{{ cart.total_price|intcomma }}{% else %}0.00{% endif %}</p>
             </div>
             {% if cart %}
-            <div class="bg-orange-400 w-[100%] p-[0.5rem] text-[#fefefe] text-center rounded flex justify-center items-center gap-[0.5rem]">
+            <div class="bg-slate-600 w-[100%] p-[0.5rem] text-[#fefefe] text-center rounded flex justify-center items-center gap-[0.5rem]">
                 <form action="{% url 'checkout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="text-[18px] text-[#fefefe]" id="cart-total-price">

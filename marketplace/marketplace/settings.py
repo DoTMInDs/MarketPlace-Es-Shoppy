@@ -65,10 +65,12 @@ INSTALLED_APPS = [
     "crispy_tailwind",
     'cloudinary',
     'cloudinary_storage',
-    
+    'tailwind',
+    'theme',
+    'django_browser_reload',
 ]
 
-
+TAILWIND_APP_NAME = 'theme'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
 
@@ -81,8 +83,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 ROOT_URLCONF = 'marketplace.urls'
 
@@ -127,11 +138,11 @@ WSGI_APPLICATION = 'marketplace.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
-        'NAME': os.environ.get("DB_NAME",'eshoppydb'),
-        'USER': os.environ.get("DB_USER",'store_user'),
-        'PASSWORD': os.environ.get("DB_PASSWORD",'Admin333'),
-        'HOST': os.environ.get("DB_HOST",'localhost'),
-        'PORT': os.environ.get("DB_PORT",'5432'),
+        'NAME': os.environ.get("DB_NAME",''),
+        'USER': os.environ.get("DB_USER",''),
+        'PASSWORD': os.environ.get("DB_PASSWORD",''),
+        'HOST': os.environ.get("DB_HOST",''),
+        'PORT': os.environ.get("DB_PORT",''),
     }
 }
 

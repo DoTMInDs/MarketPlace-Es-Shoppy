@@ -3,7 +3,7 @@
 {% load tailwind_filters %}
 {% block content %}
     {% include "partials/nav.html" %}
-    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto cart-mobile">
+    <div class="w-[100%] md:w-[60%] px-[0.5rem] md:px-0 m-auto ">
         {% if messages %}
             <ul class="list-none m-0 ">
                 {% for message in messages %}
@@ -31,7 +31,7 @@
             </a>
         </div>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="add-product-css">
             {% csrf_token %}
             {{ form|crispy }}
 

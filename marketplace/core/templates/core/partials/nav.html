@@ -14,7 +14,7 @@
             </a>
         {% endif %}
     </div>
-    <div class=" w-full flex items-center py-[0.5rem] justify-between w-[100%] md:w-[80%] lg:w-[60%] m-auto ">
+    <div class=" w-full flex items-center py-[0.5rem] justify-between  md:w-[80%] lg:w-[60%] m-auto ">
         <div class="flex items-center cursor-pointer">
             <a href="{% url "home" %}" class="no-underline gap-[0.3rem] flex items-center w-[30px] h-[30px]">
                 <img src="{% static 'assets/big-esse-(1).png' %}" alt="logo" class="w-[30px] h-[30px] rounded-full">
@@ -25,20 +25,26 @@
             <div class="hidden lg:block">
                 <form action="" method="get" class="inline-flex items-center gap-[2px]">
                     <div class="flex items-center  rounded bg-slate-100 border border-slate-200 px-[1rem] relative">
-                        <i class="fa-solid fa-magnifying-glass text-[13px] text-[#EFDCAB] cursor-pointer absolute left-[0.5rem]" ></i>
-                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem] px-[1rem] bg-transparent outline-none">
+                        <svg width="24" height="24" class="text-[#3b5362] cursor-pointer absolute left-[0.5rem]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2938 14.5697 18.0025 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0025 14.5697 17.2938 15.875 16.025L16.025 15.875Z" fill="currentColor"/>
+                        </svg>
+                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem] bg-transparent outline-none border-transparent">
                     </div>
                     {% if current_category_id %}
                         <input type="hidden" name="category_id" value="{{ current_category_id }}">
                     {% endif %}
-                    <button type="submit" class="hover:bg-[#F2F6D0] bg-[#EFDCAB] text-[#443627] py-[0.5rem] px-[1rem] rounded">Search</button>
+                    <button type="submit" class="hover:bg-slate-500 bg-[#3b5362] text-[#FFFFFF] py-[0.5rem] px-[1rem] rounded">Search</button>
                 </form>
             </div>
             <div class="lg:hidden block">
                 <form action="" method="get" class="inline-flex items-center gap-[2px]">
                     <div class="flex items-center rounded bg-slate-100 border border-slate-200 px-[1rem] relative">
-                        <button type="submit" class="flex justify-center items-center"><i class="fa-solid fa-magnifying-glass text-[13px] text-[#EFDCAB] cursor-pointer absolute left-[0.5rem]" ></i></button>
-                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem] px-[1rem] bg-transparent outline-none">
+                        <button type="submit" class="flex justify-center items-center">
+                            <svg width="24" height="24" class="text-[#3b5362] cursor-pointer absolute left-[0.5rem]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2938 14.5697 18.0025 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0025 14.5697 17.2938 15.875 16.025L16.025 15.875Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem]  bg-transparent outline-none border-transparent">
                     </div>
                     {% if current_category_id %}
                         <input type="hidden" name="category_id" value="{{ current_category_id }}">
@@ -50,12 +56,10 @@
                     <div class="flex items-center relative">
                         <div class="flex items-center">
                             <div class="flex items-center ">
-                                <div id="staticBackdropbtn1" class="hover:text-teal-300 flex gap-[0.5rem] items-center text-[#3D5361] rounded-full py-[6px] px-[18px] bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all cursor-pointer">
-                                    {% if user.profilemodel.image %}
-                                        <img class="border border-slate-200 w-[30px] h-[30px] rounded-[50%] object-cover object-center " src=" {{ user.profilemodel.image.url }} " alt="Profile Image">
-                                    {% else %}
-                                        <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center mr-[10px]" src="{% static "assets/default.png" %} " alt="Default Profile Image">
-                                    {% endif %}
+                                <div id="staticBackdropbtn1" class=" flex gap-[0.5rem] items-center text-[#3D5361] rounded-full py-[6px] px-[18px] bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all cursor-pointer">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 1.25C10.7403 1.25 9.5321 1.75044 8.6413 2.64124C7.7505 3.53204 7.25006 4.74022 7.25006 6C7.25006 7.25978 7.7505 8.46796 8.6413 9.35876C9.5321 10.2496 10.7403 10.75 12.0001 10.75C13.2598 10.75 14.468 10.2496 15.3588 9.35876C16.2496 8.46796 16.7501 7.25978 16.7501 6C16.7501 4.74022 16.2496 3.53204 15.3588 2.64124C14.468 1.75044 13.2598 1.25 12.0001 1.25ZM8.75006 6C8.75006 5.13805 9.09247 4.3114 9.70196 3.7019C10.3115 3.09241 11.1381 2.75 12.0001 2.75C12.862 2.75 13.6887 3.09241 14.2982 3.7019C14.9076 4.3114 15.2501 5.13805 15.2501 6C15.2501 6.86195 14.9076 7.6886 14.2982 8.2981C13.6887 8.90759 12.862 9.25 12.0001 9.25C11.1381 9.25 10.3115 8.90759 9.70196 8.2981C9.09247 7.6886 8.75006 6.86195 8.75006 6ZM12.0001 12.25C9.68706 12.25 7.55506 12.776 5.97606 13.664C4.42006 14.54 3.25006 15.866 3.25006 17.5V17.602C3.24906 18.764 3.24806 20.222 4.52706 21.264C5.15606 21.776 6.03706 22.141 7.22706 22.381C8.41906 22.623 9.97406 22.75 12.0001 22.75C14.0261 22.75 15.5801 22.623 16.7741 22.381C17.9641 22.141 18.8441 21.776 19.4741 21.264C20.7531 20.222 20.7511 18.764 20.7501 17.602V17.5C20.7501 15.866 19.5801 14.54 18.0251 13.664C16.4451 12.776 14.3141 12.25 12.0001 12.25ZM4.75006 17.5C4.75006 16.649 5.37206 15.725 6.71106 14.972C8.02706 14.232 9.89506 13.75 12.0011 13.75C14.1051 13.75 15.9731 14.232 17.2891 14.972C18.6291 15.725 19.2501 16.649 19.2501 17.5C19.2501 18.808 19.2101 19.544 18.5261 20.1C18.1561 20.402 17.5361 20.697 16.4761 20.911C15.4191 21.125 13.9741 21.25 12.0001 21.25C10.0261 21.25 8.58006 21.125 7.52406 20.911C6.46406 20.697 5.84406 20.402 5.47406 20.101C4.79006 19.544 4.75006 18.808 4.75006 17.5Z" fill="currentColor"/>
+                                    </svg>
                                     <small class="font-semibold text-[14px] capitalize text-[#3b5361]">Hi, {{user.username}} </small>
                                     <i class="fa fa-solid fa-chevron-down text-slate-600"></i>
                                 </div>
@@ -65,7 +69,7 @@
                         <div class="profile-nav-modal absolute right-0 top-[50px] flex justify-center items-center " id="staticBackdrop2">
                             <div class="bg-slate-50 md:w-[250px] m-auto w-[250px] border border-slate-300 rounded-[0.2rem]">
                                 <div class="modal-body">
-                                    <div class="p-[0.3rem]">
+                                    <div class="p-[0.3rem] account-wrapper">
                                         <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
                                             <a href="{% url "profile" %}" class="flex items-center gap-[0.8rem] text-[14px] text-slate-500 no-underline text-nowrap ">
                                                 <p> <i class="fa-solid fa-gear p_user"></i></p>
@@ -85,7 +89,7 @@
                                             </a>
                                         </div>
                                         <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
-                                            <a href="#!" class=' flex gap-[0.8rem] items-center text-[14px] text-slate-500 no-underline text-nowrap '>
+                                            <a href="{% url 'reviews' %}" class=' flex gap-[0.8rem] items-center text-[14px] text-slate-500 no-underline text-nowrap '>
                                                 <p><i class="fa-solid fa-user-pen"></i></p>
                                                 <p class="">Reviews</p>
                                             </a>
@@ -109,11 +113,11 @@
                     </div>                    
                 {% else %}
                     <div class="flex items-center gap-[10px] w-full">
-                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fcfcfc] bg-orange-300 text-[13px] font-semibold text-nowrap no-underline transition">
+                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fcfcfc] bg-slate-500 text-[13px] font-semibold text-nowrap no-underline transition">
                             <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
                             Sign-In
                         </a>
-                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-orange-300 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-slate-500 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
                             <i class="fa fa-regular fa-address-book mr-[3px]"></i>
                             Sign-up
                         </a>
@@ -125,7 +129,7 @@
                     <div class="">
                         <i class="fa fa-solid fa-shopping-cart"></i>
                     </div>
-                    <p class="absolute mt-[-30%] ml-[20%] bg-orange-300 text-[#fdfdfd] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+                    <p class="absolute mt-[-30%] ml-[20%] bg-slate-600 text-[#fdfdfd] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
                     <p class="text-slate-500 font-semibold text-[15px]">Cart</p>
                 </a>
             </div>
@@ -142,14 +146,13 @@
                 <h4 class=" text-slate-700 hover:text-teal-800 font-semibold">Es-Shoppy</h4>
             </a>
         </div>
-        <div>
-            <i class="fa-solid fa-gear text-[18px] text-slate-500 cursor-pointer" ></i>
-        </div>
     </div>
     <form action="" method="get" class=" mt-[1rem] bg-[#fefefe]">
         <div class="flex items-center w-[100%] px-[1rem] border border-slate-300 rounded-full">
-            <i class="fa-solid fa-magnifying-glass text-[18px] text-slate-700 cursor-pointer" ></i>
-            <input type="search" name="search" placeholder="Search FitBlog..." class="w-full  py-[0.5rem] px-[6px] bg-transparent outline-none">
+            <svg width="24" height="24" class="text-[#3b5362] cursor-pointer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2938 14.5697 18.0025 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0025 14.5697 17.2938 15.875 16.025L16.025 15.875Z" fill="currentColor"/>
+            </svg>
+            <input type="search" name="search" placeholder="Search FitBlog..." class="w-full border-transparent py-[0.5rem] px-[6px] bg-transparent outline-none">
         </div>
     </form>
 </div>
@@ -158,65 +161,72 @@
     <div class="mobile-footer-container">
         <div class="">
             <a href="{% url "home" %}" class="no-underline gap-[0.5rem] text-[#3b5361] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
-                <i class="fa fa-solid fa-home text-[14px] text-[#3b5361]"></i>
-                Home
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.133 21C4.955 21 4 20.02 4 18.81V10.008C4 9.343 4.295 8.713 4.8 8.298L10.667 3.48C11.0419 3.16958 11.5133 2.99973 12 2.99973C12.4867 2.99973 12.9581 3.16958 13.333 3.48L19.199 8.298C19.705 8.713 20 9.343 20 10.008V18.81C20 20.02 19.045 21 17.867 21H6.133Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.5 21V15.5C9.5 14.9696 9.71071 14.4609 10.0858 14.0858C10.4609 13.7107 10.9696 13.5 11.5 13.5H12.5C13.0304 13.5 13.5391 13.7107 13.9142 14.0858C14.2893 14.4609 14.5 14.9696 14.5 15.5V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </a>
         </div>
        <div class="relative text-slate-500 no-underline flex items-center gap-[0.8rem]">
             <a href="{% url "cart_view" %}" class="no-underline gap-[0.5rem] text-[#3b5361] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
-                <i class="fa fa-solid fa-cart-shopping text-[14px] text-[#3b5361]"></i>
-                Cart
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.5 22C19.8978 22 20.2794 21.842 20.5607 21.5607C20.842 21.2794 21 20.8978 21 20.5C21 20.1022 20.842 19.7206 20.5607 19.4393C20.2794 19.158 19.8978 19 19.5 19C19.1022 19 18.7206 19.158 18.4393 19.4393C18.158 19.7206 18 20.1022 18 20.5C18 20.8978 18.158 21.2794 18.4393 21.5607C18.7206 21.842 19.1022 22 19.5 22ZM9.5 22C9.89782 22 10.2794 21.842 10.5607 21.5607C10.842 21.2794 11 20.8978 11 20.5C11 20.1022 10.842 19.7206 10.5607 19.4393C10.2794 19.158 9.89782 19 9.5 19C9.10218 19 8.72064 19.158 8.43934 19.4393C8.15804 19.7206 8 20.1022 8 20.5C8 20.8978 8.15804 21.2794 8.43934 21.5607C8.72064 21.842 9.10218 22 9.5 22Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 4H22L20 15M5 4L7 15H20M5 4C4.833 3.333 4 2 2 2M20 15H5.23C3.446 15 2.5 15.781 2.5 17C2.5 18.219 3.446 19 5.23 19H19.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </a>
-            <p class="absolute mt-[-160%] ml-[50%] bg-slate-700 text-[#fdfdfd] text-[9px] font-bold text-center border-[1px] border-slate-50 w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+            <p class="absolute mt-[-80%] ml-[60%] bg-slate-700 text-[#fdfdfd] text-[10px] font-bold text-center border-[1px] border-slate-50 w-[18px] h-[18px] rounded-full">{{ cart.order_products.count }}</p>
        </div>
         <div class="">
             <a href="{% url "become-seller" %}" class="no-underline text-[#3b5361] gap-[0.5rem] flex items-center" style="text-decoration:none;display:flex;flex-direction:column;gap:3px;align-items:center;font-size:12px">
-                <i class="fa fa-solid fa-bag-shopping text-[14px] text-[#3b5361]"></i>
-                Sell
+                <svg width="28" height="28" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 4.5H13.048C13.1719 4.50012 13.2913 4.54622 13.3831 4.62936C13.4749 4.71249 13.5326 4.82675 13.545 4.95L13.85 8H12.844L12.594 5.5H11V7C11 7.13261 10.9473 7.25979 10.8535 7.35355C10.7598 7.44732 10.6326 7.5 10.5 7.5C10.3674 7.5 10.2402 7.44732 10.1464 7.35355C10.0527 7.25979 10 7.13261 10 7V5.5H6V7C6 7.13261 5.94732 7.25979 5.85355 7.35355C5.75978 7.44732 5.6326 7.5 5.5 7.5C5.36739 7.5 5.24021 7.44732 5.14644 7.35355C5.05268 7.25979 5 7.13261 5 7V5.5H3.405L2.605 13.5H8V14.5H2.052C1.98216 14.4999 1.91311 14.4852 1.8493 14.4569C1.78549 14.4285 1.72834 14.387 1.68151 14.3352C1.63469 14.2834 1.59924 14.2224 1.57745 14.156C1.55566 14.0897 1.54801 14.0195 1.555 13.95L2.455 4.95C2.46738 4.82675 2.52508 4.71249 2.6169 4.62936C2.70872 4.54622 2.82813 4.50012 2.952 4.5H5V4.151C5 2.417 6.336 1 8 1C9.664 1 11 2.417 11 4.151V4.501V4.5ZM10 4.5V4.151C10 2.957 9.098 2 8 2C6.902 2 6 2.957 6 4.151V4.501H10V4.5ZM13.147 12.06L12 10.914V14.5C12 14.6326 11.9473 14.7598 11.8535 14.8536C11.7598 14.9473 11.6326 15 11.5 15C11.3674 15 11.2402 14.9473 11.1464 14.8536C11.0527 14.7598 11 14.6326 11 14.5V10.914L9.854 12.06C9.80787 12.1078 9.7527 12.1458 9.6917 12.1721C9.6307 12.1983 9.56509 12.212 9.4987 12.2126C9.43231 12.2132 9.36647 12.2006 9.30502 12.1754C9.24357 12.1503 9.18775 12.1131 9.1408 12.0662C9.09385 12.0193 9.05673 11.9634 9.03159 11.902C9.00645 11.8405 8.99379 11.7747 8.99437 11.7083C8.99495 11.6419 9.00874 11.5763 9.03495 11.5153C9.06115 11.4543 9.09924 11.3991 9.147 11.353L11.147 9.353C11.2408 9.25926 11.3679 9.20661 11.5005 9.20661C11.6331 9.20661 11.7602 9.25926 11.854 9.353L13.854 11.353C13.9018 11.3991 13.9398 11.4543 13.966 11.5153C13.9923 11.5763 14.006 11.6419 14.0066 11.7083C14.0072 11.7747 13.9945 11.8405 13.9694 11.902C13.9443 11.9634 13.9071 12.0193 13.8602 12.0662C13.8132 12.1131 13.7574 12.1503 13.696 12.1754C13.6345 12.2006 13.5687 12.2132 13.5023 12.2126C13.4359 12.212 13.3703 12.1983 13.3093 12.1721C13.2483 12.1458 13.1931 12.1078 13.147 12.06Z" fill="currentColor"/>
+                </svg>
             </a>
         </div>
         <div class="" >
             {% if user.is_authenticated %}
                 <div  class="static-backdrop-btn flex items-center text-[#3D5361] rounded-full  bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition duration-300 ">
                     {% if user.profilemodel.image %}
-                        <img class=" w-[30px] h-[30px] rounded-[50%] object-cover object-center " src=" {{ user.profilemodel.image.url }} " alt="Profile Image">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.71 12.71C16.6904 11.9387 17.406 10.8809 17.7572 9.68394C18.1085 8.48697 18.0779 7.21027 17.6698 6.03147C17.2617 4.85267 16.4963 3.83039 15.4801 3.10686C14.4639 2.38332 13.2474 1.99451 12 1.99451C10.7525 1.99451 9.53611 2.38332 8.51993 3.10686C7.50374 3.83039 6.73834 4.85267 6.33021 6.03147C5.92208 7.21027 5.89151 8.48697 6.24276 9.68394C6.59401 10.8809 7.3096 11.9387 8.29 12.71C6.61007 13.383 5.14428 14.4994 4.04889 15.9399C2.95349 17.3805 2.26956 19.0913 2.07 20.89C2.05555 21.0213 2.06711 21.1542 2.10402 21.2811C2.14093 21.4079 2.20246 21.5263 2.28511 21.6293C2.45202 21.8375 2.69478 21.9708 2.96 22C3.22521 22.0292 3.49116 21.9518 3.69932 21.7849C3.90749 21.618 4.04082 21.3752 4.07 21.11C4.28958 19.1552 5.22168 17.3498 6.68822 16.0388C8.15475 14.7278 10.0529 14.003 12.02 14.003C13.9871 14.003 15.8852 14.7278 17.3518 16.0388C18.8183 17.3498 19.7504 19.1552 19.97 21.11C19.9972 21.3557 20.1144 21.5827 20.2991 21.747C20.4838 21.9114 20.7228 22.0015 20.97 22H21.08C21.3421 21.9698 21.5817 21.8373 21.7466 21.6313C21.9114 21.4252 21.9881 21.1624 21.96 20.9C21.7595 19.0962 21.0719 17.381 19.9708 15.9382C18.8698 14.4954 17.3969 13.3795 15.71 12.71ZM12 12C11.2089 12 10.4355 11.7654 9.77772 11.3259C9.11992 10.8864 8.60723 10.2616 8.30448 9.53074C8.00173 8.79983 7.92251 7.99557 8.07686 7.21964C8.2312 6.44372 8.61216 5.73099 9.17157 5.17158C9.73098 4.61217 10.4437 4.2312 11.2196 4.07686C11.9956 3.92252 12.7998 4.00173 13.5307 4.30448C14.2616 4.60724 14.8863 5.11993 15.3259 5.77772C15.7654 6.43552 16 7.20888 16 8C16 9.06087 15.5786 10.0783 14.8284 10.8284C14.0783 11.5786 13.0609 12 12 12Z" fill="currentColor"/>
+                    </svg>
                     {% endif %}
                 </div>
                 <div class="" id="staticBackdrop4">
                     <div class="bg-slate-50  w-[100%] border border-slate-300 rounded-t-[0.5rem]">
                         <div class="modal-body">
-                            <div class="">
-                                <div class="p-[0.3rem]">
+                            <div class="account-wrapper">
+                                <div class="p-[0.3rem] account-li">
                                     <a href="{% url "profile" %}" class="flex items-center text-[14px] gap-[1rem] text-[#555555] no-underline text-nowrap px-[0.8rem] py-[0.6rem] hover:bg-[#ebebeb]">
                                     <p> <i class="fa-solid fa-gear text-slate-500"></i></p>
                                         <p class="">Manage account</p>
                                     </a>
                                 </div>
-                                <div class="p-[0.3rem]">
+                                <div class="p-[0.3rem] account-li">
                                     <a href="{% url "admin:index" %}" class="flex items-center gap-[1rem] text-[14px] text-[#555555] no-underline text-nowrap px-[0.8rem] py-[0.6rem] hover:bg-[#ebebeb]">
                                     <p> <i class="fa-solid fa-gears text-slate-500 "></i></p>
                                         <p class="">Admin</p>
                                     </a>
                                 </div>
-                                <div class="p-[0.3rem]">
+                                <div class="p-[0.3rem] account-li">
                                     <a href="#!" class='flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
                                         <p> <i class="fa-solid fa-circle-user text-slate-500"></i></p>
                                         <p class="">Dashboard</p>
                                     </a>
                                 </div>
-                                <div class="p-[0.3rem]">
-                                    <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                <div class="p-[0.3rem] account-li">
+                                    <a href="{% url 'reviews' %}" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
                                         <p><i class="fa-solid fa-user-pen text-slate-500"></i></p>
                                         <p class="">Reviews</p>
                                     </a>
                                 </div>
-                                <div class="p-[0.3rem]">
+                                <div class="p-[0.3rem] account-li">
                                     <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
                                         <p><i class="fa-regular fa-heart text-slate-500"></i></p>
                                         <p class="">Saved</p>
                                     </a>
                                 </div>
-                                <div class="p-[0.3rem]">
+                                <div class="p-[0.3rem] account-li">
                                     <a href="{% url "logout" %}" class='flex gap-[1rem] text-[14px] text-[#555555] no-underline text-nowrap items-center px-[0.8rem] py-[0.6rem] hover:bg-[#ebebeb]'>
                                         <p><i class="fa-solid fa-arrow-right-from-bracket text-slate-500"></i></p>
                                         <p class="">Sign out</p>
