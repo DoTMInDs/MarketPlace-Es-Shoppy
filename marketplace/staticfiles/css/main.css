@@ -3,6 +3,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+    scroll-behavior: smooth;
+}
+body{
+    overflow-x: hidden;
+    font-family: 'Montserrat','Montserrat Alternates', 'Roboto', 'Quicksand','Outfit', sans-serif;
+}
+
 .profile-nav-modal {
     display: none;
     opacity: 0;
@@ -10,7 +18,15 @@
     transition: all 0.3s ease;
     z-index: 10000;
 }
+.profile-nav-modal .account-wrapper{
+    display: none;
+}
 .profile-nav-modal.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.profile-nav-modal.show .account-wrapper{
     display: block;
     opacity: 1;
     transform: translateY(0);
@@ -107,6 +123,24 @@
     grid-gap: 10px;
     width: 100%;
 }
+
+/* Add to your existing style section */
+.rating input[type="radio"] {
+    display: none;
+}
+.rating label {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.rating input[type="radio"]:checked ~ label {
+    color: #f97316;
+}
+.review-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+
 @media screen and (max-width:700px) {
     .count-text{
         display: flex;
@@ -248,12 +282,52 @@
         margin-top: 50px;
         margin-bottom: 80px;
     }
+    .cart-css{
+        margin-top: 3rem;
+    }
+    .checkout-css{
+        margin-bottom: 4rem;
+    }
+    .add-product-css{
+        margin-bottom: 4rem;
+    }
+    main .edit-product-css{
+        margin-bottom: 6rem;
+    }
     .order-history-mobile-btn{
+        width: 100%;
         display: flex;
         gap: 5px;
+    }
+    .product-detail-container .product-detail-css{
+        margin-top: 4rem;
+    }
+    .product-detail-container {
+        margin-bottom: 4rem;
+    }
+    .manage-product-container .manage-pro-css{
+        margin-bottom: 4rem;
+    }
+    .home-container .home-css{
+        margin-bottom: 4rem;
     }
     .order-history-mobile-btn a{
         font-size: 14px;
         text-wrap: nowrap;
     }
+}
+/* Add to your main CSS file */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
