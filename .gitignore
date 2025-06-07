@@ -13,6 +13,8 @@ db.sqlite3
 .qodo
 theme
 sqlite3
+.vscode
 # Ignore Python cache files
 __pycache__/
 staticfiles/
+.vscode/
