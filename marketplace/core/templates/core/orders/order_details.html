@@ -4,7 +4,7 @@
 {% block title %}Order #{{ order.id }} Details{% endblock %}
 {% block content %}
 {% include "core/partials/nav.html" %}
-<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
+<div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white rounded mt-[3rem] mb-[5rem] sm:mb-0 sm:mt-0">
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <!-- Order Header -->
         <div class="flex justify-between items-center mb-6 pb-4 border-b">
@@ -24,7 +24,7 @@
 
         <!-- Order Summary -->
         <div class="mb-8">
-            <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mb-4">
                 <div>
                     <h3 class="text-sm font-semibold text-gray-600">DELIVERY ADDRESS</h3>
                     <p class="text-gray-800">
@@ -58,7 +58,7 @@
             
             {% for item in order.order_products.all %}
             <div class="flex items-start justify-between border-b pb-6 mb-6">
-                <div class="flex gap-4 w-[70%]">
+                <div class="flex gap-4 w-[70%] flex-wrap">
                     <div class="w-32 flex-shrink-0">
                         {% if item.product.image %}
                         <img src="{{ item.product.image.url }}" 
@@ -93,18 +93,15 @@
         </div>
 
         <!-- Order Actions -->
-        <div class="border-t pt-6 flex justify-between items-center">
+        <div class="border-t pt-6 flex justify-between items-center ">
             <a href="{% url 'order_history' %}" 
                class="text-blue-600 hover:text-blue-800 flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i>
                 Back to Orders
             </a>
-            {% if order.status == 'ordered' %}
-            <button class="bg-red-100 text-red-800 px-4 py-2 rounded-lg hover:bg-red-200">
-                Request Cancellation
-            </button>
-            {% endif %}
         </div>
     </div>
 </div>
+
+{% include "core/partials/footer.html" %}
 {% endblock %}

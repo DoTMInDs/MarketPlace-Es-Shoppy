@@ -1,4 +1,129 @@
 {% load static %}
 {% block footer %}
-    
+<footer class="bg-[#3b5362] border-t border-slate-200 mt-10 text-[#fefefe] hidden md:block ">
+    <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- About -->
+        <div>
+            <div class="flex items-center gap-2 mb-2">
+                <img src="{% static 'assets/big-esse-(1).png' %}" alt="logo" class="w-8 h-8 rounded-full">
+                <span class="font-bold text-lg">Es-Shoppy</span>
+            </div>
+            <p class="text-sm text-slate-200">
+                Your trusted marketplace for quality products and seamless shopping experience.
+            </p>
+        </div>
+        <!-- Quick Links -->
+        <div>
+            <h4 class="font-semibold mb-3 text-slate-100">Quick Links</h4>
+            <ul class="space-y-2 text-sm">
+                <li>
+                    <a href="{% url 'home' %}" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Home SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5"/><path d="M4 10.5V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4h2v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V10.5"/></svg>
+                        </span>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'become-seller' %}" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Store SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 22V12h6v10"/></svg>
+                        </span>
+                        Become a Seller
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'cart_view' %}" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Cart SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                        </span>
+                        Cart
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'reviews' %}" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Star SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polygon points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21 12 17.27"/></svg>
+                        </span>
+                        Reviews
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Support -->
+        <div>
+            <h4 class="font-semibold mb-3 text-slate-100">Support</h4>
+            <ul class="space-y-2 text-sm">
+                <li>
+                    <a href="#" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Help SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+                        </span>
+                        Help Center
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Mail SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="22,7 12,13 2,7"/></svg>
+                        </span>
+                        Contact Us
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- Truck SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        </span>
+                        Shipping & Returns
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="hover:text-amber-400 transition flex items-center gap-2">
+                        <span>
+                            <!-- File SVG -->
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </span>
+                        Terms & Conditions
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Socials -->
+        <div>
+            <h4 class="font-semibold mb-3 text-slate-100">Follow Us</h4>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-blue-400 transition" aria-label="Twitter">
+                    <!-- Twitter SVG -->
+                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 5.97c-.8.36-1.67.6-2.58.71a4.48 4.48 0 0 0 1.97-2.48 8.94 8.94 0 0 1-2.83 1.08 4.48 4.48 0 0 0-7.64 4.08A12.74 12.74 0 0 1 3.11 4.7a4.48 4.48 0 0 0 1.39 5.98c-.73-.02-1.42-.22-2.02-.56v.06a4.48 4.48 0 0 0 3.6 4.39c-.34.09-.7.14-1.07.14-.26 0-.51-.02-.76-.07a4.48 4.48 0 0 0 4.18 3.11A9 9 0 0 1 2 19.54a12.72 12.72 0 0 0 6.88 2.02c8.26 0 12.78-6.84 12.78-12.78 0-.19 0-.39-.01-.58a9.14 9.14 0 0 0 2.25-2.33z"/></svg>
+                </a>
+                <a href="#" class="hover:text-blue-600 transition" aria-label="Facebook">
+                    <!-- Facebook SVG -->
+                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0"/></svg>
+                </a>
+                <a href="#" class="hover:text-pink-400 transition" aria-label="Instagram">
+                    <!-- Instagram SVG -->
+                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.976 1.246 2.243 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.976.975-2.243 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.976-1.246-2.243-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608C4.516 2.565 5.783 2.295 7.148 2.233 8.414 2.175 8.794 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.363 3.678 1.344 2.697 2.325 2.465 3.437 2.406 4.718 2.347 6 .334 6.409.334 12c0 5.591.013 5.999.072 7.282.059 1.281.291 2.393 1.272 3.374.981.981 2.093 1.213 3.374 1.272C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.291 3.374-1.272.981-.981 1.213-2.093 1.272-3.374.059-1.283.072-1.691.072-7.282 0-5.591-.013-5.999-.072-7.282-.059-1.281-.291-2.393-1.272-3.374-.981-.981-2.093-1.213-3.374-1.272C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </a>
+                <a href="#" class="hover:text-blue-300 transition" aria-label="LinkedIn">
+                    <!-- LinkedIn SVG -->
+                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.027-3.037-1.849-3.037-1.851 0-2.132 1.445-2.132 2.939v5.667h-3.554V9h3.414v1.561h.049c.476-.899 1.637-1.849 3.372-1.849 3.605 0 4.271 2.372 4.271 5.455v6.285zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zm1.777 13.019H3.56V9h3.554v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.723v20.549C0 23.229.792 24 1.771 24h20.451C23.2 24 24 23.229 24 22.271V1.723C24 .771 23.2 0 22.225 0z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-slate-600 py-4 text-center text-xs text-slate-300">
+        &copy; <span id="footer-year"></span> Es-Shoppy. All rights reserved.
+    </div>
+</footer>
+<script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>
 {% endblock %}

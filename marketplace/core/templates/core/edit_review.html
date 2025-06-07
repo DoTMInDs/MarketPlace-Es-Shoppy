@@ -4,7 +4,7 @@
 {% block content %}
 {% include "core/partials/nav.html" %}
 
-<div class="container mx-auto px-4 py-8 mt-16 max-w-2xl">
+<div class="container mx-auto px-4 py-8 mt-16 max-w-2xl mb-[5rem] sm:mb-0">
     <div class="bg-white rounded-lg shadow-md p-6">
         <h1 class="text-2xl font-bold text-slate-700 mb-6">Edit Review</h1>
         
@@ -23,20 +23,22 @@
             <div class="mb-4">
                 <label class="block text-slate-700 mb-2">Rating</label>
                 <div class="rating flex">
-                    {% for i in "54321" %}
-                    <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" 
-                           class="hidden" {% if form.rating.value == i %}checked{% endif %}>
-                    <label for="star{{ i }}" class="text-2xl cursor-pointer text-amber-400 
-                        {% if form.rating.value >= i %}fas fa-star{% else %}far fa-star{% endif %}"></label>
-                    {% endfor %}
+                  <div id="starRating" class="flex gap-1">
+                        {% for i in "12345" %}
+                        <svg data-value="{{ i }}" class="star w-6 h-6 text-orange-400 cursor-pointer transition-transform duration-150 hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M12 17.75l-6.16 3.73 1.64-7.03L2 9.27l7.19-.61L12 2l2.81 6.66 7.19.61-5.48 5.18 1.64 7.03z"/>
+                        </svg>
+                        {% endfor %}
+                        <input type="hidden" name="rating" id="ratingInput" value="{{ form.rating.value|default:'0' }}">
+                    </div>
                 </div>
             </div>
-            <div class="mb-4">
-                <label class="block text-slate-700 mb-2">Review</label>
-                {{ form.comment }}
-                {% if form.comment.errors %}
-                    <p class="text-red-500 text-xs mt-1">{{ form.comment.errors.as_text }}</p>
-                {% endif %}
+            <div class="mb-4  w-full">
+               <div class="mb-4">
+                    <label class="block text-slate-600 mb-2">Review *</label>
+                    <textarea name="comment" rows="4" class="w-full px-3 py-2 border border-slate-200 rounded-md" 
+                            placeholder="Share your thoughts about this product" required>{{ form.comment.value|default:'' }}</textarea>
+                </div>
             </div>
             <div class="flex gap-3">
                 <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded">
@@ -50,4 +52,30 @@
     </div>
 </div>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const stars = document.querySelectorAll('#starRating .star');
+        const input = document.getElementById('ratingInput');
+
+        function setStars(value) {
+            stars.forEach((star, index) => {
+                star.setAttribute('fill', index < value ? 'currentColor' : 'none');
+            });
+        }
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                const val = index + 1;
+                input.value = val;
+                setStars(val);
+            });
+            star.addEventListener('mouseover', () => setStars(index + 1));
+            star.addEventListener('mouseout', () => setStars(parseInt(input.value)));
+        });
+
+        // Initialize
+        setStars(parseInt(input.value));
+    });
+</script>
 {% endblock %}

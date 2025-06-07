@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% block nav %}
-<nav class="nav-web-view p-[0.3rem] md:p-[0px]  w-[100%] bg-[#fefefe] shadow fixed top-[0] z-[9999]">
+<nav class="p-[0.3rem] md:p-[0px] w-[100%] bg-[#fefefe] shadow fixed top-[0] z-[9999]">
     <div class="bg-gray-100 w-full flex items-center py-[0.3rem] px-[0.5rem] justify-between ">
         {% if user.is_authenticated %}
             <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px]">
@@ -22,52 +22,52 @@
             </a>
         </div>
         <div class="flex items-center ">
-            <div class="hidden lg:block">
-                <form action="" method="get" class="inline-flex items-center gap-[2px]">
-                    <div class="flex items-center  rounded bg-slate-100 border border-slate-200 px-[1rem] relative">
-                        <svg width="24" height="24" class="text-[#3b5362] cursor-pointer absolute left-[0.5rem]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2938 14.5697 18.0025 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0025 14.5697 17.2938 15.875 16.025L16.025 15.875Z" fill="currentColor"/>
-                        </svg>
-                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem] bg-transparent outline-none border-transparent">
-                    </div>
-                    {% if current_category_id %}
-                        <input type="hidden" name="category_id" value="{{ current_category_id }}">
-                    {% endif %}
-                    <button type="submit" class="hover:bg-slate-500 bg-[#3b5362] text-[#FFFFFF] py-[0.5rem] px-[1rem] rounded">Search</button>
-                </form>
-            </div>
-            <div class="lg:hidden block">
-                <form action="" method="get" class="inline-flex items-center gap-[2px]">
-                    <div class="flex items-center rounded bg-slate-100 border border-slate-200 px-[1rem] relative">
-                        <button type="submit" class="flex justify-center items-center">
-                            <svg width="24" height="24" class="text-[#3b5362] cursor-pointer absolute left-[0.5rem]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="hidden md:block">
+                <form method="get" class="flex items-center max-w-sm mx-auto search-mobile">   
+                    <label for="simple-search" class="sr-only">Search</label>
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 start-0 text-[#3b5362] flex items-center ps-3 pointer-events-none">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2938 14.5697 18.0025 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0025 14.5697 17.2938 15.875 16.025L16.025 15.875Z" fill="currentColor"/>
                             </svg>
-                        </button>
-                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="w-[100%] py-[0.5rem]  bg-transparent outline-none border-transparent">
+                        </div>
+                        <input type="search" value="{{ search_query }}" name="search" placeholder="Search product, brands and cetegories..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 " placeholder="Search branch name..." required />
+                        {% if current_category_id %}
+                            <input type="hidden" name="category_id" value="{{ current_category_id }}">
+                        {% endif %}
                     </div>
-                    {% if current_category_id %}
-                        <input type="hidden" name="category_id" value="{{ current_category_id }}">
-                    {% endif %}
+                    <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-slate-700 rounded-lg border border-blue-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        <span class="sr-only">Search</span>
+                    </button>
                 </form>
             </div>
+            {% if user.is_authenticated %}
+            <div class="mx-[1rem] hidden md:block">
+                <a href="{% url "cart_view" %}" class="relative text-slate-500 no-underline flex items-center gap-[0.8rem]">
+                    <div class="">
+                        <i class="fa fa-solid fa-shopping-cart"></i>
+                    </div>
+                    <p class="absolute mt-[-30%] ml-[20%] bg-slate-600 text-[#fdfdfd] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+                    <p class="text-slate-500 font-semibold text-[15px]">Cart</p>
+                </a>
+            </div>
+            {% endif %}
             <div class="">
                 {% if user.is_authenticated %}
                     <div class="flex items-center relative">
                         <div class="flex items-center">
                             <div class="flex items-center ">
-                                <div id="staticBackdropbtn1" class=" flex gap-[0.5rem] items-center text-[#3D5361] rounded-full py-[6px] px-[18px] bg-[#ffffff9f] text-[13px] font-semibold hover:text-[#3D5261] no-underline text-nowrap transition-all cursor-pointer">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 1.25C10.7403 1.25 9.5321 1.75044 8.6413 2.64124C7.7505 3.53204 7.25006 4.74022 7.25006 6C7.25006 7.25978 7.7505 8.46796 8.6413 9.35876C9.5321 10.2496 10.7403 10.75 12.0001 10.75C13.2598 10.75 14.468 10.2496 15.3588 9.35876C16.2496 8.46796 16.7501 7.25978 16.7501 6C16.7501 4.74022 16.2496 3.53204 15.3588 2.64124C14.468 1.75044 13.2598 1.25 12.0001 1.25ZM8.75006 6C8.75006 5.13805 9.09247 4.3114 9.70196 3.7019C10.3115 3.09241 11.1381 2.75 12.0001 2.75C12.862 2.75 13.6887 3.09241 14.2982 3.7019C14.9076 4.3114 15.2501 5.13805 15.2501 6C15.2501 6.86195 14.9076 7.6886 14.2982 8.2981C13.6887 8.90759 12.862 9.25 12.0001 9.25C11.1381 9.25 10.3115 8.90759 9.70196 8.2981C9.09247 7.6886 8.75006 6.86195 8.75006 6ZM12.0001 12.25C9.68706 12.25 7.55506 12.776 5.97606 13.664C4.42006 14.54 3.25006 15.866 3.25006 17.5V17.602C3.24906 18.764 3.24806 20.222 4.52706 21.264C5.15606 21.776 6.03706 22.141 7.22706 22.381C8.41906 22.623 9.97406 22.75 12.0001 22.75C14.0261 22.75 15.5801 22.623 16.7741 22.381C17.9641 22.141 18.8441 21.776 19.4741 21.264C20.7531 20.222 20.7511 18.764 20.7501 17.602V17.5C20.7501 15.866 19.5801 14.54 18.0251 13.664C16.4451 12.776 14.3141 12.25 12.0001 12.25ZM4.75006 17.5C4.75006 16.649 5.37206 15.725 6.71106 14.972C8.02706 14.232 9.89506 13.75 12.0011 13.75C14.1051 13.75 15.9731 14.232 17.2891 14.972C18.6291 15.725 19.2501 16.649 19.2501 17.5C19.2501 18.808 19.2101 19.544 18.5261 20.1C18.1561 20.402 17.5361 20.697 16.4761 20.911C15.4191 21.125 13.9741 21.25 12.0001 21.25C10.0261 21.25 8.58006 21.125 7.52406 20.911C6.46406 20.697 5.84406 20.402 5.47406 20.101C4.79006 19.544 4.75006 18.808 4.75006 17.5Z" fill="currentColor"/>
-                                    </svg>
-                                    <small class="font-semibold text-[14px] capitalize text-[#3b5361]">Hi, {{user.username}} </small>
-                                    <i class="fa fa-solid fa-chevron-down text-slate-600"></i>
+                                <div id="staticBackdropbtn1" class="cursor-pointer flex gap-[0.5rem] items-center bg-[#3D5361] rounded-full w-[40px] h-[40px] text-[13px]  hover:text-[#3D5261] text-nowrap">
+                                    <span class="font-bold text-xl flex justify-center items-center text-[#FFFFFF] w-[40px] h-[40px] rounded-full border border-slate-200 shadow">{{ user.username|first|upper }}</span>
                                 </div>
                             </div>
                         </div>
                         <!-- profile-Modal -->
-                        <div class="profile-nav-modal absolute right-0 top-[50px] flex justify-center items-center " id="staticBackdrop2">
-                            <div class="bg-slate-50 md:w-[250px] m-auto w-[250px] border border-slate-300 rounded-[0.2rem]">
+                        <div class="profile-nav-modal absolute right-0 top-[50px] flex justify-center items-center shadow-md rounded-[10px]" id="staticBackdrop2">
+                            <div class="bg-slate-50 md:w-[250px] m-auto w-[250px] border border-slate-300 rounded-[10px]">
                                 <div class="modal-body">
                                     <div class="p-[0.3rem] account-wrapper">
                                         <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
@@ -83,21 +83,9 @@
                                             </a>
                                         </div>
                                         <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
-                                            <a href="#!" class='flex gap-[0.8rem] items-center no-underline text-nowrap text-[14px] text-slate-500 '>
-                                                <p> <i class="fa-solid fa-circle-user"></i></p>
-                                                <p class="">Dashboard</p>
-                                            </a>
-                                        </div>
-                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
                                             <a href="{% url 'reviews' %}" class=' flex gap-[0.8rem] items-center text-[14px] text-slate-500 no-underline text-nowrap '>
                                                 <p><i class="fa-solid fa-user-pen"></i></p>
                                                 <p class="">Reviews</p>
-                                            </a>
-                                        </div>
-                                        <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200" >
-                                            <a href="#!" class=' flex gap-[0.8rem] items-center text-[14px] text-slate-500 no-underline text-nowrap '>
-                                                <p><i class="fa-regular fa-heart"></i></p>
-                                                <p class="">Saved</p>
                                             </a>
                                         </div>
                                         <div class="px-[0.8rem] py-[0.6rem] hover:bg-slate-200">
@@ -112,32 +100,91 @@
                         </div>
                     </div>                    
                 {% else %}
-                    <div class="flex items-center gap-[10px] w-full">
-                        <a href="{% url "login" %}" class="rounded-full py-[6px] px-[18px] text-[#fcfcfc] bg-slate-500 text-[13px] font-semibold text-nowrap no-underline transition">
-                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                    <div class="flex items-center gap-[10px] w-full hidden lg:block ml-[1rem]">
+                        <a href="{% url "login" %}" class="rounded-full py-[0.6rem] px-[0.8rem] hover:bg-slate-100 text-[#3D5361] text-[13px] font-semibold text-nowrap no-underline transition">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 11.385C9.17533 11.385 8.469 11.091 7.881 10.503C7.293 9.91501 6.99933 9.20901 7 8.38501C7.00067 7.56101 7.29433 6.85435 7.881 6.26501C8.46767 5.67568 9.174 5.38268 10 5.38601C10.826 5.38935 11.5323 5.68268 12.119 6.26601C12.7057 6.84935 12.9993 7.55601 13 8.38601C13.0007 9.21601 12.707 9.92201 12.119 10.504C11.531 11.086 10.8247 11.379 10 11.385ZM3 17.578V16.97C3 16.51 3.11933 16.112 3.358 15.776C3.59667 15.44 3.921 15.1663 4.331 14.955C5.169 14.523 6.03967 14.192 6.943 13.962C7.84567 13.732 8.77033 13.617 9.717 13.617H10.006C10.1473 13.617 10.266 13.6663 10.362 13.765C10.458 13.8637 10.506 13.9837 10.506 14.125C10.506 14.2663 10.458 14.3843 10.362 14.479C10.266 14.5737 10.1473 14.6213 10.006 14.622H9.717C8.84633 14.622 8.003 14.7227 7.187 14.924C6.37033 15.1253 5.577 15.4343 4.807 15.851C4.58967 15.973 4.401 16.1283 4.241 16.317C4.08033 16.505 4 16.7227 4 16.97V17.616H10.006C10.1473 17.616 10.266 17.664 10.362 17.76C10.458 17.856 10.506 17.975 10.506 18.117C10.506 18.259 10.458 18.3777 10.362 18.473C10.266 18.5683 10.1473 18.6163 10.006 18.617H4.039C3.745 18.617 3.49833 18.517 3.299 18.317C3.09967 18.117 3 17.8713 3 17.578ZM16.158 18.739L16.065 17.942C15.7883 17.8847 15.5273 17.7877 15.282 17.651C15.0367 17.5143 14.8157 17.341 14.619 17.131L13.856 17.452C13.7547 17.4927 13.66 17.4943 13.572 17.457C13.484 17.4197 13.4153 17.3597 13.366 17.277L13.3 17.157C13.2473 17.073 13.2283 16.9797 13.243 16.877C13.2577 16.7743 13.3047 16.6903 13.384 16.625L14.031 16.15C13.9203 15.8653 13.865 15.572 13.865 15.27C13.865 14.968 13.9203 14.674 14.031 14.388L13.404 13.875C13.3233 13.815 13.2727 13.7363 13.252 13.639C13.232 13.5423 13.248 13.4517 13.3 13.367L13.371 13.242C13.4243 13.1593 13.4963 13.0993 13.587 13.062C13.6777 13.0247 13.7737 13.0263 13.875 13.067L14.619 13.389C14.8023 13.1783 15.02 13.008 15.272 12.878C15.524 12.748 15.7887 12.654 16.066 12.596L16.158 11.794C16.1693 11.6887 16.2143 11.6037 16.293 11.539C16.3717 11.4743 16.4637 11.442 16.569 11.442H16.7C16.8053 11.442 16.8973 11.4753 16.976 11.542C17.0547 11.6087 17.1 11.6947 17.112 11.8L17.185 12.596C17.4617 12.654 17.726 12.749 17.978 12.881C18.23 13.013 18.4477 13.186 18.631 13.4L19.364 13.079C19.4687 13.0343 19.5653 13.031 19.654 13.069C19.7427 13.1077 19.8127 13.1663 19.864 13.245L19.952 13.382C20.0033 13.4607 20.0187 13.5493 19.998 13.648C19.978 13.7467 19.9273 13.8263 19.846 13.887L19.219 14.4C19.3297 14.6813 19.385 14.974 19.385 15.278C19.385 15.582 19.3297 15.8727 19.219 16.15L19.866 16.625C19.946 16.685 19.9933 16.7667 20.008 16.87C20.0213 16.9733 20.002 17.0673 19.95 17.152L19.879 17.277C19.829 17.3597 19.761 17.4197 19.675 17.457C19.589 17.495 19.4957 17.4933 19.395 17.452L18.631 17.131C18.435 17.341 18.214 17.5143 17.968 17.651C17.722 17.7877 17.461 17.8847 17.185 17.942L17.112 18.744C17.1 18.8493 17.0547 18.9343 16.976 18.999C16.8973 19.0637 16.8053 19.096 16.7 19.096H16.57C16.464 19.096 16.3717 19.0627 16.293 18.996C16.2143 18.9293 16.1693 18.8437 16.158 18.739ZM16.617 17.077C17.115 17.077 17.5403 16.8997 17.893 16.545C18.2457 16.1903 18.4223 15.7643 18.423 15.267C18.4237 14.7697 18.2467 14.3443 17.892 13.991C17.5373 13.6377 17.1113 13.461 16.614 13.461C16.116 13.461 15.6903 13.6383 15.337 13.993C14.9837 14.3477 14.807 14.7737 14.807 15.271C14.807 15.7683 14.9843 16.1937 15.339 16.547C15.6937 16.9003 16.1197 17.077 16.617 17.077ZM10 10.384C10.55 10.384 11.021 10.1883 11.413 9.79701C11.805 9.40568 12.0007 8.93501 12 8.38501C11.9993 7.83501 11.8037 7.36401 11.413 6.97201C11.0223 6.58001 10.5513 6.38435 10 6.38501C9.44867 6.38568 8.978 6.58135 8.588 6.97201C8.198 7.36268 8.002 7.83368 8 8.38501C7.998 8.93635 8.194 9.40701 8.588 9.79701C8.982 10.187 9.45267 10.383 10 10.385" fill="currentColor"/>
+                            </svg>
                             Sign-In
                         </a>
-                        <a href="{% url "signup" %}" class="hover:text-[#fefefe] hover:bg-slate-500 rounded-full py-[6px] px-[18px] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
-                            <i class="fa fa-regular fa-address-book mr-[3px]"></i>
+                        <a href="{% url "signup" %}" class=" hover:bg-slate-100 rounded-full py-[0.6rem] px-[0.8rem] text-[13px] font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.47 8.47001C10.3295 8.61064 10.2507 8.80126 10.2507 9.00001C10.2507 9.19876 10.3295 9.38939 10.47 9.53001L12.19 11.25H4C3.80109 11.25 3.61032 11.329 3.46967 11.4697C3.32902 11.6103 3.25 11.8011 3.25 12C3.25 12.1989 3.32902 12.3897 3.46967 12.5303C3.61032 12.671 3.80109 12.75 4 12.75H12.19L10.47 14.47C10.3963 14.5387 10.3372 14.6215 10.2962 14.7135C10.2552 14.8055 10.2332 14.9048 10.2314 15.0055C10.2296 15.1062 10.2482 15.2062 10.2859 15.2996C10.3236 15.393 10.3797 15.4778 10.451 15.549C10.5222 15.6203 10.607 15.6764 10.7004 15.7141C10.7938 15.7519 10.8938 15.7704 10.9945 15.7686C11.0952 15.7668 11.1945 15.7448 11.2865 15.7038C11.3785 15.6628 11.4613 15.6037 11.53 15.53L14.53 12.53C14.6705 12.3894 14.7493 12.1988 14.7493 12C14.7493 11.8013 14.6705 11.6106 14.53 11.47L11.53 8.47001C11.3894 8.32956 11.1988 8.25067 11 8.25067C10.8012 8.25067 10.6106 8.32956 10.47 8.47001Z" fill="currentColor"/>
+                                <path opacity="0.5" d="M12 20C14.1217 20 16.1566 19.1571 17.6569 17.6569C19.1571 16.1566 20 14.1217 20 12C20 9.87827 19.1571 7.84344 17.6569 6.34315C16.1566 4.84285 14.1217 4 12 4V20Z" fill="currentColor"/>
+                            </svg>
                             Sign-up
                         </a>
                     </div>
                 {% endif %}
             </div>
-            <div class="">
-                <a href="{% url "cart_view" %}" class="relative text-slate-500 no-underline flex items-center gap-[0.8rem]">
-                    <div class="">
-                        <i class="fa fa-solid fa-shopping-cart"></i>
-                    </div>
-                    <p class="absolute mt-[-30%] ml-[20%] bg-slate-600 text-[#fdfdfd] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
-                    <p class="text-slate-500 font-semibold text-[15px]">Cart</p>
-                </a>
-            </div>
+            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100  focus:outline-none focus:ring-4 focus:ring-gray-200  rounded-lg text-sm p-2.5 me-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2938 14.5697 18.0025 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0025 14.5697 17.2938 15.875 16.025L16.025 15.875Z" fill="currentColor"/>
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+            
+            <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-search" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
         </div>
     </div>
+     <!--Mobile-responsive-->
+        <div class="">
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 " id="navbar-search">
+                <form method="get" action="" class="flex items-center  mt-3 md:hidden">
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input type="search" name="search" id="search-navbar" class="block w-full p-2 py-[0.8rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search...">
+                    </div>
+                    <button type="submit" class="p-2.5 py-[0.8rem] ms-2 text-sm font-medium text-white bg-slate-700 rounded-lg border border-blue-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        <span class="sr-only">Search</span>
+                    </button>
+                </form>
+                <ul class="md:hidden block px-[1rem] py-[1rem]">
+                    {% if not user.is_authenticated %}
+                    <li class="text-[#3b5362] py-[1.2rem] px-[1rem] hover:bg-[#dee4e728]">
+                        <a class="no-underline flex items-center gap-[0.5rem] text-[15px]" href="{% url "login" %}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 11.385C9.17533 11.385 8.469 11.091 7.881 10.503C7.293 9.91501 6.99933 9.20901 7 8.38501C7.00067 7.56101 7.29433 6.85435 7.881 6.26501C8.46767 5.67568 9.174 5.38268 10 5.38601C10.826 5.38935 11.5323 5.68268 12.119 6.26601C12.7057 6.84935 12.9993 7.55601 13 8.38601C13.0007 9.21601 12.707 9.92201 12.119 10.504C11.531 11.086 10.8247 11.379 10 11.385ZM3 17.578V16.97C3 16.51 3.11933 16.112 3.358 15.776C3.59667 15.44 3.921 15.1663 4.331 14.955C5.169 14.523 6.03967 14.192 6.943 13.962C7.84567 13.732 8.77033 13.617 9.717 13.617H10.006C10.1473 13.617 10.266 13.6663 10.362 13.765C10.458 13.8637 10.506 13.9837 10.506 14.125C10.506 14.2663 10.458 14.3843 10.362 14.479C10.266 14.5737 10.1473 14.6213 10.006 14.622H9.717C8.84633 14.622 8.003 14.7227 7.187 14.924C6.37033 15.1253 5.577 15.4343 4.807 15.851C4.58967 15.973 4.401 16.1283 4.241 16.317C4.08033 16.505 4 16.7227 4 16.97V17.616H10.006C10.1473 17.616 10.266 17.664 10.362 17.76C10.458 17.856 10.506 17.975 10.506 18.117C10.506 18.259 10.458 18.3777 10.362 18.473C10.266 18.5683 10.1473 18.6163 10.006 18.617H4.039C3.745 18.617 3.49833 18.517 3.299 18.317C3.09967 18.117 3 17.8713 3 17.578ZM16.158 18.739L16.065 17.942C15.7883 17.8847 15.5273 17.7877 15.282 17.651C15.0367 17.5143 14.8157 17.341 14.619 17.131L13.856 17.452C13.7547 17.4927 13.66 17.4943 13.572 17.457C13.484 17.4197 13.4153 17.3597 13.366 17.277L13.3 17.157C13.2473 17.073 13.2283 16.9797 13.243 16.877C13.2577 16.7743 13.3047 16.6903 13.384 16.625L14.031 16.15C13.9203 15.8653 13.865 15.572 13.865 15.27C13.865 14.968 13.9203 14.674 14.031 14.388L13.404 13.875C13.3233 13.815 13.2727 13.7363 13.252 13.639C13.232 13.5423 13.248 13.4517 13.3 13.367L13.371 13.242C13.4243 13.1593 13.4963 13.0993 13.587 13.062C13.6777 13.0247 13.7737 13.0263 13.875 13.067L14.619 13.389C14.8023 13.1783 15.02 13.008 15.272 12.878C15.524 12.748 15.7887 12.654 16.066 12.596L16.158 11.794C16.1693 11.6887 16.2143 11.6037 16.293 11.539C16.3717 11.4743 16.4637 11.442 16.569 11.442H16.7C16.8053 11.442 16.8973 11.4753 16.976 11.542C17.0547 11.6087 17.1 11.6947 17.112 11.8L17.185 12.596C17.4617 12.654 17.726 12.749 17.978 12.881C18.23 13.013 18.4477 13.186 18.631 13.4L19.364 13.079C19.4687 13.0343 19.5653 13.031 19.654 13.069C19.7427 13.1077 19.8127 13.1663 19.864 13.245L19.952 13.382C20.0033 13.4607 20.0187 13.5493 19.998 13.648C19.978 13.7467 19.9273 13.8263 19.846 13.887L19.219 14.4C19.3297 14.6813 19.385 14.974 19.385 15.278C19.385 15.582 19.3297 15.8727 19.219 16.15L19.866 16.625C19.946 16.685 19.9933 16.7667 20.008 16.87C20.0213 16.9733 20.002 17.0673 19.95 17.152L19.879 17.277C19.829 17.3597 19.761 17.4197 19.675 17.457C19.589 17.495 19.4957 17.4933 19.395 17.452L18.631 17.131C18.435 17.341 18.214 17.5143 17.968 17.651C17.722 17.7877 17.461 17.8847 17.185 17.942L17.112 18.744C17.1 18.8493 17.0547 18.9343 16.976 18.999C16.8973 19.0637 16.8053 19.096 16.7 19.096H16.57C16.464 19.096 16.3717 19.0627 16.293 18.996C16.2143 18.9293 16.1693 18.8437 16.158 18.739ZM16.617 17.077C17.115 17.077 17.5403 16.8997 17.893 16.545C18.2457 16.1903 18.4223 15.7643 18.423 15.267C18.4237 14.7697 18.2467 14.3443 17.892 13.991C17.5373 13.6377 17.1113 13.461 16.614 13.461C16.116 13.461 15.6903 13.6383 15.337 13.993C14.9837 14.3477 14.807 14.7737 14.807 15.271C14.807 15.7683 14.9843 16.1937 15.339 16.547C15.6937 16.9003 16.1197 17.077 16.617 17.077ZM10 10.384C10.55 10.384 11.021 10.1883 11.413 9.79701C11.805 9.40568 12.0007 8.93501 12 8.38501C11.9993 7.83501 11.8037 7.36401 11.413 6.97201C11.0223 6.58001 10.5513 6.38435 10 6.38501C9.44867 6.38568 8.978 6.58135 8.588 6.97201C8.198 7.36268 8.002 7.83368 8 8.38501C7.998 8.93635 8.194 9.40701 8.588 9.79701C8.982 10.187 9.45267 10.383 10 10.385" fill="currentColor"/>
+                            </svg>
+                            Sign In
+                        </a>
+                    </li>
+                    <li class="text-[#3b5362] py-[1.2rem] px-[1rem] hover:bg-[#dee4e728]">
+                        <a class="no-underline flex items-center gap-[0.5rem] text-[15px]" href="{% url "signup" %}" >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.47 8.47001C10.3295 8.61064 10.2507 8.80126 10.2507 9.00001C10.2507 9.19876 10.3295 9.38939 10.47 9.53001L12.19 11.25H4C3.80109 11.25 3.61032 11.329 3.46967 11.4697C3.32902 11.6103 3.25 11.8011 3.25 12C3.25 12.1989 3.32902 12.3897 3.46967 12.5303C3.61032 12.671 3.80109 12.75 4 12.75H12.19L10.47 14.47C10.3963 14.5387 10.3372 14.6215 10.2962 14.7135C10.2552 14.8055 10.2332 14.9048 10.2314 15.0055C10.2296 15.1062 10.2482 15.2062 10.2859 15.2996C10.3236 15.393 10.3797 15.4778 10.451 15.549C10.5222 15.6203 10.607 15.6764 10.7004 15.7141C10.7938 15.7519 10.8938 15.7704 10.9945 15.7686C11.0952 15.7668 11.1945 15.7448 11.2865 15.7038C11.3785 15.6628 11.4613 15.6037 11.53 15.53L14.53 12.53C14.6705 12.3894 14.7493 12.1988 14.7493 12C14.7493 11.8013 14.6705 11.6106 14.53 11.47L11.53 8.47001C11.3894 8.32956 11.1988 8.25067 11 8.25067C10.8012 8.25067 10.6106 8.32956 10.47 8.47001Z" fill="currentColor"/>
+                                <path opacity="0.5" d="M12 20C14.1217 20 16.1566 19.1571 17.6569 17.6569C19.1571 16.1566 20 14.1217 20 12C20 9.87827 19.1571 7.84344 17.6569 6.34315C16.1566 4.84285 14.1217 4 12 4V20Z" fill="currentColor"/>
+                            </svg>
+                            Sign Up
+                        </a>
+                    </li>
+                    {% else %}
+                    <a href="{% url "cart_view" %}" class="relative text-slate-500 no-underline flex items-center gap-[0.8rem]">
+                        <div class="relative">
+                            <i class="fa fa-solid fa-shopping-cart"></i>
+                            <p class="absolute top-[-0.1rem]  ml-[50%] bg-slate-600 text-[#fdfdfd] text-[10px] font-bold text-center w-[15px] h-[15px] rounded-full">{{ cart.order_products.count }}</p>
+                        </div>
+                        <p class="text-slate-500 font-semibold text-[15px]">Cart</p>
+                    </a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
 </nav>
 
- <!--PWA-Mobile-View-->
+ {% comment %} <!--PWA-Mobile-View-->
 <div class="mobile-nav-wrapper">
     <div class="mobile-nav-container">
         <div class="flex items-center cursor-pointer">
@@ -155,7 +202,7 @@
             <input type="search" name="search" placeholder="Search FitBlog..." class="w-full border-transparent py-[0.5rem] px-[6px] bg-transparent outline-none">
         </div>
     </form>
-</div>
+</div> {% endcomment %}
 
 <div class="mobile-footer-wrapper">
     <div class="mobile-footer-container">
@@ -209,21 +256,9 @@
                                     </a>
                                 </div>
                                 <div class="p-[0.3rem] account-li">
-                                    <a href="#!" class='flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
-                                        <p> <i class="fa-solid fa-circle-user text-slate-500"></i></p>
-                                        <p class="">Dashboard</p>
-                                    </a>
-                                </div>
-                                <div class="p-[0.3rem] account-li">
                                     <a href="{% url 'reviews' %}" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
                                         <p><i class="fa-solid fa-user-pen text-slate-500"></i></p>
                                         <p class="">Reviews</p>
-                                    </a>
-                                </div>
-                                <div class="p-[0.3rem] account-li">
-                                    <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
-                                        <p><i class="fa-regular fa-heart text-slate-500"></i></p>
-                                        <p class="">Saved</p>
                                     </a>
                                 </div>
                                 <div class="p-[0.3rem] account-li">
@@ -238,19 +273,34 @@
                 </div>
                 {% else %}
                 <div class="dropup" >
-                    <div class="" id="userBtn">
-                        <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center " src="{% static "assets/default.png" %} " alt="Default Profile Image">
+                    <button id="dropdownTopButton" type="button" data-dropdown-toggle="dropdownTop" data-dropdown-placement="top" class="" id="userBtn">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_247_63" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="1" width="20" height="22">
+                                <path d="M12 10C14.2091 10 16 8.20914 16 6C16 3.79086 14.2091 2 12 2C9.79086 2 8 3.79086 8 6C8 8.20914 9.79086 10 12 10Z" fill="#555555" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 22C21 17.0295 16.9705 13 12 13C7.0295 13 3 17.0295 3 22M9.5 19.5H14.5M12 17V22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </mask>
+                            <g mask="url(#mask0_247_63)">
+                                <path d="M0 0H24V24H0V0Z" fill="currentColor"/>
+                            </g>
+                        </svg>
+                    </button>
+                    <div id="dropdownTop" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44 ">
+                        <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownTopButton">
+                            <a href="{% url "signup" %}" class="flex items-center text-[13px] hover:bg-slate-200 p-[1rem]  font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 11.385C9.17533 11.385 8.469 11.091 7.881 10.503C7.293 9.91501 6.99933 9.20901 7 8.38501C7.00067 7.56101 7.29433 6.85435 7.881 6.26501C8.46767 5.67568 9.174 5.38268 10 5.38601C10.826 5.38935 11.5323 5.68268 12.119 6.26601C12.7057 6.84935 12.9993 7.55601 13 8.38601C13.0007 9.21601 12.707 9.92201 12.119 10.504C11.531 11.086 10.8247 11.379 10 11.385ZM3 17.578V16.97C3 16.51 3.11933 16.112 3.358 15.776C3.59667 15.44 3.921 15.1663 4.331 14.955C5.169 14.523 6.03967 14.192 6.943 13.962C7.84567 13.732 8.77033 13.617 9.717 13.617H10.006C10.1473 13.617 10.266 13.6663 10.362 13.765C10.458 13.8637 10.506 13.9837 10.506 14.125C10.506 14.2663 10.458 14.3843 10.362 14.479C10.266 14.5737 10.1473 14.6213 10.006 14.622H9.717C8.84633 14.622 8.003 14.7227 7.187 14.924C6.37033 15.1253 5.577 15.4343 4.807 15.851C4.58967 15.973 4.401 16.1283 4.241 16.317C4.08033 16.505 4 16.7227 4 16.97V17.616H10.006C10.1473 17.616 10.266 17.664 10.362 17.76C10.458 17.856 10.506 17.975 10.506 18.117C10.506 18.259 10.458 18.3777 10.362 18.473C10.266 18.5683 10.1473 18.6163 10.006 18.617H4.039C3.745 18.617 3.49833 18.517 3.299 18.317C3.09967 18.117 3 17.8713 3 17.578ZM16.158 18.739L16.065 17.942C15.7883 17.8847 15.5273 17.7877 15.282 17.651C15.0367 17.5143 14.8157 17.341 14.619 17.131L13.856 17.452C13.7547 17.4927 13.66 17.4943 13.572 17.457C13.484 17.4197 13.4153 17.3597 13.366 17.277L13.3 17.157C13.2473 17.073 13.2283 16.9797 13.243 16.877C13.2577 16.7743 13.3047 16.6903 13.384 16.625L14.031 16.15C13.9203 15.8653 13.865 15.572 13.865 15.27C13.865 14.968 13.9203 14.674 14.031 14.388L13.404 13.875C13.3233 13.815 13.2727 13.7363 13.252 13.639C13.232 13.5423 13.248 13.4517 13.3 13.367L13.371 13.242C13.4243 13.1593 13.4963 13.0993 13.587 13.062C13.6777 13.0247 13.7737 13.0263 13.875 13.067L14.619 13.389C14.8023 13.1783 15.02 13.008 15.272 12.878C15.524 12.748 15.7887 12.654 16.066 12.596L16.158 11.794C16.1693 11.6887 16.2143 11.6037 16.293 11.539C16.3717 11.4743 16.4637 11.442 16.569 11.442H16.7C16.8053 11.442 16.8973 11.4753 16.976 11.542C17.0547 11.6087 17.1 11.6947 17.112 11.8L17.185 12.596C17.4617 12.654 17.726 12.749 17.978 12.881C18.23 13.013 18.4477 13.186 18.631 13.4L19.364 13.079C19.4687 13.0343 19.5653 13.031 19.654 13.069C19.7427 13.1077 19.8127 13.1663 19.864 13.245L19.952 13.382C20.0033 13.4607 20.0187 13.5493 19.998 13.648C19.978 13.7467 19.9273 13.8263 19.846 13.887L19.219 14.4C19.3297 14.6813 19.385 14.974 19.385 15.278C19.385 15.582 19.3297 15.8727 19.219 16.15L19.866 16.625C19.946 16.685 19.9933 16.7667 20.008 16.87C20.0213 16.9733 20.002 17.0673 19.95 17.152L19.879 17.277C19.829 17.3597 19.761 17.4197 19.675 17.457C19.589 17.495 19.4957 17.4933 19.395 17.452L18.631 17.131C18.435 17.341 18.214 17.5143 17.968 17.651C17.722 17.7877 17.461 17.8847 17.185 17.942L17.112 18.744C17.1 18.8493 17.0547 18.9343 16.976 18.999C16.8973 19.0637 16.8053 19.096 16.7 19.096H16.57C16.464 19.096 16.3717 19.0627 16.293 18.996C16.2143 18.9293 16.1693 18.8437 16.158 18.739ZM16.617 17.077C17.115 17.077 17.5403 16.8997 17.893 16.545C18.2457 16.1903 18.4223 15.7643 18.423 15.267C18.4237 14.7697 18.2467 14.3443 17.892 13.991C17.5373 13.6377 17.1113 13.461 16.614 13.461C16.116 13.461 15.6903 13.6383 15.337 13.993C14.9837 14.3477 14.807 14.7737 14.807 15.271C14.807 15.7683 14.9843 16.1937 15.339 16.547C15.6937 16.9003 16.1197 17.077 16.617 17.077ZM10 10.384C10.55 10.384 11.021 10.1883 11.413 9.79701C11.805 9.40568 12.0007 8.93501 12 8.38501C11.9993 7.83501 11.8037 7.36401 11.413 6.97201C11.0223 6.58001 10.5513 6.38435 10 6.38501C9.44867 6.38568 8.978 6.58135 8.588 6.97201C8.198 7.36268 8.002 7.83368 8 8.38501C7.998 8.93635 8.194 9.40701 8.588 9.79701C8.982 10.187 9.45267 10.383 10 10.385" fill="currentColor"/>
+                                </svg>
+                                Sign up
+                            </a>
+                            <a href="{% url "login" %}" class="flex items-center text-[#3b5361] hover:bg-slate-200 p-[1rem]  text-[13px] font-semibold text-nowrap no-underline transition">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.47 8.47001C10.3295 8.61064 10.2507 8.80126 10.2507 9.00001C10.2507 9.19876 10.3295 9.38939 10.47 9.53001L12.19 11.25H4C3.80109 11.25 3.61032 11.329 3.46967 11.4697C3.32902 11.6103 3.25 11.8011 3.25 12C3.25 12.1989 3.32902 12.3897 3.46967 12.5303C3.61032 12.671 3.80109 12.75 4 12.75H12.19L10.47 14.47C10.3963 14.5387 10.3372 14.6215 10.2962 14.7135C10.2552 14.8055 10.2332 14.9048 10.2314 15.0055C10.2296 15.1062 10.2482 15.2062 10.2859 15.2996C10.3236 15.393 10.3797 15.4778 10.451 15.549C10.5222 15.6203 10.607 15.6764 10.7004 15.7141C10.7938 15.7519 10.8938 15.7704 10.9945 15.7686C11.0952 15.7668 11.1945 15.7448 11.2865 15.7038C11.3785 15.6628 11.4613 15.6037 11.53 15.53L14.53 12.53C14.6705 12.3894 14.7493 12.1988 14.7493 12C14.7493 11.8013 14.6705 11.6106 14.53 11.47L11.53 8.47001C11.3894 8.32956 11.1988 8.25067 11 8.25067C10.8012 8.25067 10.6106 8.32956 10.47 8.47001Z" fill="currentColor"/>
+                                    <path opacity="0.5" d="M12 20C14.1217 20 16.1566 19.1571 17.6569 17.6569C19.1571 16.1566 20 14.1217 20 12C20 9.87827 19.1571 7.84344 17.6569 6.34315C16.1566 4.84285 14.1217 4 12 4V20Z" fill="currentColor"/>
+                                </svg>
+                                Sign In
+                            </a>
+                        </ul>
                     </div>
-                    <ul class="dropdown-menu bg-slate-50 w-[150px] border border-slate-200 rounded" id="userContainer">
-                        <a href="{% url "signup" %}" class="flex items-center text-[13px] hover:bg-slate-200 p-[1rem]  font-semibold text-[#3D5361] text-nowrap no-underline transition">
-                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
-                            Sign up
-                        </a>
-                        <a href="{% url "login" %}" class="flex items-center text-[#3b5361] hover:bg-slate-200 p-[1rem]  text-[13px] font-semibold text-nowrap no-underline transition">
-                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
-                            Login
-                        </a>
-                    </ul>
                 </div>
             {% endif %}
         </div>

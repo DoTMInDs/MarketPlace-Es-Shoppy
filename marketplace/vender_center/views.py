@@ -202,19 +202,10 @@ def seller_orders(request):
             return redirect('home')
             
         seller = request.user.seller
-        orders = SellerOrder.objects.filter(seller=seller)\
-            .select_related('order', 'product')\
-            .order_by('-created_at')
+        orders = SellerOrder.objects.filter(seller=seller).select_related('order', 'product').order_by('-created_at')
         
-        if not orders.exists():
-            messages.info(request, "No orders found for your products")
-        
-        print(f"Found {orders.count()} orders for seller {seller.id}")
-        for order in orders:
-            print(f"Order {order.id} - Product: {order.product.name}")
-            
         context = {
-            'orders': orders,
+            'orders': orders,  # Keep this as 'orders' to match template
             'order_statuses': SellerOrder.STATUS_CHOICES
         }
         return render(request, 'vender/orders.html', context)

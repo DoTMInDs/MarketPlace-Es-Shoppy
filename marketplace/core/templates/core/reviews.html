@@ -4,11 +4,9 @@
 {% block content %}
 {% include "core/partials/nav.html" %}
 <main class="my-[1rem] md:flex-row flex-col flex w-full gap-[1rem] md:w-[80%] lg:w-[60%] m-auto">
-    
     <div class="w-full">
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg shadow-md p-6 mt-[2rem] sm:mt-0 mb-[5rem] sm:mb-0">
             <h1 class="text-2xl font-bold text-slate-700 mb-6">My Reviews</h1>
-            
             {% if reviews %}
                 <div class="space-y-6">
                     {% for review in reviews %}
@@ -34,18 +32,48 @@
                                 <p class="text-slate-700 mt-2">{{ review.comment }}</p>
                                 
                                 <div class="mt-3 flex gap-3">
-                                    <a href="{% url 'edit_review' review.id %}" class="text-xs text-amber-700 hover:text-amber-800 flex items-center gap-1">
-                                        <i class="fas fa-edit"></i> Edit
+                                    <a href="{% url 'edit_review' review.id %}" class=" text-slate-700 hover:text-slate-800 flex items-center gap-1 ">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.09 14.441V18.881C19.0898 19.5092 18.8401 20.1116 18.3959 20.5558C17.9516 21.0001 17.3492 21.2497 16.721 21.25H5.12002C4.80777 21.2499 4.49863 21.188 4.21035 21.0681C3.92208 20.9481 3.66035 20.7723 3.44021 20.5509C3.22007 20.3295 3.04586 20.0667 2.92758 19.7777C2.80931 19.4887 2.74931 19.1792 2.75102 18.867V7.27899C2.74916 6.96724 2.80919 6.65822 2.92764 6.36984C3.04608 6.08146 3.22059 5.81945 3.44103 5.59901C3.66148 5.37856 3.92348 5.20406 4.21186 5.08561C4.50025 4.96717 4.80927 4.90713 5.12102 4.90899H9.56002" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M19.09 8.995L15.005 4.909M6.83496 15.803V13.638C6.83696 13.281 6.97896 12.938 7.22996 12.685L16.762 3.153C16.8884 3.0251 17.039 2.92357 17.205 2.85427C17.371 2.78498 17.5491 2.7493 17.729 2.7493C17.9088 2.7493 18.0869 2.78498 18.2529 2.85427C18.4189 2.92357 18.5695 3.0251 18.696 3.153L20.847 5.304C20.9749 5.43048 21.0764 5.58107 21.1457 5.74706C21.215 5.91304 21.2507 6.09113 21.2507 6.271C21.2507 6.45087 21.215 6.62895 21.1457 6.79494C21.0764 6.96093 20.9749 7.11152 20.847 7.238L11.315 16.77C11.0615 17.0217 10.7192 17.1636 10.362 17.165H8.19696C8.01803 17.1653 7.8408 17.1302 7.67544 17.0619C7.51007 16.9935 7.35982 16.8932 7.2333 16.7667C7.10677 16.6401 7.00646 16.4899 6.9381 16.3245C6.86975 16.1592 6.8347 15.9819 6.83496 15.803Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Edit
                                     </a>
-                                    <form action="" method="post">
-                                        {% csrf_token %}
-                                        <a href="{% url 'delete_review' review.id %}" class="text-xs text-red-600 hover:text-red-800 flex items-center gap-1">
-                                            <button type="submit">
-                                                <i class="fas fa-trash"></i> Delete
-                                            </button>
-                                        </a>
-                                    </form>
+                                    <button type="button" data-modal-target="delete-review-modal-{{review.id}}" data-modal-toggle="delete-review-modal-{{review.id}}" class="flex items-center gap-[0.5rem] text-red-600 hover:text-red-800">
+                                       <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.5 3.5L4.125 13.5C4.15469 14.0778 4.575 14.5 5.125 14.5H10.875C11.4272 14.5 11.8397 14.0778 11.875 13.5L12.5 3.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M2.5 3.5H13.5H2.5Z" fill="currentColor"/>
+                                            <path d="M2.5 3.5H13.5" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round"/>
+                                            <path d="M6 3.5V2.25C5.99971 2.15143 6.01891 2.05377 6.0565 1.96265C6.09409 1.87152 6.14932 1.78873 6.21903 1.71903C6.28873 1.64933 6.37152 1.59409 6.46265 1.55651C6.55377 1.51892 6.65143 1.49971 6.75 1.5H9.25C9.34857 1.49971 9.44623 1.51892 9.53735 1.55651C9.62848 1.59409 9.71127 1.64933 9.78097 1.71903C9.85068 1.78873 9.90591 1.87152 9.9435 1.96265C9.98109 2.05377 10.0003 2.15143 10 2.25V3.5M8 5.5V12.5M5.75 5.5L6 12.5M10.25 5.5L10 12.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Delete
+                                    </button>
                                 </div>
+                                <div id="delete-review-modal-{{review.id}}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                                        <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-review-modal-{{review.id}}">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <form method="POST" action="{% url 'delete_review' review.id %}" class="inline">
+                                            {% csrf_token %}
+                                            <div class="p-4 md:p-5 text-center">
+                                                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+                                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+                                                <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                                    Yes, I'm sure
+                                                </button>
+                                                <button data-modal-hide="delete-review-modal-{{review.id}}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -64,7 +92,6 @@
     </div> 
 </main>
 
-<script>
-   
-</script>
+
+{% include "core/partials/footer.html" %}
 {% endblock %}

@@ -221,20 +221,26 @@
                     <path d="M8 11.5C7.72 11.5 7.5 11.28 7.5 11V5C7.5 4.72 7.72 4.5 8 4.5C8.28 4.5 8.5 4.72 8.5 5V11C8.5 11.28 8.28 11.5 8 11.5Z" fill="currentColor"/>
                     <path d="M11 8.5H5C4.72 8.5 4.5 8.28 4.5 8C4.5 7.72 4.72 7.5 5 7.5H11C11.28 7.5 11.5 7.72 11.5 8C11.5 8.28 11.28 8.5 11 8.5Z" fill="currentColor"/>
                 </svg>
-                    
             </div>
             <div class="mobile-list-items" id="mobile-list-item">
                 <div>
-                    <a href="{% url "orders" %}" class="text-[#3b5361] text-[14px] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
-                        <i class="fa-solid fa-bell"></i>
+                    <a href="{% url "orders" %}" class="text-[#3b5361] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
+                        <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.8516 11.3516L11.5 15.7109L9.39844 13.6016L10.1016 12.8984L11.5 14.2891L15.1484 10.6484L15.8516 11.3516ZM8 5H5V4H8V5ZM8 7H5V6H8V7ZM5 8H8V9H5V8ZM4 5H3V4H4V5ZM4 7H3V6H4V7ZM3 8H4V9H3V8ZM9 5V1H2V15H9V16H1V0H9.71094L14 4.28906V10L13 11V5H9ZM10 4H12.2891L10 1.71094V4Z" fill="currentColor"/>
+                        </svg>
                         Order
                     </a>
-                    <a href="{% url "add-product" %}" class="border-t border-slate-100 text-[#3b5361] hover:bg-slate-100 text-[14px] p-[1rem] no-underline flex items-center gap-[10px]">
-                        <i class="fa-solid fa-circle-plus"></i>
+                    <a href="{% url "add-product" %}" class="border-t border-slate-100 text-[#3b5361] hover:bg-slate-100  p-[1rem] no-underline flex items-center gap-[10px]">
+                        <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 1.75C8.19891 1.75 8.38968 1.82902 8.53033 1.96967C8.67098 2.11032 8.75 2.30109 8.75 2.5V7.25H13.5C13.6989 7.25 13.8897 7.32902 14.0303 7.46967C14.171 7.61032 14.25 7.80109 14.25 8C14.25 8.19891 14.171 8.38968 14.0303 8.53033C13.8897 8.67098 13.6989 8.75 13.5 8.75H8.75V13.5C8.75 13.6989 8.67098 13.8897 8.53033 14.0303C8.38968 14.171 8.19891 14.25 8 14.25C7.80109 14.25 7.61032 14.171 7.46967 14.0303C7.32902 13.8897 7.25 13.6989 7.25 13.5V8.75H2.5C2.30109 8.75 2.11032 8.67098 1.96967 8.53033C1.82902 8.38968 1.75 8.19891 1.75 8C1.75 7.80109 1.82902 7.61032 1.96967 7.46967C2.11032 7.32902 2.30109 7.25 2.5 7.25H7.25V2.5C7.25 2.30109 7.32902 2.11032 7.46967 1.96967C7.61032 1.82902 7.80109 1.75 8 1.75Z" fill="currentColor"/>
+                        </svg>
                         Add Product
                     </a>
-                    <a href="{% url "manage-product" %}" class="border-t border-slate-100 text-[#3b5361] text-[14px] hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
-                        <i class="fa-solid fa-pen"></i>
+                    <a href="{% url "manage-product" %}" class="border-t border-slate-100 text-[#3b5361]  hover:bg-slate-100 p-[1rem] no-underline flex items-center gap-[10px]">
+                        <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.47 7.83C14.882 6.30882 13.861 4.99331 12.5334 4.04604C11.2058 3.09878 9.62977 2.56129 8.00003 2.5C6.37029 2.56129 4.79423 3.09878 3.46663 4.04604C2.13904 4.99331 1.11811 6.30882 0.530031 7.83C0.490315 7.93985 0.490315 8.06015 0.530031 8.17C1.11811 9.69118 2.13904 11.0067 3.46663 11.954C4.79423 12.9012 6.37029 13.4387 8.00003 13.5C9.62977 13.4387 11.2058 12.9012 12.5334 11.954C13.861 11.0067 14.882 9.69118 15.47 8.17C15.5097 8.06015 15.5097 7.93985 15.47 7.83ZM8.00003 12.5C5.35003 12.5 2.55003 10.535 1.53503 8C2.55003 5.465 5.35003 3.5 8.00003 3.5C10.65 3.5 13.45 5.465 14.465 8C13.45 10.535 10.65 12.5 8.00003 12.5Z" fill="currentColor"/>
+                            <path d="M8 5C7.40666 5 6.82664 5.17595 6.33329 5.50559C5.83994 5.83524 5.45543 6.30377 5.22836 6.85195C5.0013 7.40013 4.94189 8.00333 5.05765 8.58527C5.1734 9.16721 5.45912 9.70176 5.87868 10.1213C6.29824 10.5409 6.83279 10.8266 7.41473 10.9424C7.99667 11.0581 8.59987 10.9987 9.14805 10.7716C9.69623 10.5446 10.1648 10.1601 10.4944 9.66671C10.8241 9.17336 11 8.59334 11 8C11 7.20435 10.6839 6.44129 10.1213 5.87868C9.55871 5.31607 8.79565 5 8 5ZM8 10C7.60444 10 7.21776 9.8827 6.88886 9.66294C6.55996 9.44318 6.30362 9.13082 6.15224 8.76537C6.00087 8.39991 5.96126 7.99778 6.03843 7.60982C6.1156 7.22186 6.30608 6.86549 6.58579 6.58579C6.86549 6.30608 7.22186 6.1156 7.60982 6.03843C7.99778 5.96126 8.39992 6.00087 8.76537 6.15224C9.13082 6.30362 9.44318 6.55996 9.66294 6.88886C9.8827 7.21776 10 7.60444 10 8C10 8.53043 9.78929 9.03914 9.41421 9.41421C9.03914 9.78929 8.53043 10 8 10Z" fill="currentColor"/>
+                        </svg>
                         My Products
                     </a>
                 </div>
@@ -274,21 +280,9 @@
                                     </a>
                                 </div>
                                 <div class="p-[0.3rem]">
-                                    <a href="#!" class='flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] no-underline text-nowrap text-[#555555] hover:bg-[#ebebeb]'>
-                                        <p> <i class="fa-solid fa-circle-user text-slate-500"></i></p>
-                                        <p class="">Dashboard</p>
-                                    </a>
-                                </div>
-                                <div class="p-[0.3rem]">
-                                    <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
+                                    <a href="{% url 'reviews' %}" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
                                         <p><i class="fa-solid fa-user-pen text-slate-500"></i></p>
                                         <p class="">Reviews</p>
-                                    </a>
-                                </div>
-                                <div class="p-[0.3rem]">
-                                    <a href="#!" class=' flex gap-[1rem] text-[14px] items-center px-[0.8rem] py-[0.6rem] text-[#555555] no-underline text-nowrap hover:bg-[#ebebeb]'>
-                                        <p><i class="fa-regular fa-heart text-slate-500"></i></p>
-                                        <p class="">Saved</p>
                                     </a>
                                 </div>
                                 <div class="p-[0.3rem]">
@@ -303,23 +297,24 @@
                 </div>
                 {% else %}
                 <div class="dropup" >
-                    <div class="" id="userBtn">
+                    <button id="dropdownTopButton" data-dropdown-toggle="dropdownTop" data-dropdown-placement="top" class="" id="userBtn">
                         <img class="w-[30px] h-[30px] rounded-[50%] object-cover object-center " src="{% static "assets/default.png" %} " alt="Default Profile Image">
+                    </button>
+                    <div id="dropdownTop" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                        <ul class="dropdown-menu bg-slate-50 w-[150px] border border-slate-200 rounded" aria-labelledby="dropdownTopButton">
+                            <a href="{% url "signup" %}" class="flex items-center text-[13px] hover:bg-slate-200 p-[1rem]  font-semibold text-[#3D5361] text-nowrap no-underline transition">
+                                <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                                Sign up
+                            </a>
+                            <a href="{% url "login" %}" class="flex items-center text-[#3b5361] hover:bg-slate-200 p-[1rem]  text-[13px] font-semibold text-nowrap no-underline transition">
+                                <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
+                                Login
+                            </a>
+                        </ul>
                     </div>
-                    <ul class="dropdown-menu bg-slate-50 w-[150px] border border-slate-200 rounded" id="userContainer">
-                        <a href="{% url "signup" %}" class="flex items-center text-[13px] hover:bg-slate-200 p-[1rem]  font-semibold text-[#3D5361] text-nowrap no-underline transition">
-                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
-                            Sign up
-                        </a>
-                        <a href="{% url "login" %}" class="flex items-center text-[#3b5361] hover:bg-slate-200 p-[1rem]  text-[13px] font-semibold text-nowrap no-underline transition">
-                            <i class="fa-solid fa-right-from-bracket mr-[3px]"></i>
-                            Login
-                        </a>
-                    </ul>
                 </div>
             {% endif %}
         </div>
-            
     </div>
 </div>
 

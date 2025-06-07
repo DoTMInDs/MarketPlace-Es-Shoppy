@@ -41,18 +41,39 @@
     }
    
 </style>
-<div id="messages" class="messaage-wrapper w-[100%] md:w-[80%] lg:w-[60%] m-auto">
-    {% if messages %}
-        <ul class="list-none m-0 ">
-            {% for message in messages %}
-                <li class="bg-green-500 text-white p-2 rounded mb-2 flex items-center justify-between">
-                    {{ message }}
-                    <i class="fa fa-solid fa-close text-[18px] text-white close-message cursor-pointer ml-2"></i>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-</div>
+{% if messages %}
+       <div class="flex justify-center fixed top-0 left-0 right-0 w-full z-[9999]" role="alert">
+           {% for message in messages %}
+           <div id="toast-success" class="flex items-center w-full max-w-lg p-4 mb-4 rounded-lg shadow-lg
+               {% if 'unavailable' in message|lower %}bg-yellow-100 text-yellow-800
+               {% elif message.tags == 'error' %}bg-red-100 text-red-800
+               {% else %}bg-blue-100 text-blue-800{% endif %}" role="alert">
+               <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 {% if message.tags == 'error' %}text-red-700{% else %} text-green-500 {% endif %} bg-green-100 rounded-lg ">
+                   {% if message.tags == 'error' %}
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M12 17C12.2833 17 12.521 16.904 12.713 16.712C12.905 16.52 13.0007 16.2827 13 16C12.9993 15.7173 12.9033 15.48 12.712 15.288C12.5207 15.096 12.2833 15 12 15C11.7167 15 11.4793 15.096 11.288 15.288C11.0967 15.48 11.0007 15.7173 11 16C10.9993 
+                       16.2827 11.0953 16.5203 11.288 16.713C11.4807 16.9057 11.718 17.0013 12 17ZM11 13H13V7H11V13ZM12 22C10.6167 22 9.31667 21.7373 8.1 21.212C6.88334 20.6867 5.825 19.9743 4.925 19.075C4.025 18.1757 3.31267 17.1173 2.788 15.9C2.26333 14.6827 2.00067 
+                       13.3827 2 12C1.99933 10.6173 2.262 9.31733 2.788 8.1C3.314 6.88267 4.02633 5.82433 4.925 4.925C5.82367 4.02567 6.882 3.31333 8.1 2.788C9.318 2.26267 10.618 2 12 2C13.382 2 14.682 2.26267 15.9 2.788C17.118 3.31333 18.1763 4.02567 19.075 4.925C19.9737 
+                       5.82433 20.6863 6.88267 21.213 8.1C21.7397 9.31733 22.002 10.6173 22 12C21.998 13.3827 21.7353 14.6827 21.212 15.9C20.6887 17.1173 19.9763 18.1757 19.075 19.075C18.1737 19.9743 17.1153 20.687 15.9 21.213C14.6847 21.739 13.3847 22.0013 12 22Z" fill="currentColor"/>
+                   </svg>
+                   {% else %}
+                   <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                       <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                   </svg>
+                   {% endif %}
+                   <span class="sr-only">Check icon</span>
+               </div>
+               <div class="ms-3 text-sm font-normal">{{ message }}</div>
+               <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 " data-dismiss-target="#toast-success" aria-label="Close">
+                   <span class="sr-only">Close</span>
+                   <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                   </svg>
+               </button>
+           </div>
+           {% endfor %}
+       </div>
+{% endif %}
 <section class="product-detail-container">
     <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto flex items-center gap-[3px] cart-mobile product-detail-css">
         <div class="w-[100%] flex gap-[0.5rem] flex-col md:flex-row">
@@ -149,14 +170,18 @@
                                             class="w-20 px-3 py-2 border rounded-md text-center"
                                         >
                                     </div>
-                                    <button class="no-underline bg-slate-700 text-[14px] text-slate-50 block w-[100%] py-[0.8rem] rounded-full">
-                                        <i class="fa-solid fa-cart-plus"></i>
+                                    <button class="no-underline bg-slate-700 text-[14px] text-slate-50  w-[100%] py-[0.8rem] rounded-full flex gap-[0.5rem] items-center justify-center">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 1H4.764L7.764 12H18.279L21.368 2.735L23.265 3.368L19.72 14H7.78L7.28 16H22V18H4.72L5.966 13.011L3.236 3H0V1ZM14 2V5H17V7H14V10H12V7H9V5H12V2H14ZM4 21C4 20.4696 4.21071 19.9609 4.58579 19.5858C4.96086 19.2107 5.46957 19 6 19C6.53043 19 7.03914 19.2107 7.41421 19.5858C7.78929 19.9609 8 20.4696 8 21C8 21.5304 7.78929 22.0391 7.41421 22.4142C7.03914 22.7893 6.53043 23 6 23C5.46957 23 4.96086 22.7893 4.58579 22.4142C4.21071 22.0391 4 21.5304 4 21ZM18 21C18 20.4696 18.2107 19.9609 18.5858 19.5858C18.9609 19.2107 19.4696 19 20 19C20.5304 19 21.0391 19.2107 21.4142 19.5858C21.7893 19.9609 22 20.4696 22 21C22 21.5304 21.7893 22.0391 21.4142 22.4142C21.0391 22.7893 20.5304 23 20 23C19.4696 23 18.9609 22.7893 18.5858 22.4142C18.2107 22.0391 18 21.5304 18 21Z" fill="currentColor"/>
+                                        </svg>
                                         Add to Cart
                                     </button>
                                 </form>
                                 {% else %}
-                                <button class="no-underline bg-slate-200 text-[14px] text-slate-300 block w-[100%] py-[0.6rem] rounded-full cursor-not-allowed">
-                                    <i class="fa-solid fa-cart-plus"></i>
+                                <button class="no-underline bg-slate-200 text-[14px] text-slate-300 block w-[100%] py-[0.6rem] rounded-full cursor-not-allowed flex gap-[0.5rem] items-center justify-center">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 1H4.764L7.764 12H18.279L21.368 2.735L23.265 3.368L19.72 14H7.78L7.28 16H22V18H4.72L5.966 13.011L3.236 3H0V1ZM14 2V5H17V7H14V10H12V7H9V5H12V2H14ZM4 21C4 20.4696 4.21071 19.9609 4.58579 19.5858C4.96086 19.2107 5.46957 19 6 19C6.53043 19 7.03914 19.2107 7.41421 19.5858C7.78929 19.9609 8 20.4696 8 21C8 21.5304 7.78929 22.0391 7.41421 22.4142C7.03914 22.7893 6.53043 23 6 23C5.46957 23 4.96086 22.7893 4.58579 22.4142C4.21071 22.0391 4 21.5304 4 21ZM18 21C18 20.4696 18.2107 19.9609 18.5858 19.5858C18.9609 19.2107 19.4696 19 20 19C20.5304 19 21.0391 19.2107 21.4142 19.5858C21.7893 19.9609 22 20.4696 22 21C22 21.5304 21.7893 22.0391 21.4142 22.4142C21.0391 22.7893 20.5304 23 20 23C19.4696 23 18.9609 22.7893 18.5858 22.4142C18.2107 22.0391 18 21.5304 18 21Z" fill="currentColor"/>
+                                    </svg>
                                     Add to Cart
                                 </button>
                                     <p class="text-center py-[0.5rem]">
@@ -168,7 +193,6 @@
                     </div>
                 </div>
             </div>
-      
             <div class="flex gap-[0.5rem] basis-[30%] flex-col md:flex-col sm:flex-row  delivery-content-mobile">
                     <div class="shadow rounded bg-white  p-[0.5rem] h-[100%]">
                         <div class="py-[0.5rem] border-b border-slate-200">
@@ -224,9 +248,7 @@
                     
                 </div>
             </div>
-
         </div>
-        
     </div>
     <div class="my-[1rem] flex w-[100%] md:w-[80%] lg:w-[60%] m-auto more-details-mobile">
         <div class="shadow bg-white md:basis-[70%] basis-[100%] rounedd">
@@ -287,9 +309,13 @@
                     <div class="flex items-center">
                         {% for i in "12345" %}
                             {% if i|add:0 <= product.average_rating %}
-                                <i class="fas fa-star text-orange-400"></i>
+                                <svg width="24" height="24" class="text-orange-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.275L7.84996 19.775C7.66663 19.8917 7.47496 19.9417 7.27496 19.925C7.07496 19.9083 6.89996 19.8417 6.74996 19.725C6.59996 19.6083 6.4833 19.4627 6.39996 19.288C6.31663 19.1133 6.29996 18.9173 6.34996 18.7L7.44996 13.975L3.77496 10.8C3.6083 10.65 3.5043 10.479 3.46296 10.287C3.42163 10.095 3.43396 9.90767 3.49996 9.725C3.56596 9.54233 3.66596 9.39233 3.79996 9.275C3.93396 9.15767 4.1173 9.08267 4.34996 9.05L9.19996 8.625L11.075 4.175C11.1583 3.975 11.2876 3.825 11.463 3.725C11.6383 3.625 11.8173 3.575 12 3.575C12.1826 3.575 12.3616 3.625 12.537 3.725C12.7123 3.825 12.8416 3.975 12.925 4.175L14.8 8.625L19.65 9.05C19.8833 9.08333 20.0666 9.15833 20.2 9.275C20.3333 9.39167 20.4333 9.54167 20.5 9.725C20.5666 9.90833 20.5793 10.096 20.538 10.288C20.4966 10.48 20.3923 10.6507 20.225 10.8L16.55 13.975L17.65 18.7C17.7 18.9167 17.6833 19.1127 17.6 19.288C17.5166 19.4633 17.4 19.609 17.25 19.725C17.1 19.841 16.925 19.9077 16.725 19.925C16.525 19.9423 16.3333 19.8923 16.15 19.775L12 17.275Z" fill="currentColor"/>
+                                </svg>
                             {% else %}
-                                <i class="far fa-star text-orange-400"></i>
+                                <svg width="24" height="24" class="text-orange-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.84996 16.825L12 14.925L15.15 16.85L14.325 13.25L17.1 10.85L13.45 10.525L12 7.125L10.55 10.5L6.89996 10.825L9.67496 13.25L8.84996 16.825ZM12 17.275L7.84996 19.775C7.66663 19.8917 7.47496 19.9417 7.27496 19.925C7.07496 19.9083 6.89996 19.8417 6.74996 19.725C6.59996 19.6083 6.4833 19.4627 6.39996 19.288C6.31663 19.1133 6.29996 18.9173 6.34996 18.7L7.44996 13.975L3.77496 10.8C3.6083 10.65 3.5043 10.479 3.46296 10.287C3.42163 10.095 3.43396 9.90766 3.49996 9.725C3.56596 9.54233 3.66596 9.39233 3.79996 9.275C3.93396 9.15766 4.1173 9.08266 4.34996 9.05L9.19996 8.625L11.075 4.175C11.1583 3.975 11.2876 3.825 11.463 3.725C11.6383 3.625 11.8173 3.575 12 3.575C12.1826 3.575 12.3616 3.625 12.537 3.725C12.7123 3.825 12.8416 3.975 12.925 4.175L14.8 8.625L19.65 9.05C19.8833 9.08333 20.0666 9.15833 20.2 9.275C20.3333 9.39166 20.4333 9.54166 20.5 9.725C20.5666 9.90833 20.5793 10.096 20.538 10.288C20.4966 10.48 20.3923 10.6507 20.225 10.8L16.55 13.975L17.65 18.7C17.7 18.9167 17.6833 19.1127 17.6 19.288C17.5166 19.4633 17.4 19.609 17.25 19.725C17.1 19.841 16.925 19.9077 16.725 19.925C16.525 19.9423 16.3333 19.8923 16.15 19.775L12 17.275Z" fill="currentColor"/>
+                                </svg>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -306,25 +332,19 @@
                 <form method="POST" action="{% url 'submit_review' product.id %}" class="review-form">
                     {% csrf_token %}
                     <div class="mb-4">
-                        <label class="block text-slate-600 mb-2">Rating</label>
-                        <div class="rating flex gap-1">
-                            {% for i in "54321" %}
-                            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" 
-                                class="hidden" {% if form.rating.value == i %}checked{% endif %}>
-                            <label for="star{{ i }}" class="text-2xl cursor-pointer 
-                                {% if form.rating.value >= i or not form.rating.value and i == '5' %}fas fa-star text-orange-400{% else %}far fa-star text-orange-400{% endif %}"></label>
+                        <div id="starRating" class="flex gap-1">
+                            {% for i in "12345" %}
+                            <svg data-value="{{ i }}" class="star w-6 h-6 text-orange-400 cursor-pointer transition-transform duration-150 hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 17.75l-6.16 3.73 1.64-7.03L2 9.27l7.19-.61L12 2l2.81 6.66 7.19.61-5.48 5.18 1.64 7.03z"/>
+                            </svg>
                             {% endfor %}
+                            <input type="hidden" name="rating" id="ratingInput" value="{{ form.rating.value|default:'0' }}">
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class="block text-slate-600 mb-2">Title (optional)</label>
-                        <input type="text" name="title" class="w-full px-3 py-2 border rounded-md" 
-                            placeholder="Summarize your experience" maxlength="100">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-slate-600 mb-2">Review</label>
+                        <label class="block text-slate-600 mb-2">Review *</label>
                         <textarea name="comment" rows="4" class="w-full px-3 py-2 border rounded-md" 
-                                placeholder="Share your thoughts about this product" required></textarea>
+                                placeholder="Share your thoughts about this product" required>{{ form.comment.value|default:'' }}</textarea>
                     </div>
                     <button type="submit" class="bg-slate-700 text-white px-4 py-2 rounded-md hover:bg-slate-800">
                         Submit Review
@@ -367,12 +387,44 @@
                             
                             {% if review.user == user %}
                             <div class="mt-3 flex gap-3">
-                                <a href="{% url 'edit_review' review.id %}" class="text-xs text-orange-600 hover:text-orange-800">
-                                    <i class="fas fa-edit"></i> Edit
+                                <a href="{% url 'edit_review' review.id %}" class="text-slate-600 hover:text-slate-800 flex items-center gap-[0.5rem]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.09 14.441V18.881C19.0898 19.5092 18.8401 20.1116 18.3959 20.5558C17.9516 21.0001 17.3492 21.2497 16.721 21.25H5.12002C4.80777 21.2499 4.49863 21.188 4.21035 21.0681C3.92208 20.9481 3.66035 20.7723 3.44021 20.5509C3.22007 20.3295 3.04586 20.0667 2.92758 19.7777C2.80931 19.4887 2.74931 19.1792 2.75102 18.867V7.27899C2.74916 6.96724 2.80919 6.65822 2.92764 6.36984C3.04608 6.08146 3.22059 5.81945 3.44103 5.59901C3.66148 5.37856 3.92348 5.20406 4.21186 5.08561C4.50025 4.96717 4.80927 4.90713 5.12102 4.90899H9.56002" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M19.09 8.995L15.005 4.909M6.83496 15.803V13.638C6.83696 13.281 6.97896 12.938 7.22996 12.685L16.762 3.153C16.8884 3.0251 17.039 2.92357 17.205 2.85427C17.371 2.78498 17.5491 2.7493 17.729 2.7493C17.9088 2.7493 18.0869 2.78498 18.2529 2.85427C18.4189 2.92357 18.5695 3.0251 18.696 3.153L20.847 5.304C20.9749 5.43048 21.0764 5.58107 21.1457 5.74706C21.215 5.91304 21.2507 6.09113 21.2507 6.271C21.2507 6.45087 21.215 6.62895 21.1457 6.79494C21.0764 6.96093 20.9749 7.11152 20.847 7.238L11.315 16.77C11.0615 17.0217 10.7192 17.1636 10.362 17.165H8.19696C8.01803 17.1653 7.8408 17.1302 7.67544 17.0619C7.51007 16.9935 7.35982 16.8932 7.2333 16.7667C7.10677 16.6401 7.00646 16.4899 6.9381 16.3245C6.86975 16.1592 6.8347 15.9819 6.83496 15.803Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Edit
                                 </a>
-                                <a href="{% url 'delete_review' review.id %}" class="text-xs text-red-600 hover:text-red-800">
-                                    <i class="fas fa-trash"></i> Delete
-                                </a>
+                                <button type="button" data-modal-target="delete-review-modal-{{review.id}}" data-modal-toggle="delete-review-modal-{{review.id}}" class="text-red-600 hover:text-red-800 flex items-center gap-[0.5rem]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 5H14C14 4.46957 13.7893 3.96086 13.4142 3.58579C13.0391 3.21071 12.5304 3 12 3C11.4696 3 10.9609 3.21071 10.5858 3.58579C10.2107 3.96086 10 4.46957 10 5ZM8.5 5C8.5 4.54037 8.59053 4.08525 8.76642 3.66061C8.94231 3.23597 9.20012 2.85013 9.52513 2.52513C9.85013 2.20012 10.236 1.94231 10.6606 1.76642C11.0852 1.59053 11.5404 1.5 12 1.5C12.4596 1.5 12.9148 1.59053 13.3394 1.76642C13.764 1.94231 14.1499 2.20012 14.4749 2.52513C14.7999 2.85013 15.0577 3.23597 15.2336 3.66061C15.4095 4.08525 15.5 4.54037 15.5 5H21.25C21.4489 5 21.6397 5.07902 21.7803 5.21967C21.921 5.36032 22 5.55109 22 5.75C22 5.94891 21.921 6.13968 21.7803 6.28033C21.6397 6.42098 21.4489 6.5 21.25 6.5H19.93L18.76 18.611C18.6702 19.539 18.238 20.4002 17.5477 21.0268C16.8573 21.6534 15.9583 22.0004 15.026 22H8.974C8.04186 22.0001 7.1431 21.653 6.45295 21.0265C5.7628 20.3999 5.33073 19.5388 5.241 18.611L4.07 6.5H2.75C2.55109 6.5 2.36032 6.42098 2.21967 6.28033C2.07902 6.13968 2 5.94891 2 5.75C2 5.55109 2.07902 5.36032 2.21967 5.21967C2.36032 5.07902 2.55109 5 2.75 5H8.5ZM10.5 9.75C10.5 9.55109 10.421 9.36032 10.2803 9.21967C10.1397 9.07902 9.94891 9 9.75 9C9.55109 9 9.36032 9.07902 9.21967 9.21967C9.07902 9.36032 9 9.55109 9 9.75V17.25C9 17.4489 9.07902 17.6397 9.21967 17.7803C9.36032 17.921 9.55109 18 9.75 18C9.94891 18 10.1397 17.921 10.2803 17.7803C10.421 17.6397 10.5 17.4489 10.5 17.25V9.75ZM14.25 9C14.4489 9 14.6397 9.07902 14.7803 9.21967C14.921 9.36032 15 9.55109 15 9.75V17.25C15 17.4489 14.921 17.6397 14.7803 17.7803C14.6397 17.921 14.4489 18 14.25 18C14.0511 18 13.8603 17.921 13.7197 17.7803C13.579 17.6397 13.5 17.4489 13.5 17.25V9.75C13.5 9.55109 13.579 9.36032 13.7197 9.21967C13.8603 9.07902 14.0511 9 14.25 9ZM6.734 18.467C6.78794 19.0236 7.04724 19.5403 7.46137 19.9161C7.87549 20.292 8.41475 20.5001 8.974 20.5H15.026C15.5853 20.5001 16.1245 20.292 16.5386 19.9161C16.9528 19.5403 17.2121 19.0236 17.266 18.467L18.424 6.5H5.576L6.734 18.467Z" fill="currentColor"/>
+                                    </svg>
+                                    Delete
+                                </button>
+                            </div>
+                            <div id="delete-review-modal-{{review.id}}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                                        <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-review-modal-{{review.id}}">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <form method="POST" action="{% url 'delete_review' review.id %}" class="inline">
+                                            {% csrf_token %}
+                                            <div class="p-4 md:p-5 text-center">
+                                                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+                                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+                                                <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                                    Yes, I'm sure
+                                                </button>
+                                                <button data-modal-hide="delete-review-modal-{{review.id}}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             {% endif %}
                         </div>
@@ -426,23 +478,49 @@
         });
     });
 
-// Close message
-document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('close-message')) {
-        event.target.parentElement.remove();
-        // Clear messages from session storage
-        sessionStorage.removeItem('messages');
-    }
-});
-  // Automatically remove messages after 5 seconds
-  setTimeout(function() {
-    const messages = document.getElementById('messages');
-    if (messages) {
-        messages.innerHTML = '';
-    }
-}, 5000); // 5000 milliseconds = 5 seconds
-   
+    // Close message
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('close-message')) {
+            event.target.parentElement.remove();
+            // Clear messages from session storage
+            sessionStorage.removeItem('messages');
+        }
+    });
+    // Automatically remove messages after 5 seconds
+    setTimeout(function() {
+        const messages = document.getElementById('messages');
+        if (messages) {
+            messages.innerHTML = '';
+        }
+    }, 5000); // 5000 milliseconds = 5 seconds
+    
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const stars = document.querySelectorAll('#starRating .star');
+        const input = document.getElementById('ratingInput');
+
+        function setStars(value) {
+            stars.forEach((star, index) => {
+                star.setAttribute('fill', index < value ? 'currentColor' : 'none');
+            });
+        }
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                const val = index + 1;
+                input.value = val;
+                setStars(val);
+            });
+            star.addEventListener('mouseover', () => setStars(index + 1));
+            star.addEventListener('mouseout', () => setStars(parseInt(input.value)));
+        });
+
+        // Initialize
+        setStars(parseInt(input.value));
+    });
 </script>
+
+{% include "core/partials/footer.html" %}
 {% endblock %}
 
  

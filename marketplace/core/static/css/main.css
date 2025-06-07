@@ -295,6 +295,7 @@ body{
         margin-bottom: 6rem;
     }
     .order-history-mobile-btn{
+        width: 100%;
         display: flex;
         gap: 5px;
     }

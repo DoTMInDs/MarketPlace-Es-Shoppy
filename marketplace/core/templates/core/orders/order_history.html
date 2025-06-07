@@ -4,7 +4,7 @@
 {% block title %}Orders{% endblock  %}
 {% block content %}
     {% include "core/partials/nav.html" %}
-    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded mt-[3rem] mb-[5rem] sm:mb-0 sm:mt-0">
         <div class="flex justify-between shadow py-[0.8rem] bg-slate-500 px-[0.5rem] md:px-[2rem] mb-4">
             <h1 class="text-[18px] text-[#fefefe] font-bold ">Order History</h1>
             <a href="{% url "home" %}" class="text-[#fefefe] font-semibold text-[14px] flex gap-[0.3rem] items-center">
@@ -48,4 +48,6 @@
             </div>
         {% endif %}
     </div>
+
+    {% include "core/partials/footer.html" %}
 {% endblock %}

@@ -4,7 +4,7 @@
 {% block title %}Orders{% endblock  %}
 {% block content %}
     {% include "core/partials/nav.html" %}
-    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white  rounded">
+    <div class="w-[100%] md:w-[80%] lg:w-[60%] m-auto shadow bg-white rounded mt-[2rem] sm:mt-0">
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-4 text-green-600">
                 <i class="fa-solid fa-check-circle"></i> Order Successful!
@@ -16,16 +16,18 @@
                 <p class="text-gray-600">Total Paid: GHS {{ order.total_price|intcomma }}</p>
             </div>
     
-            <div class="mt-6 order-history-mobile-btn">
+            <div class="mt-6 flex items-center">
                 <a href="{% url 'order_history' %}" 
-                   class="bg-orange-400 text-white px-4 py-2 rounded hover:bg-blue-600">
+                   class="bg-orange-400 text-white px-4 py-2 text-nowrap rounded hover:bg-blue-600">
                     View Order History
                 </a>
                 <a href="{% url 'home' %}" 
-                   class="ml-2 bg-gray-200 px-4 text-slate-500 py-2 rounded hover:bg-gray-300">
+                   class="ml-2 bg-gray-200 px-4 text-nowrap text-slate-500 py-2 rounded hover:bg-gray-300">
                     Continue Shopping
                 </a>
             </div>
         </div>
     </div>
+
+    {% include "core/partials/footer.html" %}
 {% endblock %}

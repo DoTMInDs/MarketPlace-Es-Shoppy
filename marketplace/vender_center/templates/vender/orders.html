@@ -11,24 +11,25 @@
             Seller Account: {% if request.user.seller %}Active{% else %}Inactive{% endif %}
         </div>
         <div class="">
-            <h1 class="text-2xl font-bold mb-6">Your Orders</h1>
+            <h1 class="text-2xl font-bold mb-6">Your Seller Orders</h1>
 
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white">
                     <thead>
-                        <tr>
+                        <tr class="whitespace-nowrap">
                             <th class="py-2 px-4 border-b">Order ID</th>
                             <th class="py-2 px-4 border-b">Product</th>
                             <th class="py-2 px-4 border-b">Qty</th>
                             <th class="py-2 px-4 border-b">Price</th>
                             <th class="py-2 px-4 border-b">Status</th>
                             <th class="py-2 px-4 border-b">Date</th>
+                            <th class="py-2 px-4 border-b">Customer</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for seller_order in orders %}
                         <tr>
-                            <td class="py-2 px-4 border-b">#{{ seller_order.order.id }}</td>
+                            <td class="py-2 px-4 border-b">#{{ seller_order.id }}</td>
                             <td class="py-2 px-4 border-b">
                                 {{ seller_order.product.name }}
                                 <div class="text-xs text-gray-500">
@@ -46,14 +47,15 @@
                                 </span>
                             </td>
                             <td class="py-2 px-4 border-b">{{ seller_order.created_at|date:"M d, Y" }}</td>
+                            <td class="py-2 px-4 border-b">{{ seller_order.order.buyer.username }}</td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6" class="py-4 px-4 text-center">
+                            <td colspan="7" class="py-4 px-4 text-center">
                                 <div class="text-red-500 mb-2">
                                     <i class="fas fa-exclamation-triangle"></i>
                                 </div>
-                                No orders found in the database
+                                No orders found for your products
                             </td>
                         </tr>
                         {% endfor %}

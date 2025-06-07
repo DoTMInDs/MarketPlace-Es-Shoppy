@@ -309,7 +309,10 @@ def edit_review(request, review_id):
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
     if request.method == 'POST':
+        product_id = review.product.id
         review.delete()
+        messages.success(request, 'Your review has been deleted.')
+        return redirect('product-detail', product_id=product_id)
     return redirect('reviews')
 
 @login_required
@@ -323,8 +326,12 @@ def submit_review(request, product_id):
             review.user = request.user
             review.product = product
             review.save()
-            messages.success(request, 'Thank you for your review! It will be visible after approval.')
-            return redirect('product_detail', product=product)
+            messages.success(request, 'Thank you for your review!')
+            return redirect('product-detail', product_id=product.id)
         else:
-            messages.error(request, 'There was an error with your review. Please try again.')
+            for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, f"{field}: {error}")
+    else:
+        form = ReviewForm(instance=existing_review)
     return render(request, 'core/submit_review.html')
