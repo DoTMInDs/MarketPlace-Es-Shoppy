@@ -112,7 +112,9 @@ def orders(request):
 @login_required
 def checkout(request):
     cart = get_object_or_404(Order, buyer=request.user, status='cart')
-    cart.finalize_order()  # This creates seller orders
+    cart.status = 'ordered'
+    cart.save()
+    
     return redirect('order_confirmation')
 
 @login_required
